@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Copyright (c) 2023 Ericsson AB.
+	All rights reserved
+
+	DX ECIM Tool-chain generated this file on Apr 4, 2023 2:31:44 PM using:
+	* com.ericsson.ecim.m2m 3.15.0.202204250731
+	* com.ericsson.ecim.dsl 3.15.0.202204250731
+	* com.ericsson.ecim.edm 3.15.0.202204250731
+-->
+<!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+  <dtdVersion>K</dtdVersion>
+  <momMetaData>
+    <momTitle>LDE Service Marking</momTitle>
+    <momSubTitle/>
+    <momIdentity>
+      <docNum>0</docNum>
+      <docLang>English</docLang>
+      <docRev>1</docRev>
+      <docDate>September 18 2021</docDate>
+    </momIdentity>
+  </momMetaData>
+  <mim author="xdamdes" contact="xdamdes" correction="1" date="2016-07-12" docNo="" name="LdeServiceMarking" namespace="urn:com:ericsson:ecim:LdeServiceMarking" namespacePrefix="ldeservicemarking" organization="" release="0" revision="A" version="1">
+    <description>LDE Differentiated Services Categories</description>
+    <domainExtension domain="ECIM">
+      <extension name="immNamespace" value="MOM_NAME"/>
+    </domainExtension>
+    <derivedDataType name="LdeServiceMarking_DiffServCategory_dscp">
+      <baseType>
+        <uint8>
+          <range>
+            <min>0</min>
+            <max>63</max>
+          </range>
+          <ranges>
+            <subrange>
+              <min>0</min>
+              <max>63</max>
+            </subrange>
+          </ranges>
+        </uint8>
+      </baseType>
+    </derivedDataType>
+    <class name="DiffServCategory">
+      <description>Differentiated Services Category</description>
+      <systemCreated/>
+      <root/>
+      <attribute name="diffServCategoryId">
+        <description>Differentiated Services Category name</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="dscp">
+        <description>DSCP integer value</description>
+        <mandatory/>
+        <dataType>
+          <derivedDataTypeRef name="LdeServiceMarking_DiffServCategory_dscp">
+            <mimName>LdeServiceMarking</mimName>
+          </derivedDataTypeRef>
+        </dataType>
+      </attribute>
+      <attribute name="source">
+        <description>The source attribute indicates if the diffServCategory instance came from the configuration files, or was dynamically created.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <string>
+            <defaultValue>dynamic</defaultValue>
+          </string>
+        </dataType>
+        <filter>ldeHidden</filter>
+      </attribute>
+    </class>
+  </mim>
+  <interMim>
+    <relationship name="Transport_to_DiffServCategory">
+      <domainExtension domain="CoreMW">
+        <extension name="splitImmDn" value="true"/>
+      </domainExtension>
+      <containment>
+        <parent>
+          <hasClass name="Transport">
+            <mimName>ComTop</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="DiffServCategory">
+            <mimName>LdeServiceMarking</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+          </cardinality>
+        </child>
+        <domainExtension domain="ECIM">
+          <extension name="canCreate" value="true"/>
+          <extension name="canDelete" value="true"/>
+        </domainExtension>
+      </containment>
+    </relationship>
+  </interMim>
+</models>

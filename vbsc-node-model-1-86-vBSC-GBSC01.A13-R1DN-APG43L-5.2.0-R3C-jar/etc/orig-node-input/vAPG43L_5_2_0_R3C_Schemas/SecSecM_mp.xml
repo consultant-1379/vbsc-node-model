@@ -1,0 +1,612 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Copyright (c) 2020 Ericsson AB.
+	All rights reserved
+
+	DX ECIM Tool-chain generated this file on Oct 27, 2020 11:53:09 AM using:
+	* com.ericsson.ecim.m2m 3.10.0.201808221250
+	* com.ericsson.ecim.dsl 3.10.0.201808221250
+	* com.ericsson.ecim.edm 3.10.0.201808221250
+--><!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+    <dtdVersion>H</dtdVersion>
+    <momMetaData>
+        <momTitle>ECIM Security Management</momTitle>
+        <momSubTitle/>
+        <momIdentity>
+            <docNum/>
+            <docLang/>
+            <docRev/>
+            <docDate/>
+        </momIdentity>
+    </momMetaData>
+    <mim author="XCANTRU" contact="XCANTRU" correction="0" date="2020-10-27" docNo="" name="SecSecM" namespace="urn:com:ericsson:ecim:SecSecM" namespacePrefix="secsecm" organization="Ericsson AB" release="17" revision="" version="2">
+        <description>ECIM Security Management MOM. &#13;
+&#13;
+The Security Management fragment must encompass most system security aspects to be configured on the Managed Element. This version of the model contains authentication and authorization, the User Management aspects. Authentication and authorization methods must contribute to the UserManagement MOC in a modular way.</description>
+        <domainExtension domain="ECIM">
+            <extension name="ecimMomName" value="ECIM_Security_Management"/>
+            <extension name="ecimMomVersion" value="2"/>
+            <extension name="ecimMomRelease" value="6"/>
+            <extension name="ecimMomCorrection" value="0"/>
+            <extension name="immNamespace" value="MOM_NAME"/>
+        </domainExtension>
+        <implements correction="0" name="ECIM_Security_Management" release="6" version="2"/>
+        <struct name="Cipher">
+            <description>Represents a cipher suite.</description>
+            <structMember name="authentication">
+                <description>A keyword that identifies the cipher authentication algorithm.&#13;
+&#13;
+For example: 'aRSA'.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <string/>
+            </structMember>
+            <structMember name="encryption">
+                <description>A keyword that identifies the cipher encryption algorithm.&#13;
+&#13;
+For example: 'AES'.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <string/>
+            </structMember>
+            <structMember name="export">
+                <description>Shows 'EXPORT' if the cipher is classified as an EXPORT cipher, otherwise empty.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <string/>
+            </structMember>
+            <structMember name="keyExchange">
+                <description>A keyword that identifies the cipher key exchange algorithm.&#13;
+&#13;
+For example: 'kEDH'.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <string/>
+            </structMember>
+            <structMember name="mac">
+                <description>A keyword that identifies the cipher Message Authentication Code algorithm.&#13;
+&#13;
+For example: 'SHA'.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <string/>
+            </structMember>
+            <structMember name="name">
+                <description>A keyword that identifies the cipher name. &#13;
+&#13;
+For example: 'TLS_DHE_RSA_WITH_AES_256_CBC_SHA'.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isKey" value="true"/>
+                </domainExtension>
+                <string/>
+            </structMember>
+            <structMember name="protocolVersion">
+                <description>A keyword that identifies the cipher protocol version.&#13;
+&#13;
+For example: 'TLSv1'.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <string/>
+            </structMember>
+        </struct>
+        <struct name="MethodOrder">
+            <description>Struct that represents the order of an authentication or authorization method. &#13;
+&#13;
+The referred method must be used by a security function, that is, authentication or authorization in the given order.</description>
+            <structMember name="methodReference">
+                <description>An MO Reference to the method.</description>
+                <moRef name="ManagedObject"/>
+            </structMember>
+            <structMember name="orderNumber">
+                <description>The method (1-*) order number.</description>
+                <int16/>
+            </structMember>
+            <structMember name="userLabel">
+                <description>Freetext label to describe reason for the method order.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <string/>
+            </structMember>
+        </struct>
+        <derivedDataType name="CipherList">
+            <description>Derived string for the specification of a cipher suite list.&#13;
+&#13;
+Contains colon-delimited (':') cipher strings that can be of any value of the members contained by a Cipher struct. A cipher string indicates an individual cipher or a set of ciphers that use the same protocol version, key exchange etc. The cipher strings can be combined in logical order and operation by character '+'. They can be optionally preceded by either an '!' or a '-' character. Character '!' means that the preceded cipher suite or cipher suite type is permanently deleted from the list. Character '-' means that the preceded cipher suite or cipher suite type is deleted from the list, but any of the cipher suites can be added by later options.&#13;
+&#13;
+They must contain at least one positive expression, that is, without character '!' or '-' in the cipher string, otherwise the filter results in an empty cipher suite list.&#13;
+&#13;
+Cipher strings with special meaning:&#13;
+ALL - all cipher suites except for the NULL encryption ciphers, which must be explicitly enabled. NULL authentication ciphers are included.&#13;
+DEFAULT - all cipher suites except the NULL authentication and NULL encryption ciphers.&#13;
+&#13;
+Example:
+
+ALL:!SSLv3:!RSA:!aRSA:!3DES:!DES:!MD5 
+ALL:!EXP-EDH-RSA-DES-CBC-SHA
+TLSv1.2
+AES:-kRSA
+AES:RC4
+kEDH+EXPORT:-MD5
+
+The examples above demonstrate the syntax only and may contain unsupported cipher suites.</description>
+            <baseType>
+                <string>
+                    <validValues>^([!-]?([A-Za-z0-9.]+[_-])*[A-Za-z0-9.]+(\+([A-Za-z0-9.]+[_-])*[A-Za-z0-9.]+)*:)*[!-]?([A-Za-z0-9.]+[_-])*[A-Za-z0-9.]+(\+([A-Za-z0-9.]+[_-])*[A-Za-z0-9.]+)*$|^$</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="Must be cipher strings and separated by colons ‘:’, optionally combined with the ‘+’ character and preceded by ‘!’ or ‘-‘. For example: 'kEECDH+AES:-SHA1:kRSA:!SSLv3'" format="posix_ere" name="Pattern Constraint"><![CDATA[^([!-]?([A-Za-z0-9.]+[_-])*[A-Za-z0-9.]+(\+([A-Za-z0-9.]+[_-])*[A-Za-z0-9.]+)*:)*[!-]?([A-Za-z0-9.]+[_-])*[A-Za-z0-9.]+(\+([A-Za-z0-9.]+[_-])*[A-Za-z0-9.]+)*$|^$]]></rule>
+            </validationRules>
+        </derivedDataType>
+        <derivedDataType name="SecSecM_UserManagement_loginFailureDelay">
+            <baseType>
+                <uint8>
+                    <range>
+                        <min>1</min>
+                        <max>255</max>
+                    </range>
+                    <ranges>
+                        <subrange>
+                            <min>1</min>
+                            <max>255</max>
+                        </subrange>
+                    </ranges>
+                    <unit>seconds</unit>
+                </uint8>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="SecSecM_UserManagement_targetType">
+            <baseType>
+                <string>
+                    <validValues>^(\\\\[a-fA-F0-9]{2}|[A-Za-z0-9!$%&amp;'./:=?@^_`{|}~-])((\\\\[a-fA-F0-9]{2}|[A-Za-z0-9!$%&amp;'./:=?@^_`{|}~# -])*(\\\\[a-fA-F0-9]{2}|[A-Za-z0-9!$%&amp;'./:=?@^_`{|}~#-]))?$</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="Must be a string of alphanumeric characters with allowed punctuations. For example: 'cscf.ims.stockholm'" format="posix_ere" name="Pattern Constraint"><![CDATA[^(\\\\[a-fA-F0-9]{2}|[A-Za-z0-9!$%&'./:=?@^_`{|}~-])((\\\\[a-fA-F0-9]{2}|[A-Za-z0-9!$%&'./:=?@^_`{|}~# -])*(\\\\[a-fA-F0-9]{2}|[A-Za-z0-9!$%&'./:=?@^_`{|}~#-]))?$]]></rule>
+            </validationRules>
+        </derivedDataType>
+        <derivedDataType name="SshAlgorithm">
+            <description>Derived string for SSH Cipher, Key Exchange and Message Authentication Code strings.</description>
+            <baseType>
+                <string>
+                    <validValues>^([a-zA-Z0-9])+((-([a-zA-Z0-9])*)?)*(@(([a-zA-Z]|[a-zA-Z][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z]|[A-Za-z][A-Za-z0-9\-]*[A-Za-z0-9]))?$</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="Must be a string of alphanumeric US-ASCII characters with optional ‘-‘. Domain names following an ‘@’ character are appended to proprietary algorithm names. For example: ‘aes256-gcm@openssh.com’" format="posix_ere" name="Pattern Constraint"><![CDATA[^([a-zA-Z0-9])+((-([a-zA-Z0-9])*)?)*(@(([a-zA-Z]|[a-zA-Z][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z]|[A-Za-z][A-Za-z0-9\-]*[A-Za-z0-9]))?$]]></rule>
+            </validationRules>
+        </derivedDataType>
+        <class name="AuthenticationOrder">
+            <description>MO Class used to view the order of authentication methods.</description>
+            <systemCreated/>
+            <attribute name="authenticationMethodOrder">
+                <description>The order in which authentication methods are to be used. &#13;
+&#13;
+Methods must be called up in the order specified by the orderNumber member. The method is referenced by the methodReference member.</description>
+                <readOnly/>
+                <dataType>
+                    <sequence>
+                        <structRef name="MethodOrder">
+                            <mimName>SecSecM</mimName>
+                        </structRef>
+                        <minLength>0</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="authenticationOrderId">
+                <description>The value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="userLabel">
+                <description>An additional descriptive text.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="SecM">
+            <description>Security Management root MOC.</description>
+            <systemCreated/>
+            <root/>
+            <attribute name="secMId">
+                <description>The value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="Ssh">
+            <description>Configures system-wide properties of Secure Shell Transport Layer Protocol (SSH).</description>
+            <systemCreated/>
+            <attribute name="selectedCiphers">
+                <description>The list of selected ciphers.&#13;
+&#13;
+The ciphers are offered to the SSH peer in the order as configured. Each value indicates one cipher.</description>
+                <mandatory/>
+                <dataType>
+                    <sequence>
+                        <derivedDataTypeRef name="SshAlgorithm">
+                            <mimName>SecSecM</mimName>
+                        </derivedDataTypeRef>
+                        <minLength>1</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="selectedKeyExchanges">
+                <description>The list of selected key exchange algorithms.&#13;
+&#13;
+The algorithms are offered to the SSH peer in the order as configured. Each value indicates one algorithm.</description>
+                <mandatory/>
+                <dataType>
+                    <sequence>
+                        <derivedDataTypeRef name="SshAlgorithm">
+                            <mimName>SecSecM</mimName>
+                        </derivedDataTypeRef>
+                        <minLength>1</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="selectedMacs">
+                <description>The list of selected message authentication codes.&#13;
+&#13;
+The algorithms are offered to the SSH peer in the order as configured. Each value indicates one coding algorithm.</description>
+                <mandatory/>
+                <dataType>
+                    <sequence>
+                        <derivedDataTypeRef name="SshAlgorithm">
+                            <mimName>SecSecM</mimName>
+                        </derivedDataTypeRef>
+                        <minLength>1</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="sshId">
+                <description>The value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="supportedCiphers">
+                <description>Lists the supported encryption ciphers.</description>
+                <readOnly/>
+                <dataType>
+                    <sequence>
+                        <derivedDataTypeRef name="SshAlgorithm">
+                            <mimName>SecSecM</mimName>
+                        </derivedDataTypeRef>
+                        <minLength>1</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="supportedKeyExchanges">
+                <description>Lists the supported key exchange algorithms.</description>
+                <readOnly/>
+                <dataType>
+                    <sequence>
+                        <derivedDataTypeRef name="SshAlgorithm">
+                            <mimName>SecSecM</mimName>
+                        </derivedDataTypeRef>
+                        <minLength>1</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="supportedMacs">
+                <description>Lists the supported message authentication codes.</description>
+                <readOnly/>
+                <dataType>
+                    <sequence>
+                        <derivedDataTypeRef name="SshAlgorithm">
+                            <mimName>SecSecM</mimName>
+                        </derivedDataTypeRef>
+                        <minLength>1</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="Tls">
+            <description>Configures system-wide properties of Transport Layer Security (TLS).</description>
+            <systemCreated/>
+            <attribute name="cipherFilter">
+                <description>Specifies a filter for the cipher suite list.&#13;
+&#13;
+Applied on the cipher suites listed in attribute supportedCiphers. The result is shown in attribute enabledCiphers.</description>
+                <dataType>
+                    <derivedDataTypeRef name="CipherList">
+                        <defaultValue>kEECDH:kEDH:kRSA:!kPSK:!aPSK:!aDSS:!aNULL:!NULL:!SEED:!3DES:!MD5:!RC4:!CAMELLIA:!SSLv3</defaultValue>
+                        <mimName>SecSecM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="enabledCiphers">
+                <description>Lists the cipher suites as filtered by the attribute cipherFilter. &#13;
+&#13;
+Cipher suites are ordered by strength. The strongest cipher suite is offered first.</description>
+                <readOnly/>
+                <dataType>
+                    <sequence>
+                        <structRef name="Cipher">
+                            <mimName>SecSecM</mimName>
+                        </structRef>
+                        <minLength>1</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="supportedCiphers">
+                <description>Lists the cipher suites supported by the ME.</description>
+                <readOnly/>
+                <dataType>
+                    <sequence>
+                        <structRef name="Cipher">
+                            <mimName>SecSecM</mimName>
+                        </structRef>
+                        <minLength>1</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="tlsId">
+                <description>The value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="UserManagement">
+            <description>User Management MOC. </description>
+            <systemCreated/>
+            <attribute name="legalNotice">
+                <description>The legal notice presented to the user when starting an O&amp;M session. &#13;
+&#13;
+The message is presented to the client before authentication takes place. The presentation of the message to the O&amp;M user depends on the client capability and configuration. The O&amp;M user may receive this information before authentication if the authentication is password based; otherwise, it is received as a post-authentication message. The purpose of the message is to warn the user about the consequences of unauthorized access. No value means there is no legal notice.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <string>
+                        <defaultValue>This system is restricted to authorized users.
+Individuals who attempt unauthorized access will be prosecuted.
+IF YOU ARE NOT AN AUTHORIZED USER, PLEASE EXIT IMMEDIATELY.</defaultValue>
+                    </string>
+                </dataType>
+            </attribute>
+            <attribute name="loginFailureDelay">
+                <description>Delay after a failed login attempt in seconds.&#13;
+&#13;
+No value means no delay.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="SecSecM_UserManagement_loginFailureDelay">
+                        <defaultValue>5</defaultValue>
+                        <mimName>SecSecM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="privacyNotice">
+                <description>The privacy notice presented to the user when starting an O&amp;M session.&#13;
+&#13;
+The message is presented to the client before authentication takes place. The presentation of the message to the O&amp;M user depends on the client capability and configuration. The O&amp;M user may receive this information before authentication if the authentication is password based; otherwise, it is received as a post-authentication message. The purpose of the message is to remind the user about the confidentiality obligations when potentially accessing the privacy data. No value means there is no privacy notice.
+&#13;
+When a privacy notice is updated it is recommended to include the version information and date of modification in the privacy notice text. This information and audit log details can be used during  auditing to track which version of privacy notice is presented to the user at the start of the O&amp;M session. The date and version format is an operator choice.
+</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <string>
+                        <defaultValue>This system processes sensitive personal data. The misuse of such data may
+generate considerable harm to the data subjects. Be reminded of the
+confidentiality obligations you have when accessing this kind of data and
+the disciplinary consequences of improper handling.
+Version: 1.0, Last Updated: May 21, 2019</defaultValue>
+                    </string>
+                </dataType>
+            </attribute>
+            <attribute name="targetType">
+                <description>Lists the target types of the ME for Target Based Access Control (TBAC).&#13;
+&#13;
+This attribute is optional for Authentication Methods that require TBAC configuration. Authentication Methods use TBAC to determine the following: whether a user can be authorized in the ME, and which authorization profiles apply to the user in the ME, based on the target types specified in this attribute.&#13;
+&#13;
+This attribute can contain any classifier string for the ME such as geographical, for example: 'stockholm', network, for example 'ims', or functional identifiers, for example 'cscf', and any combination of these.&#13;
+&#13;
+The generic behavior of TBAC for authorization is as follows:&#13;
+&#13;
+TBAC is LOCKED in the ME: authorization is performed without TBAC. &#13;
+TBAC is UNLOCKED in the ME: authorization is performed if the targets that the user is provided with exactly match at least one string of configured target types. Otherwise, authorization fails.&#13;
+&#13;
+Determining the authorization profiles of the user is specific per Authentication Method.&#13;
+&#13;
+The LOCKED and UNLOCKED states of TBAC in the ME are controlled by the Authentication Methods.&#13;
+&#13;
+Example value: 'cscf.ims.stockholm'.</description>
+                <dataType>
+                    <sequence>
+                        <derivedDataTypeRef name="SecSecM_UserManagement_targetType">
+                            <mimName>SecSecM</mimName>
+                        </derivedDataTypeRef>
+                        <minLength>0</minLength>
+                        <nonUnique/>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="userLabel">
+                <description>An additional descriptive text.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="userManagementId">
+                <description>The value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <relationship name="SecM_to_Ssh">
+            <containment>
+                <parent>
+                    <hasClass name="SecM">
+                        <mimName>SecSecM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="Ssh">
+                        <mimName>SecSecM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="SecM_to_Tls">
+            <containment>
+                <parent>
+                    <hasClass name="SecM">
+                        <mimName>SecSecM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="Tls">
+                        <mimName>SecSecM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="SecM_to_UserManagement">
+            <containment>
+                <parent>
+                    <hasClass name="SecM">
+                        <mimName>SecSecM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="UserManagement">
+                        <mimName>SecSecM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="UserManagement_to_AuthenticationOrder">
+            <containment>
+                <parent>
+                    <hasClass name="UserManagement">
+                        <mimName>SecSecM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="AuthenticationOrder">
+                        <mimName>SecSecM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+    </mim>
+    <interMim>
+        <relationship name="SystemFunctions_to_SecM">
+            <domainExtension domain="CoreMW">
+                <extension name="splitImmDn" value="true"/>
+            </domainExtension>
+            <containment>
+                <parent>
+                    <hasClass name="SystemFunctions">
+                        <mimName>ComTop</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="SecM">
+                        <mimName>SecSecM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+    </interMim>
+</models>

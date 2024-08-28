@@ -1,0 +1,1653 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--
+	Copyright (c) 2020 Ericsson AB.
+	All rights reserved
+
+	DX ECIM Tool-chain generated this file on Dec 8, 2020 11:35:42 PM using:
+	* com.ericsson.ecim.m2m 3.13.0.202006261811
+	* com.ericsson.ecim.dsl 3.13.0.202006261811
+	* com.ericsson.ecim.edm 3.13.0.202006261811
+--><!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+    <dtdVersion>K</dtdVersion>
+    <momMetaData>
+        <momTitle>Managed Object Model for Statistical Counter Management Function</momTitle>
+        <momSubTitle/>
+        <momIdentity>
+            <docNum>19089-CXA 117 0028/5</docNum>
+            <docLang>Uen</docLang>
+            <docRev>B</docRev>
+            <docDate>2020-12-08</docDate>
+        </momIdentity>
+        <createdBy>
+            <signature>XHARBAV</signature>
+        </createdBy>
+    </momMetaData>
+    <mim author="Harika Bavana" contact="XHARBAV" correction="0" date="2020-12-08" docNo="" name="AxeStatisticalCounter" namespace="urn:com:ericsson:ecim:AxeStatisticalCounter" namespacePrefix="axestatisticalcounter" organization="" release="3" revision="A" version="3">
+        <description>Statistical Counter Management function MOM.</description>
+        <domainExtension domain="ECIM">
+            <extension name="immNamespace" value="MOM_NAME"/>
+        </domainExtension>
+        <modelFeatures modelType="Template">
+            <modelFeature featureType="basic" name="CPI_HIDDEN"/>
+            <modelFeature featureType="basic" name="VIRTUALDB_HIDDEN"/>
+            <modelFeature featureType="basic" name="VIRTUALBC_HIDDEN"/>
+            <modelFeature featureType="basic" name="VIRTUAL_HIDDEN"/>
+        </modelFeatures>
+        <struct name="ScrInfo">
+            <description>Stores the CFG Information.</description>
+            <structMember name="cdlVersion">
+                <description>Version of the counter rules grammer.</description>
+                <sequence>
+                    <string/>
+                    <minLength>1</minLength>
+                </sequence>
+            </structMember>
+            <structMember name="configuration">
+                <description>Configuration name.</description>
+                <string/>
+            </structMember>
+            <structMember name="configurationId">
+                <description>Product Number and Revision information.</description>
+                <sequence>
+                    <string/>
+                    <minLength>1</minLength>
+                </sequence>
+            </structMember>
+            <structMember name="slogan">
+                <description>Brief description of the configuration.</description>
+                <string/>
+            </structMember>
+        </struct>
+        <enum name="Format">
+            <description>This derived data type is used for the attribute 'format'.</description>
+            <enumMember name="NOFORMAT">
+                <description>The enum value '0' is refers to without  format.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="SYBASE">
+                <description>The enum value '1' is refers to Sybase database format.</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="ORACLE">
+                <description>The enum value '2' is refers to Oracle database format.</description>
+                <value>2</value>
+            </enumMember>
+            <enumMember name="CUSTOMDB">
+                <description>The enum value '3' is refers to custom database format.</description>
+                <value>3</value>
+            </enumMember>
+        </enum>
+        <enum name="OutputFormat">
+            <description>Specifies the format type for the output file.</description>
+            <enumMember name="ASN1">
+                <description>ASN.1 format.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="LF">
+                <description>LF format.</description>
+                <value>1</value>
+            </enumMember>
+        </enum>
+        
+        
+        <enum name="BRP">
+            <description>Specifies the possible values for a BRP time.</description>
+            <enumMember name="5">
+                <description>5 minutes</description>
+                <value>5</value>
+            </enumMember>
+            <enumMember name="15">
+                <description>15 minutes.</description>
+                <value>15</value>
+            </enumMember>
+        </enum>
+        <enum name="OutputMode">
+            <description>Specifies the level counters are aggregated.</description>
+            <enumMember name="CPLEVEL">
+                <description>CP level.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="CLUSTER">
+                <description>CP Cluster level.</description>
+                <value>1</value>
+            </enumMember>
+        </enum>
+        <enum name="AreaType">
+            <description>Specifies the type of CP area.</description>
+            <enumMember name="CURRENT">
+                <description>An SCR file is downloaded from the CURRENT area of the LASCS block to STS file group location.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="PENDING">
+                <description>An SCR file is downloaded from the PENDING area of the LASCS block to STS file group location.</description>
+                <value>1</value>
+            </enumMember>
+        </enum>
+        <enum name="PegCounterValue">
+            <description>Specifies the way to handle the value for the Peg Counters.</description>
+            <enumMember name="DELTA">
+                <description>Value for a Peg Counter as DELTA.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="ABSOLUTE">
+                <description>Value for a Peg Counter as ABSOLUTE.</description>
+                <value>1</value>
+            </enumMember>
+        </enum>
+        <enum name="CounterType">
+            <description>Specifies the possible counters types.
+</description>
+            <enumMember name="PC">
+                <description>Peg Counter.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="ST">
+                <description>Status Counter.</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="RE">
+                <description>Recovery Counter.</description>
+                <value>2</value>
+            </enumMember>
+            <enumMember name="FL">
+                <description>Flag Counter.</description>
+                <value>3</value>
+            </enumMember>
+            <enumMember name="ID">
+                <description>Identifier Counter.</description>
+                <value>4</value>
+            </enumMember>
+        </enum>
+        <enum name="ApplicationLine">
+            <description>This derived data type is used for the attribute 'applicationLine'.</description>
+            <enumMember name="ALL">
+                <description>This enum value '0' is used to represent apllicationLine as 'ALL'.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="GSM">
+                <description>This enum value '1' is used to represent apllicationLine as 'GSM'.</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="UMTS">
+                <description>This enum value '2' is used to represent apllicationLine as 'UMTS'.</description>
+                <value>2</value>
+            </enumMember>
+            <enumMember name="WIRELINE">
+                <description>This enum value '3' is used to represent apllicationLine as 'Wireline'.</description>
+                <value>3</value>
+            </enumMember>
+            <enumMember name="CMS88">
+                <description>This enum value '4' is used to represent apllicationLine as 'CMS88'.</description>
+                <value>4</value>
+            </enumMember>
+        </enum>
+        
+        
+        <derivedDataType name="MeasurementProgramIdType">
+            <description>Specifies the pattern the attribute measurementProgramId must follow.</description>
+            <baseType>
+                <string>
+                    <validValues>^1[0-9][0-9][0-9]$</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="" format="posix_ere" name="Pattern Constraint"><![CDATA[^1[0-9][0-9][0-9]$]]></rule>
+            </validationRules>
+        </derivedDataType>
+        
+        <derivedDataType name="ReportIdType">
+            <description>Specifies the pattern which the attribute reportId must follow.</description>
+            <baseType>
+                <string>
+                    <validValues>^2[0-9][0-9][0-9]$</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="" format="posix_ere" name="Pattern Constraint"><![CDATA[^2[0-9][0-9][0-9]$]]></rule>
+            </validationRules>
+        </derivedDataType>
+        <derivedDataType name="ThresholdLevel">
+            <description>This derived data type is used for the attribute 'thresholdLevel'.</description>
+            <baseType>
+                <int32>
+                    <range>
+                        <min>1</min>
+                        <max>100</max>
+                    </range>
+                    <ranges>
+                        <subrange>
+                            <min>1</min>
+                            <max>100</max>
+                        </subrange>
+                    </ranges>
+                </int32>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="TTCollectionFrequency">
+            <description>This derived data type is used for the attribute 'ttCollectionFrequency'.</description>
+            <baseType>
+                <int32>
+                    <range>
+                        <min>1</min>
+                        <max>24</max>
+                    </range>
+                    <ranges>
+                        <subrange>
+                            <min>1</min>
+                            <max>24</max>
+                        </subrange>
+                    </ranges>
+                </int32>
+            </baseType>
+        </derivedDataType>
+        
+        <derivedDataType name="TransferQueueName">
+            <description>This derived datatype is used for validating the transferqueue name.</description>
+            <baseType>
+                <string>
+                    <validValues>^[a-zA-Z0-9_]{1,32}$</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="" format="posix_ere" name="Pattern Constraint"><![CDATA[^[a-zA-Z0-9_]{1,32}$]]></rule>
+            </validationRules>
+        </derivedDataType>
+        
+        <derivedDataType name="MPDateTime">
+            <description>This Derived datatype is used to represent the attribute beginTime/endTime.</description>
+            <baseType>
+                <string>
+                    <validValues>^((([0-9]{4})(1[0-2]|0[1-9])(0[1-9]|[1|2][0-9]|3[0-1])(0[0-9]|1[0-9]|2[0-4])([0-5][0-9]))|((0[0-9]|1[0-9]|2[0-4])([0-5][0-9])))$</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="" format="posix_ere" name="Pattern Constraint"><![CDATA[^((([0-9]{4})(1[0-2]|0[1-9])(0[1-9]|[1|2][0-9]|3[0-1])(0[0-9]|1[0-9]|2[0-4])([0-5][0-9]))|((0[0-9]|1[0-9]|2[0-4])([0-5][0-9])))$]]></rule>
+            </validationRules>
+        </derivedDataType>
+        
+        <derivedDataType name="Repeats">
+            <description>Specifies the number of times to repeat an MP.</description>
+            <baseType>
+                <int32>
+                    <range>
+                        <min>1</min>
+                        <max>2147483646</max>
+                    </range>
+                    <ranges>
+                        <subrange>
+                            <min>1</min>
+                            <max>2147483646</max>
+                        </subrange>
+                    </ranges>
+                </int32>
+            </baseType>
+        </derivedDataType>
+        
+        <derivedDataType name="Period">
+            <description>This derived data type is used for the attribute 'period'.</description>
+            <baseType>
+                <int32>
+                    <range>
+                        <min>0</min>
+                        <max>1440</max>
+                    </range>
+                    <ranges>
+                        <subrange>
+                            <min>0</min>
+                            <max>1440</max>
+                        </subrange>
+                    </ranges>
+                </int32>
+            </baseType>
+        </derivedDataType>
+        
+        <derivedDataType name="DatabaseFileCacheSize">
+            <description>This data type is used for the attribute 'databaseFileCacheSize'.</description>
+            <baseType>
+                <int32>
+                    <range>
+                        <min>0</min>
+                        <max>4</max>
+                    </range>
+                    <ranges>
+                        <subrange>
+                            <min>0</min>
+                            <max>4</max>
+                        </subrange>
+                    </ranges>
+                </int32>
+            </baseType>
+        </derivedDataType>
+        <class name="StatisticalCounterM">
+            <description>Represents the root MOC for Statistical Counter Management function MOM.
+It collects and provides statistical data from the AXE switching system.
+STS provides the collection, storage and provisioning of statistical data from CP(s)/APG(s). 
+</description>
+            <root/>
+            <attribute name="statisticalCounterMId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            
+            
+            
+            
+            
+            
+            
+            
+            <attribute name="uniqueIdentityOfNode">
+                <description>Specifies the identity of the node.
+This value is assigned to the "nEUserName" field in the measurement file and it is also appended to the name of the measurement file.
+Only the following characters are allowed: 'A'-'Z', 'a'-'z', '0'-'9', ' ', '(', ')', '+', ',', '-', '.', '=' and '\''.
+It is used for ASN.1 output only.
+Default value is undefined, an empty string. </description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            
+            <attribute name="useUtcTimeStamps">
+                <description>Specifies whether UTC or local time is used for the time stamps within the statistical data files.
+The statistical data files are generated by STS.
+It also specifies if the legacy or new name convention should be used.
+If the value is set to true then UTC timestamps are used else the local timestamps are used. The default value is true.
+Note: The value 'false' (which denotes the LOCAL time stamps) should never be used in an environment which uses any part of Ericsson OSS.</description>
+                <noNotification/>
+                <dataType>
+                    <boolean>
+                        <defaultValue>true</defaultValue>
+                    </boolean>
+                </dataType>
+            </attribute>
+            
+            
+            
+            <attribute name="nmcForcesSuspectFlag">
+                <description>Specifies whether analysis on NMC Indicator has to take place.
+Set the value to true to make NMC on and set to false to make NMC off.
+The default value is false. </description>
+                <noNotification/>
+                <dataType>
+                    <boolean>
+                        <defaultValue>false</defaultValue>
+                    </boolean>
+                </dataType>
+            </attribute>
+            
+            
+            
+            
+            
+            
+            
+            <attribute name="vendorName">
+                <description>Specifies the name of the vendor which provides the measurement file.
+It is assigned to the "vendor name" field in the ASN.1 measurement file and the default value is "Ericsson". </description>
+                <noNotification/>
+                <dataType>
+                    <string>
+                        <defaultValue>Ericsson</defaultValue>
+                    </string>
+                </dataType>
+            </attribute>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <attribute name="counterCollectionState">
+                <description>Specifies the state of counter collection.
+Set the value to true to initiate the counter collection or set to false to discard the counter collection.
+The default value is true.</description>
+                <noNotification/>
+                <dataType>
+                    <boolean>
+                        <defaultValue>true</defaultValue>
+                    </boolean>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="TranslationTable">
+            <description>Represents the initiation of the collection of translation table DIDs from CP.
+Translation is an internal concept which:
+- Ensures that the objects under measurement have the same names that the user gave them when defining them in the CP.
+- Maps between the counters defined on the CP and the counters defined in the OT.</description>
+            <action name="updateTranslationTable">
+                <description>Invokes updation of the translation table.</description>
+                <domainExtension domain="CoreMW">
+                    <extension name="admOpId" value="1"/>
+                </domainExtension>
+                <returnType>
+                    <void/>
+                </returnType>
+            </action>
+            <attribute name="translationTableId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="lastUpdate">
+                <description>Specifies the latest updated Translation Table time. </description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="Reports">
+            <description>Represents the report management.</description>
+            <attribute name="reportsId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="MeasurementPrograms">
+            <description>Represents the MP management
+The actions for resume and suspend of all MPs are available in this class. </description>
+            <action name="suspendAllMp">
+                <description>Invokes the suspend operation on all the Measuring Programs.
+
+The action can fail due to the following reason: 
+- No running program(s) defined : All currently defined measuring programs are already suspended.</description>
+                <domainExtension domain="CoreMW">
+                    <extension name="admOpId" value="2"/>
+                </domainExtension>
+                <returnType>
+                    <void/>
+                </returnType>
+            </action>
+            <action name="resumeAllMp">
+                <description>Invokes the resume operation on all the Measuring Programs.
+
+The action can fail due to the following reason: 
+- No suspended program defined : None of the currently defined programs are suspended.</description>
+                <domainExtension domain="CoreMW">
+                    <extension name="admOpId" value="1"/>
+                </domainExtension>
+                <returnType>
+                    <void/>
+                </returnType>
+            </action>
+            <attribute name="measurementProgramsId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="Report">
+            <description>Represents a report.
+The report contains a list of one or more OTs that may be referenced in a MP.
+
+One or more attributes setting can fail due to one of the following reasons:
+- Internal Program Fault:  Internal Processing error.
+- At least one object type needed in a report : Attempting to remove the last Object Type in a report is not permitted.
+- Duplicate object type(s):&lt; object_type &gt; : Duplicate object types.
+- Failed to modify report for object types: &lt; object_type1 object_type2 ... &gt; : This error may be returned for two types of modification.
+            The first type of modification is where an Object Type is specified for addition and is already defined in the report. 
+            The second type is where an Object Type is specified for removal and is not defined in the report.
+- Invalid object type(s): &lt; object_type1 object_type2 ... &gt; : Attempting to create a report with invalid Object Type(s) or attempting to add invalid Object Type(s) to an already existing report.
+- The report name cannot contain character space and the following characters: |\\/&amp;^*&lt;&gt;\":?  : The listed characters are not allowed in the report name.
+- The report name cannot contain more than 256 characters : The report name is limited to 256 characters while creating or modifying a report.
+- Report in use : The deletion or modification of the specified report is not permitted as it is currently being used by a Measuring Program.
+- Too many reports defined : The maximum number of reports has already been reached. </description>
+            <attribute name="reportId">
+                <description>Holds the name used when identifying the MO.
+It is in the format "reportId=XXXX", where XXXX is the report Id and must be in the range of 2000-2999.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="ReportIdType">
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="name">
+                <description>Specifies the report name.
+Note: When naming a report the following characters are not allowed: |\\/&amp;^*&lt;&gt;\":?</description>
+                <mandatory/>
+                <noNotification/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="objectTypeList">
+                <description>Specifies the OTs which are to be used in report.
+The input value should be DN of the corresponding ObjectType MOs.
+
+In case of single OT:
+- Directly assign the value to the attribute.
+
+In case of multiple OTs:
+- Report with multi-valued DNs should be separated by comma.</description>
+                <mandatory/>
+                <noNotification/>
+                <dataType>
+                    <sequence>
+                        <string/>
+                        <minLength>1</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="objectTypeDn">
+                <description>Specifies the DN for the OTs present in a report.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <sequence>
+                        <string/>
+                        <minLength>0</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="MeasurementProgram">
+            <description>Represents a MP. 
+An MP is a operator-defined periodic request to generate a file at regular intervals. An MP is identified by a unique identity.
+
+One or more attributes setting can fail due to one of the following reasons:
+- An MP name may not contain the following characters | \ / &amp; ^ * &lt; &gt; quot; : ? . The listed characters including character space are not allowed in the name of the MP.
+- Begin time earlier than current time : The Begin time specified is earlier than current time.
+- Begin time later than end time : The specified begin-time in the command is later than the end-time.
+- DBMS is not supported : No Database Format Definition File is available for the specified DBMS.
+- Destination not Valid: &lt; target &gt; : This message appears when the transfer queue name entered is not defined.
+- Incorrect interval value : The interval value specified in the command is incorrect.
+- Internal Program Fault: &lt; detailed information &gt;
+- Interval value can not be greater than MP running time : The interval value specified in the command is incorrect. The interval value can not be greater than the time between begin-time and end-time of the Measuring Program.
+- Invalid Output Format Value : An invalid output format is entered. Valid output format values are ASN.1 and LF.
+- Managed Object Element does not exist : The MP does not exist.
+- Period not valid : The specified accumulation period is not a multiple of 15 minutes or the accumulation period exceeds the time between the begin-time and end-time.
+- Program name already in use: &lt; Name &gt; : The specified name of the MP is already in use.
+- Repeat Value must be greater than zero : An invalid repeat value is entered.
+- Report not defined: &lt; ReportID &gt; : The report does not exist.
+- Time not valid : The specified time is not valid. This is either because an illegal time value is entered, or that daylight saving changes have affected the validity of the time.
+- Too many programs defined : The maximum number of Measuring programs has already been reached.
+- Unset mandatory attribute(s): &lt; interval,reportId and transferQueue &gt;
+- Wrong time format : The specified begin-time or end-time is not in the format [[[YYYY]MM]DD]hhmm.</description>
+            <action name="suspendMP">
+                <description>Invokes the suspend operation on the Measuring Programs.
+
+The action can fail due to the following reason: 
+- No running program(s) defined : The currently defined measuring program is already suspended.</description>
+                <domainExtension domain="CoreMW">
+                    <extension name="admOpId" value="2"/>
+                </domainExtension>
+                <returnType>
+                    <void/>
+                </returnType>
+            </action>
+            <action name="resumeMP">
+                <description>Invokes the resume operation on the Measuring Programs.
+
+The action can fail due to the following reason: 
+- No suspended program defined : None of the currently defined program is suspended.
+
+</description>
+                <domainExtension domain="CoreMW">
+                    <extension name="admOpId" value="1"/>
+                </domainExtension>
+                <returnType>
+                    <void/>
+                </returnType>
+            </action>
+            <attribute name="reportDn">
+                <description>Specifies the DN of the instance of MOC Report linked in the MP.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="measurementProgramId">
+                <description>Holds the name used when identifying the MO.
+It is in the format "measurementProgramId=XXXX", where XXXX is the identity of MP and must be in the range of 1000-1999.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="MeasurementProgramIdType">
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="utcFlag">
+                <description>Specifies if begin-time, end-time of data generation are in UTC.
+If the value is 0 the begin-time and the end-time are stated in local time.
+Default value is 0.
+Note: This option does not affect the time stamps of the output file(s). </description>
+                <noNotification/>
+                <restricted/>
+                <dataType>
+                    <boolean>
+                        <defaultValue>false</defaultValue>
+                    </boolean>
+                </dataType>
+            </attribute>
+            <attribute name="beginTime">
+                <description>Specifies the value of begin time of the Measurement Program. 
+The time must be specified as [[[YYYY]MM]DD]hhmm. The time is dependent of the BRPs of the Object Types included in the report specified in operand reportId. If all Object Types are defined with a BRP of 5 minutes, this value is empty or mm can be assigned 00, 05, 10, ..., or 55. In this case, if the value is empty, the current time is used. Minutes (mm) in the current time is rounded up to 00, 05, 10, ..., or 55. If any Object Type is configured with BRP of 15 minutes, the attribute beginTime is strongly recommended and mm must be assigned 00, 15, 30, or 45. In this case, if this value is empty, the user is likely to miss data due to nonalignment of the begin time to multiple of 15, that is assigned 00, 15, 30, or 45. 
+Note: If the attribute utcFlag (in this class) is set to 0, the beginTime and the endTime of the MP are stated in Local Time. Statistics and Traffic measurement Subsystem (STS) uses Coordinated Universal Time (UTC) internally within STS. Therefore, if the beginTime and endTime are in Local Time, they will be converted to UTC when the command is executed. Hence, if any Daylight Saving Time (DST) adjustment happens before the beginTime or the endTime of the MP, the time adjustment must be considered.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <restricted/>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="MPDateTime">
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="endTime">
+                <description>Specifies the end-time of the MP. 
+The end-time must be specified as [[[YYYY]MM]DD]hhmm. If it is not equal to a BRP then it is aligned to the last BRP before the end-time. The default value is empty.
+Note: If the attribute utcFlag (in this class) value is 0, the begin-time and the
+end-time of the MP are stated in Local Time. STS uses UTC internally within STS. Therefore, if the begin-time and end-time are in Local Time, they will
+be converted to UTC when the command is executed. Hence, if any DST adjustment happens before the begin-time or the end-time of the MP, the time adjustment must be considered. If the running time of the MP is to be limited, either this attribute or repeats (in this class) is used. If both this attribute and repeats are set to empty, the MP will run indefinitely. </description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <restricted/>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="MPDateTime">
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="repeats">
+                <description>Specifies the number of times the MP is run before terminating.
+If it is not set then no restriction is imposed. </description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <restricted/>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="Repeats">
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="interval">
+                <description>Specifies the interval of generation of output files. 
+This attribute is dependent of the BRPs of the OTs included in the MOC Report specified in the attribute reportId and the attribute period. Value of interval is specified in minutes. 
+
+Note 1: If at least one OT is configured with the BRP of 15 minutes and the attribute period value is set to 0, value of interval must be a multiple of 15 and in the range of &lt;15 - 1440&gt;.
+If the value of attribute period is set to other than 0, value of interval must be a multiple of period value and in the range of &lt;period - 1440&gt;.
+
+Note 2: If only OTs with BRP of 5 minutes exist in the MOC Report and attribute period value is set to 0, the value of interval must be a multiple of 5 and in the range of &lt;5 - 1440&gt;.
+If the value of attribute period is set to other than 0, the value of interval must be a multiple of period and in the range of &lt;period - 1440&gt;.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <dataType>
+                    <int32/>
+                </dataType>
+            </attribute>
+            <attribute name="outputFormat">
+                <description>Specifies the file output format. 
+Use one of the following values:
+LF: Output files in format Load File will be generated.
+ASN.1: Output files in format Basic Encoding Rules (BER) encoded Abstract Syntax Notation 1 will be generated.
+The default value is ASN.1.</description>
+                <noNotification/>
+                <restricted/>
+                <dataType>
+                    <enumRef name="OutputFormat">
+                        <defaultValue>ASN1</defaultValue>
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="status">
+                <description>Specifies the status of Measurement Program. 
+A Measurement Program can be in any of the below five states and there are rules controlling to which states an MP can transition to based on its current state.
+(1) waiting
+(2) running
+(3) suspended
+(4) faulty
+(5) expired</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="name">
+                <description>Specifies the name of the MP. 
+If the value of this attribute is set to empty, a unique name is given to the MP automatically. The following characters including character space are not allowed in a name of an MP: |\\/&amp;^*&lt;&gt;\":?
+Note: In case if this attribute is not set then the MP name can be viewed in the attribute 'defaultMpName' which is set by the service at runtime.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <restricted/>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="period">
+                <description>Specifies the time in which the counters are accumulated.
+If the value is 0, the output file(s) contains counter value of each BRP.
+The value is specified in minutes and should be a multiple of 15 and in the range of 0 - 1440. The default value is 0.</description>
+                <noNotification/>
+                <restricted/>
+                <dataType>
+                    <derivedDataTypeRef name="Period">
+                        <defaultValue>0</defaultValue>
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="outPutMode">
+                <description>Specifies the option to generate Cluster level output along with CP level output. 
+The value shall be set to CPLEVEL to generate the CP level output files or CLUSTER to generate the cluster level output files. The default value is CPLEVEL and CLUSTER is applicable only in case of Multi-CP Systems.</description>
+                <noNotification/>
+                <restricted/>
+                <dataType>
+                    <enumRef name="OutputMode">
+                        <defaultValue>CPLEVEL</defaultValue>
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="transferQueue">
+                <description>Specifies the TQ name using which the output files can be sent to a remote destination. The destination is defined via Data Transfer Management function. </description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <dataType>
+                    <derivedDataTypeRef name="TransferQueueName">
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="reportId">
+                <description>Specifies the report to be used by the MP.
+It is expressed as the key value of the defined instance of MOC Report representing the report. </description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="valueForPegCounter">
+                <description>Specifies the choice to select the absolute or delta values of Peg Counters.
+Set the value to ABSOLUTE for generating absolute values or set to DELTA for delta values.</description>
+                <noNotification/>
+                <restricted/>
+                <dataType>
+                    <enumRef name="PegCounterValue">
+                        <defaultValue>DELTA</defaultValue>
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="eventFlag">
+                <description>Specifies the choice to generate an event data Load Files. 
+Set the value to 1 to generate event files. The file contains all recorded events between two given times. The event data can be used for error checking,
+and for checking the causes of inconsistencies in counter data.</description>
+                <noNotification/>
+                <restricted/>
+                <dataType>
+                    <boolean>
+                        <defaultValue>false</defaultValue>
+                    </boolean>
+                </dataType>
+            </attribute>
+            <attribute name="regularDataFlag">
+                <description>Specifies the choice to generate regular data files.
+These files describe the relationship between Object Types and counters. The contents of the files can only be affected by a function change of software STSCOUNTERS in the AP or by changing the counter rules dynamically in CP(s).</description>
+                <noNotification/>
+                <restricted/>
+                <dataType>
+                    <boolean>
+                        <defaultValue>false</defaultValue>
+                    </boolean>
+                </dataType>
+            </attribute>
+            <attribute name="format">
+                <description>Specifies the Relational Database Management System (RDBMS) for which output is generated. 
+A format file describes the structure of an output file of format Load File in a manner that
+can be loaded into a RDBMS.
+Use one of the following value of format:
+Sybase: The definition file Sybase.def is included in STS delivery.
+Oracle: The definition file Oracle.def is included in STS delivery.
+Custom database : The definition file must be supplied by the operator.</description>
+                <noNotification/>
+                <restricted/>
+                <dataType>
+                    <enumRef name="Format">
+                        <defaultValue>NOFORMAT</defaultValue>
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+        </class>
+        
+        <class name="ObjectType">
+            <description>Represents an Object Type (OT).
+
+One or more attributes setting can fail due to one of the following reasons:
+- Internal Program Fault: Internal Processing error.
+- Invalid BRP : BRP values other than 5 or 15 minutes are invalid 
+</description>
+            <systemCreated/>
+            <attribute name="objectTypeId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            
+            <attribute name="isIncluded">
+                <description>Specifies whether the object type is included in collection or not.
+Set the value to true(activate) to include the OT for collection and set false (deactivate) to not to include the OT for collection.</description>
+                <noNotification/>
+                <dataType>
+                    <boolean>
+                        <defaultValue>false</defaultValue>
+                    </boolean>
+                </dataType>
+            </attribute>
+            <attribute name="brp">
+                <description>Specifies the Basic Recording Period (BRP)
+BRP denotes the frequency of counters collection for an object Type (OT).
+The value is restricted to either 5 or 15. </description>
+                <noNotification/>
+                <dataType>
+                    <enumRef name="BRP">
+                        <defaultValue>15</defaultValue>
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="numberOfCounters">
+                <description>Spceifies the number of counters in the Object Type.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <int32/>
+                </dataType>
+            </attribute>
+            <attribute name="isAvailable">
+                <description>Specifies the availability status of the Object Type.
+The availability of an OT specifies that the data for this OT has been collected from CP and converted successfully. </description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <boolean/>
+                </dataType>
+            </attribute>
+            <attribute name="category">
+                <description>Specifies the list of tags that are attached for this object type.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <sequence>
+                        <string/>
+                        <minLength>0</minLength>
+                        <nonUnique/>
+                    </sequence>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="Counter">
+            <description>Represents the counter information.
+For each counter in an OT there is an instance of this class. 
+All attributes in this class are read-only.</description>
+            <systemCreated/>
+            <attribute name="counterId">
+                <description>Holds the name used when identifying the MO.
+It specifies the name of the counter.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="number">
+                <description>Specifies a unique number to identify the Counter.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="type">
+                <description>Specifies the counter type.
+</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <enumRef name="CounterType">
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="description">
+                <description>Specifies the description of the counter.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="ScrFileManager">
+            <description>Represents the SCR file management.</description>
+            <attribute name="scrFileManagerId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="ScrFile">
+            <description>Represents the SCR file information.
+The action to upload the SCR file is available in this class. </description>
+            <systemCreated/>
+            <action name="importToCp">
+                <description>Uploads an SCR file to CP side. This is applicable only in Single-CP System.
+
+The action can fail due to one of the following reasons:
+- Insufficient memory in LASCS located at CP : Memory at LASCS block is not sufficient to upload an SCR file.
+- Can't connect to LASCS located at CP : Error occurred while connecting to LASCS block located at CP.
+- LASCS, located at CP, is busy : LASCS block is busy.
+- Protocol error between STS and LASCS located at CP : Protocol error occurred between Statistics and Traffic Measurement Subsystem (STS) and LASCS located at CP.
+- JTP error : Job Transfer Protocol (JTP) error occurred.
+- Internal Program Fault: Processing Error.
+</description>
+                <domainExtension domain="CoreMW">
+                    <extension name="admOpId" value="1"/>
+                </domainExtension>
+                <returnType>
+                    <void/>
+                </returnType>
+            </action>
+            <action name="importToCpCluster">
+                <description>Uploads an SCR file to CP side. This is applicable only in Multi-CP System.
+
+The action can fail due to one of the following reasons: 
+- Insufficient memory in LASCS located at CP : Memory at LASCS block is not sufficient to upload an SCR file.
+- Can't connect to LASCS located at CP : Error occurred while connecting to LASCS block located at CP.
+- The CP Name is not defined : The action was invoked with a CP name which is not defined.
+- LASCS, located at CP, is busy : LASCS block is busy.
+- Protocol error between STS and LASCS located at CP : Protocol error occurred between Statistics and Traffic Measurement Subsystem (STS) and LASCS located at CP.
+- JTP error : Job Transfer Protocol (JTP) error occurred.
+- Internal Program Fault: Processing Error.</description>
+                <domainExtension domain="CoreMW">
+                    <extension name="admOpId" value="2"/>
+                </domainExtension>
+                <returnType>
+                    <void/>
+                </returnType>
+                <parameter name="cpName">
+                    <description>This parameter represents the blade name to which the SCR file has to be uploaded.</description>
+                    <in/>
+                    <dataType>
+                        <string/>
+                    </dataType>
+                </parameter>
+                <decisionPoint>
+                    <decisionStatement decisionType="basic">if-feature NOT VIRTUALDB_HIDDEN</decisionStatement>
+                </decisionPoint>
+            </action>
+            <attribute name="scrFileId">
+                <description>Holds the name used when identifying the MO.
+It is the SCR file name.
+
+
+</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="fileName">
+                <description>Specifies the name of SCR file to be stored in folder /sts_scr of APG file system.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="date">
+                <description>Specifies the date when the SCR file was created.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="slogan">
+                <description>Specifies the short description about the SCR file.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="info">
+                <description>Specifies the list of configurations available in the SCR file. 
+It refers to a set of statistical counter rules.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <sequence>
+                        <structRef name="ScrInfo">
+                            <mimName>AxeStatisticalCounter</mimName>
+                        </structRef>
+                        <minLength>1</minLength>
+                        <nonUnique/>
+                    </sequence>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="ObjectTypes">
+            <description>Represents the ObjectType management.</description>
+            <attribute name="objectTypesId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="InUse">
+            <description>Represents the information of the SCR files downloaded by CP.
+In case of Single-CP System there is only one SCR file.
+In case of Multi-CP System, STS downloads the SCR file from each blade and stores each of them. </description>
+            <systemCreated/>
+            <attribute name="inUseId">
+                <description>Holds the name used when identifying the MO.
+</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="ReadyToUse">
+            <description>Represents the set of SCR files located in the folder /sts_scr on APG file system.
+Any of these SCR files, represented as instances of MOC ScrFile, may be uploaded to the CP and once an uploaded SCR file is placed in the CP CURRENT area 
+STS function starts using it.
+When an SCR file is downloaded from the CP it is automatically placed into folder /sts_scr as well.</description>
+            <systemCreated/>
+            <action name="exportFromCp">
+                <description>Downloads to APG an SCR file stored in LASCS block located in the CP.
+The destination folder is /sts_scr on APG file system. This action is only applicable for a Single-CP System.
+
+The action can fail due to one of the following reasons:
+- Invalid area : The action was invoked with invalid area argument.
+- No data to download : No data is found to download from the specified area.
+- The given file name is invalid : The provided file name must have suffix ".scr".
+- The file  already exist : The file  already exist.
+- A file already exists with the same name : Simillar file instance exists.
+- Canâ€™t connect to LASCS located at CP : Error occurred while connecting to LASCS block located at CP.
+- JTP error : Job Transfer Protocol (JTP) error occurred.
+- LASCS, located at CP, is busy : LASCS block is busy.
+- Protocol error between STS and LASCS located at CP : Protocol error occurred between STS and LASCS located at CP.</description>
+                <domainExtension domain="CoreMW">
+                    <extension name="admOpId" value="1"/>
+                </domainExtension>
+                <returnType>
+                    <void/>
+                </returnType>
+                <parameter name="areaType">
+                    <description>Indicates the type of CP area where SCR file should be exported from. 
+It can be either CURRENT or PENDING. 
+</description>
+                    <in/>
+                    <dataType>
+                        <enumRef name="AreaType">
+                            <mimName>AxeStatisticalCounter</mimName>
+                        </enumRef>
+                    </dataType>
+                </parameter>
+                <parameter name="fileName">
+                    <description>Indicates the name of the file where the SCR file is exported. 
+It should be expressed as &lt;fileName&gt;.scr. 
+After successful exporting the file is stored under folder /sts_scr in APG file system.</description>
+                    <in/>
+                    <dataType>
+                        <string/>
+                    </dataType>
+                </parameter>
+            </action>
+            <action name="exportFromCpCluster">
+                <description>Downloads to APG an SCR file stored in LASCS block from a specified CP blade.
+The destination folder is /sts_scr on APG file system. This action is only applicable for a Multi-CP System.
+
+The action can fail due to one of the following reasons: 
+- Invalid area : The action was initiated with invalid area argument.
+- No data to download : No data is found to download from the specified area.
+- The given file name is invalid : The provided file name must have suffix ".scr".
+- The file already exist : The file already exists.
+- A file already exists with the same name : Simillar file instance exists.
+- Not allowed in this system configuration : This is applicable only in Single-CP System.
+- Canâ€™t connect to LASCS located at CP : Error occurred while connecting to LASCS block located at CP.
+- The CP Name is not defined : The action was invoked with a CP name which is not defined.
+- JTP error : Job Transfer Protocol (JTP) error occurred.
+- LASCS, located at CP, is busy : LASCS block is busy.
+- Protocol error between STS and LASCS located at CP : Protocol error occurred between Statistics and Traffic Measurement Subsystem (STS) and LASCS located at CP.</description>
+                <domainExtension domain="CoreMW">
+                    <extension name="admOpId" value="2"/>
+                </domainExtension>
+                <returnType>
+                    <void/>
+                </returnType>
+                <parameter name="areaType">
+                    <description>Indicates the type of CP area where SCR file should be exported from. It can be either CURRENT or PENDING. 
+</description>
+                    <in/>
+                    <dataType>
+                        <enumRef name="AreaType">
+                            <mimName>AxeStatisticalCounter</mimName>
+                        </enumRef>
+                    </dataType>
+                </parameter>
+                <parameter name="fileName">
+                    <description>Indicates the name of the file where the SCR file is exported. 
+It should be expressed as &lt;fileName&gt;.scr. 
+After successful exporting the file is stored under folder /sts_scr in APG file system.</description>
+                    <in/>
+                    <dataType>
+                        <string/>
+                    </dataType>
+                </parameter>
+                <parameter name="cpName">
+                    <description>Indicates the blade name from which the SCR file has to be dowloaded. </description>
+                    <in/>
+                    <dataType>
+                        <string/>
+                    </dataType>
+                </parameter>
+                <decisionPoint>
+                    <decisionStatement decisionType="basic">if-feature NOT VIRTUALDB_HIDDEN</decisionStatement>
+                </decisionPoint>
+            </action>
+            <attribute name="readyToUseId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        
+        <class name="CapacityInfo">
+            <description>Represents the performance characteristics of STS.
+This information is given in terms of total number of counters being processed.
+
+</description>
+            <systemCreated/>
+            <attribute name="capacityInfoId">
+                <description>Holds the name used when identifying the MO.
+</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="totalNumberOfCounters">
+                <description>Specifies the number of counters processed in a BRP.
+It does not specify the number of counters of latest BRP, instead the maximum value in last 4 BRPs is displayed.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <int64/>
+                </dataType>
+            </attribute>
+            <attribute name="totalNumberOfDIDPositions">
+                <description>Specifies the total number of processed dids information.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <int64/>
+                </dataType>
+            </attribute>
+        </class>
+        
+        <relationship name="StatisticalCounterM_to_TranslationTable">
+            <containment>
+                <parent>
+                    <hasClass name="StatisticalCounterM">
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="TranslationTable">
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="StatisticalCounterM_to_Reports">
+            <containment>
+                <parent>
+                    <hasClass name="StatisticalCounterM">
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="Reports">
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="StatisticalCounterM_to_MeasurementPrograms">
+            <containment>
+                <parent>
+                    <hasClass name="StatisticalCounterM">
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="MeasurementPrograms">
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="ObjectType_to_Counter">
+            <containment>
+                <parent>
+                    <hasClass name="ObjectType">
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="Counter">
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="StatisticalCounterM_to_ScrFileManager">
+            <containment>
+                <parent>
+                    <hasClass name="StatisticalCounterM">
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="ScrFileManager">
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="Reports_to_Report">
+            <containment>
+                <parent>
+                    <hasClass name="Reports">
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="Report">
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="MeasurementPrograms_to_MeasurementProgram">
+            <containment>
+                <parent>
+                    <hasClass name="MeasurementPrograms">
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="MeasurementProgram">
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="StatisticalCounterM_to_ObjectTypes">
+            <containment>
+                <parent>
+                    <hasClass name="StatisticalCounterM">
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="ObjectTypes">
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="ObjectTypes_to_ObjectType">
+            <containment>
+                <parent>
+                    <hasClass name="ObjectTypes">
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="ObjectType">
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="ScrFileManager_to_ReadyToUse">
+            <containment>
+                <parent>
+                    <hasClass name="ScrFileManager">
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="ReadyToUse">
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="ScrFileManager_to_InUse">
+            <containment>
+                <parent>
+                    <hasClass name="ScrFileManager">
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="InUse">
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="ReadyToUse_to_ScrFile">
+            <containment>
+                <parent>
+                    <hasClass name="ReadyToUse">
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="ScrFile">
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="InUse_to_ScrFile">
+            <containment>
+                <parent>
+                    <hasClass name="InUse">
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="ScrFile">
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="StatisticalCounterM_to_CapacityInfo">
+            <containment>
+                <parent>
+                    <hasClass name="StatisticalCounterM">
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="CapacityInfo">
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        
+        
+        
+    </mim>
+    <interMim>
+        <relationship name="DataOutputHandling_to_StatisticalCounterM">
+            <domainExtension domain="CoreMW">
+                <extension name="splitImmDn" value="true"/>
+            </domainExtension>
+            <containment>
+                <parent>
+                    <hasClass name="DataOutputHandling">
+                        <mimName>AxeFunctions</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="StatisticalCounterM">
+                        <mimName>AxeStatisticalCounter</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+    </interMim>
+</models>

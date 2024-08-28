@@ -1,0 +1,1224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Copyright (c) 2021 Ericsson AB. 
+	All rights reserved 
+
+	DX ECIM Tool-chain generated this file on Sep 29, 2021 11:42:30 AM using:
+	* com.ericsson.ecim.m2m 3.2.0.201605130716
+	* com.ericsson.ecim.dsl 3.2.0.201605130716
+	* com.ericsson.ecim.edm 3.2.0.201605130716
+--><!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+    <dtdVersion>G</dtdVersion>
+    <momMetaData>
+        <momTitle>title</momTitle>
+        <momSubTitle>subTitle</momSubTitle>
+        <momIdentity>
+            <docNum>155 54-CXA 113 13/1</docNum>
+            <docLang>English</docLang>
+            <docRev>R1AN</docRev>
+            <docDate>2021-09-29</docDate>
+        </momIdentity>
+        <createdBy>
+            <signature>Michal Dutkiewicz</signature>
+        </createdBy>
+    </momMetaData>
+    <mim author="edutmic" contact="edutmic" correction="3" date="2021-09-29" docNo="155 54-CXA 113 13/1" name="BscSupportFunction" namespace="urn:com:ericsson:ecim:BscSupportFunction" namespacePrefix="bscsupportfunction" organization="" release="8" revision="R1AN" version="2">
+        <description>Contains expansion of BscSupportFunction model.</description>
+        <domainExtension domain="ECIM">
+            <extension name="immNamespace" value="MOM_NAME"/>
+        </domainExtension>
+        <enum name="CollectionStatus">
+            <description>Status enumeration.</description>
+            <enumMember name="DONE">
+                <description>Data collection is finished.</description>
+                <value>3</value>
+            </enumMember>
+            <enumMember name="FAULTY_INPUT">
+                <description>Input data for collection is incomplete or incorrectly specified.</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="ONGOING">
+                <description>Data collection is in progress.</description>
+                <value>2</value>
+            </enumMember>
+            <enumMember name="NOT_STARTED">
+                <description>Data collection is not started.</description>
+                <value>0</value>
+            </enumMember>
+        </enum>
+        <enum name="EnableState">
+            <description>Enumeration for Boolean values.</description>
+            <enumMember name="FALSE">
+                <value>0</value>
+            </enumMember>
+            <enumMember name="TRUE">
+                <value>1</value>
+            </enumMember>
+        </enum>
+        <enum name="OperState">
+            <description>Operational states of a resource.</description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimVersion" value="2"/>
+                <extension name="originatingMimRelease" value="1"/>
+                <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+            </domainExtension>
+            <enumMember name="DISABLED">
+                <description>The resource is  totally inoperable.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="ENABLED">
+                <description>The resource is partially or fully operable.</description>
+                <value>1</value>
+            </enumMember>
+        </enum>
+        <enum name="HealthState">
+            <description>Node health state.</description>
+            <enumMember name="HEALTHY">
+                <description>No issues are present in the node.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="NOT_HEALTHY">
+                <description>Major issues are present in the node.</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="WARNING">
+                <description>Minor issues are present in the node.</description>
+                <value>2</value>
+            </enumMember>
+        </enum>
+        <enum name="CurrentState">
+            <description>Current state of the function.</description>
+            <enumMember name="STOPPED">
+                <value>0</value>
+            </enumMember>
+            <enumMember name="RUNNING">
+                <value>1</value>
+            </enumMember>
+        </enum>
+        <enum name="ReportStatus">
+            <description>Report status enumeration.</description>
+            <enumMember name="NOT_STARTED">
+                <value>0</value>
+            </enumMember>
+            <enumMember name="ONGOING">
+                <value>1</value>
+            </enumMember>
+            <enumMember name="DONE">
+                <value>2</value>
+            </enumMember>
+            <enumMember name="FAULT">
+                <description>Not possible to generate a report.</description>
+                <value>3</value>
+            </enumMember>
+            <enumMember name="FAULTY_INPUT">
+                <value>4</value>
+            </enumMember>
+        </enum>
+        <enum name="BasicAdmState">
+            <description>Basic administrative states for a resource.</description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimVersion" value="2"/>
+                <extension name="originatingMimRelease" value="1"/>
+                <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+            </domainExtension>
+            <enumMember name="LOCKED">
+                <description>The resource is administratively prohibited from performing services for its users.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="UNLOCKED">
+                <description>The resource is administratively permitted to perform services for its users.
+This is independent of its inherent operability.</description>
+                <value>1</value>
+            </enumMember>
+        </enum>
+        <derivedDataType name="Date">
+            <description>Represents the international standard for the representation of date (ISO 8601).
+The string format is "YYYY-MM-DD" (excluding quotes).
+The following pattern describes the Date format:
+YYYY-MM-DD
+Where:
+YYYY = Four digit year
+MM = Two digit month (01=January, and so on)
+DD = Two digit day of month (01 through 31)</description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimVersion" value="2"/>
+                <extension name="originatingMimRelease" value="1"/>
+                <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+            </domainExtension>
+            <baseType>
+                <string>
+                    <validValues>^([0-9]{4})-(1[0-2]|0[1-9])-(0[1-9]|[1|2][0-9]|3[0-1])$</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="Must be of the format YYYY-MM-DD where YYYY = Four digit year, MM = Two digit month (01 through 12) and DD = Two digit day (01 through 31). Example 2000-12-23." format="posix_ere" name="Pattern Constraint"><![CDATA[^([0-9]{4})-(1[0-2]|0[1-9])-(0[1-9]|[1|2][0-9]|3[0-1])$]]></rule>
+            </validationRules>
+        </derivedDataType>
+        <derivedDataType name="SingleInstance">
+            <description>TBD.</description>
+            <baseType>
+                <string>
+                    <validValues>^[1]$</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="Must be set to: 1" format="posix_ere" name="Pattern Constraint"><![CDATA[^[1]$]]></rule>
+            </validationRules>
+        </derivedDataType>
+        <derivedDataType name="InputMoCf">
+            <description>Name of G12CF.</description>
+            <baseType>
+                <string>
+                    <validValues>^(RXOCF-([1-7][0-9]{3}|80[0-9]{2}|81[0-8][0-9]|8190|[1-9][0-9]{2}|[1-9][0-9]|[0-9]))$</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="" format="posix_ere" name="Pattern Constraint"><![CDATA[^(RXOCF-([1-7][0-9]{3}|80[0-9]{2}|81[0-8][0-9]|8190|[1-9][0-9]{2}|[1-9][0-9]|[0-9]))$]]></rule>
+            </validationRules>
+        </derivedDataType>
+        <derivedDataType name="DateTime">
+            <description>Represents the international standard for the representation of date and time ( ISO 8601).
+The string format is "YYYY-MM-DDThh:mm:ss.SSSZ" (excluding quotes).
+A DateTime string consists of a date part, a time part, and an optional time zone information part. The time zone part may be a "Z", representing the Coordinated Universal Time (UTC) time zone (equals to +00) or a time zone offset (for example, +02:00).
+If the time zone part is not present, the DateTime value represents local time.
+
+The following pattern describes the DateTime format:
+YYYY-MM-DDThh:mm:ss[.S+][Z|+-hh:mm]
+Where:
+YYYY = Four digit year
+MM = Two digit month (01=January, and so on)
+DD = Two digit day of month (01 through 31)
+T = Time designator (shows start of time component)
+hh = Two digits of hour (00 through 23, AM/PM not allowed)
+mm = Two digits of minute (00 through 59)
+ss = Two digits of second (00 through 59, leap second not allowed)
+S+ = One or more digits of decimal fraction of a second
+Z = Time is UTC
++- = + or - character indicating positive or negative offset to UTC
+
+DateTime values are compliant with ISO 8601 "Representation of dates and times" but are restricted according to RFC 3339 "Date and Time on the Internet: Timestamps". The DateTime format is further restricted as follows:
+- T and Z designators are upper case.
+- . (dot) is used to indicate start of fractions of seconds (ISO 8601 also allows comma)
+
+</description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimVersion" value="2"/>
+                <extension name="originatingMimRelease" value="1"/>
+                <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+            </domainExtension>
+            <baseType>
+                <string>
+                    <lengthRange>
+                        <min>19</min>
+                        <max>31</max>
+                    </lengthRange>
+                    <stringLength>
+                        <subrange>
+                            <min>19</min>
+                            <max>31</max>
+                        </subrange>
+                    </stringLength>
+                    <validValues>^([0-9]{4})-(1[0-2]|0[1-9])-(0[1-9]|[1|2][0-9]|3[0-1])T(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])([\.][0-9]+){0,1}(([\+|\-](0[0-9]|1[0-9]|2[0-4])(:[0-5][0-9])?)|(Z)?)$</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="Must be of the format YYYY-MM-DDTHH:MM:SS[.S+][Z|+-hh:mm] where T separates the time and the date parts and Z indicates the time zone in relation to UTC. Example 2000-08-01T17:17:34.1+01:00." format="posix_ere" name="Pattern Constraint"><![CDATA[^([0-9]{4})-(1[0-2]|0[1-9])-(0[1-9]|[1|2][0-9]|3[0-1])T(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])([\.][0-9]+){0,1}(([\+|\-](0[0-9]|1[0-9]|2[0-4])(:[0-5][0-9])?)|(Z)?)$]]></rule>
+            </validationRules>
+        </derivedDataType>
+        <derivedDataType name="SimpleTime">
+            <description>Represents a simplified representation of local time (ISO 8601).
+The following pattern describes the SimpleTime format:
+hh:mm
+Where:
+hh = Two digits of hour (00 through 23, AM/PM not allowed)
+mm = Two digits of minute (00 through 59)</description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimVersion" value="2"/>
+                <extension name="originatingMimRelease" value="1"/>
+                <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+            </domainExtension>
+            <baseType>
+                <string>
+                    <validValues>^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="Must be of the format HH:MM where HH = Two digits of hour (00 through 23) and MM = Two digits of minute (00 through 59). Example 16:20." format="posix_ere" name="Pattern Constraint"><![CDATA[^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$]]></rule>
+            </validationRules>
+        </derivedDataType>
+        <class name="BscSupportFunction">
+            <description>Contains data for configuration of BSC support functionalities.
+
+This MO is created by the system.</description>
+            <root/>
+            <attribute name="bscSupportFunctionId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="SingleInstance">
+                        <mimName>BscSupportFunction</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="release">
+                <description>The product release of the ManagedFunction.
+It commonly contains the Managed Function release, for example  L12.0, 13A, R1A
+            {apmml-nosync}</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="userLabel">
+                <description>Used for product free-text description.
+            {apmml-nosync}</description>
+                <mandatory/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="AutomaticCsrDataCollection">
+            <description>Contains the functionality Automatic CSR Data Collection configuration.
+
+This MO is created by the system.</description>
+            <attribute name="automaticCsrDataCollectionId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="SingleInstance">
+                        <mimName>BscSupportFunction</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="version">
+                <description>Version of the functionality Automatic CSR Data Collection.</description>
+                <readOnly/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="BscCpHealthCheck">
+            <description>Contains the BSC CP periodic health check configuration.
+Health check is started periodically at time specified by the attribute scheduledTime.
+
+This MO is created by the system.</description>
+            <attribute name="bscCpHealthCheckId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="SingleInstance">
+                        <mimName>BscSupportFunction</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="administrativeState">
+                <description>Wanted state of the BSC CP periodic health check.</description>
+                <dataType>
+                    <enumRef name="BasicAdmState">
+                        <defaultValue>UNLOCKED</defaultValue>
+                        <mimName>BscSupportFunction</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="nodeState">
+                <description>State of the BSC node after the health check is performed.
+
+NOT_HEALTHY - Additional information can be found in /support_data/acdc/HC_REPORT for last scheduled period.</description>
+                <readOnly/>
+                <dataType>
+                    <enumRef name="HealthState">
+                        <mimName>BscSupportFunction</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="scheduledTime">
+                <description>Time when the BSC CP periodic health check starts.</description>
+                <dataType>
+                    <derivedDataTypeRef name="SimpleTime">
+                        <defaultValue>00:00</defaultValue>
+                        <mimName>BscSupportFunction</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="currentState">
+                <description>Current state of the BSC CP periodic health check.
+
+RUNNING - If the state is RUNNING, the health check is executed in scheduled time.</description>
+                <readOnly/>
+                <dataType>
+                    <enumRef name="CurrentState">
+                        <mimName>BscSupportFunction</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="EventListener">
+            <description>Contains the event listener configuration.
+
+This MO is created by the system.</description>
+            <attribute name="eventListenerId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="SingleInstance">
+                        <mimName>BscSupportFunction</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="administrativeState">
+                <description>Wanted state of the event listener.</description>
+                <dataType>
+                    <enumRef name="BasicAdmState">
+                        <defaultValue>UNLOCKED</defaultValue>
+                        <mimName>BscSupportFunction</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="lastEvent">
+                <description>The last CP event handled by event listener.
+
+For more information on BSC alarms, supported by event listener, see DCG chapter 3.3.4.4.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="currentState">
+                <description>Current state of the event listener.
+
+RUNNING - If the state is RUNNING, the events and alarms are detected. Relevant actions can be triggered based on the nature of event (for example, Data Collection Guideline chapter collection or OPI administering).</description>
+                <readOnly/>
+                <dataType>
+                    <enumRef name="CurrentState">
+                        <mimName>BscSupportFunction</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="DataCollectionGuidelineM">
+            <description>Contains the Data Collection Guideline automatic gathering configuration.
+Data collection is started when the value of attribute inputChapter is changed.
+
+This MO is created by the system.</description>
+            <attribute name="dataCollectionGuidelineMId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="SingleInstance">
+                        <mimName>BscSupportFunction</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="inputChapter">
+                <description>Data Collection Guideline chapter which must be gathered.
+
+For more information on chapters, available for gathering, see Data Collection Guideline Chapter 3.2.1.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="inputData">
+                <description>Additional data to the value of attribute inputChapter.
+
+Relevant input data for each input chapter can be found in Data Collection Guideline chapter 3.2.1.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="dataCollectionStatus">
+                <description>Status of the Data Collection Guideline output.
+
+FAULTY_INPUT - The status is FAULTY_INPUT when a wrong value of the attribute inputChapter or inputData is specified. For more information on valid chapters and input data, see Data Collection Guideline chapter 3.2.1.</description>
+                <readOnly/>
+                <dataType>
+                    <enumRef name="CollectionStatus">
+                        <mimName>BscSupportFunction</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="progressPercentage">
+                <description>Chapter collection progress.
+
+This attribute shows progress percentage during collection of DCG chapter.</description>
+                <readOnly/>
+                <dataType>
+                    <uint32/>
+                </dataType>
+            </attribute>
+            <attribute name="expertMode">
+                <description>Enable RP printouts collection.
+
+This attribute enables collecting of RP printouts during collection of DCG chapter.
+When ongoing transaction is finished the attribute value is set to default value that is FALSE.</description>
+                <dataType>
+                    <enumRef name="EnableState">
+                        <defaultValue>FALSE</defaultValue>
+                        <mimName>BscSupportFunction</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="skipBlockDumping">
+                <description>Skip block dumping.
+
+This attribute allows to skip block dumping during collection of DCG chapter.
+When ongoing transaction is finished the attribute value is set to default value that is FALSE.</description>
+                <dataType>
+                    <enumRef name="EnableState">
+                        <defaultValue>FALSE</defaultValue>
+                        <mimName>BscSupportFunction</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="BtsDataCollection">
+            <description>Contains the BTS data collection configuration.
+The BTS data collection is started when value of the attribute input is changed.
+
+This MO is created by the system.</description>
+            <attribute name="btsDataCollectionId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="SingleInstance">
+                        <mimName>BscSupportFunction</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="dataCollectionStatus">
+                <description>Status of BTS data collection.
+
+FAULTY_INPUT - The status is FAULTY_INPUT when a wrong value of the attribute input is specified.</description>
+                <readOnly/>
+                <dataType>
+                    <enumRef name="CollectionStatus">
+                        <mimName>BscSupportFunction</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="input">
+                <description>CF MO in BTS logical model G12 for which the logs are gathered.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="InputMoCf">
+                        <mimName>BscSupportFunction</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="AutomaticPerformanceValidation">
+            <description>Contains the functionality Automatic Performance Validation configuration.
+
+This MO is created by the system.</description>
+            <attribute name="automaticPerformanceValidationId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="SingleInstance">
+                        <mimName>BscSupportFunction</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="administrativeState">
+                <description>Wanted state of the functionality Automatic Performance Validation.</description>
+                <dataType>
+                    <enumRef name="BasicAdmState">
+                        <defaultValue>UNLOCKED</defaultValue>
+                        <mimName>BscSupportFunction</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="version">
+                <description>Version of the functionality Automatic Performance Validation.</description>
+                <readOnly/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="currentState">
+                <description>Current state of the functionality Automatic Performance Validation.</description>
+                <readOnly/>
+                <dataType>
+                    <enumRef name="CurrentState">
+                        <mimName>BscSupportFunction</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="KeyPerformanceIndicatorM">
+            <description>This MOC contains the BSC KPI data.
+
+This MO is created by the system.</description>
+            <attribute name="keyPerformanceIndicatorMId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="SingleInstance">
+                        <mimName>BscSupportFunction</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="lastKpiUpdate">
+                <description>Time of last KPI update.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="DateTime">
+                        <mimName>BscSupportFunction</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="KeyPerformanceIndicator">
+            <description>Contains the attributes for Key Performance Indicator configuration.
+
+This MO is created by the system.</description>
+            <attribute name="keyPerformanceIndicatorId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="threshold">
+                <description>Value used as pass criteria for KPI validation.
+
+When the KPI value reaches the defined threshold, the KPI is highlighted in KPI validation report.</description>
+                <mandatory/>
+                <dataType>
+                    <double/>
+                </dataType>
+            </attribute>
+            <attribute name="bscLevelValue">
+                <description>Average KPI value calculated on the BSC level.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <double/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="KeyPerformanceIndicatorReport">
+            <description>Allows to prepare KPI validation report in HTML format.
+
+This MO is created by the system.</description>
+            <validationRules>
+                <rule exceptionText="" format="ECIM_Schematron_1.0" name="ReportRule"><![CDATA[<schema xmlns="http://purl.oclc.org/dsdl/schematron">
+    <pattern>
+          <rule>
+		 <assert id='reportRule' test="( (not((../@administrativeState = 0) and (@generateReport = 1))) )">It is not possible to generate a report when the attribute AutomaticPerformanceValidation.administrativeState is set to LOCKED. Faulty MO: <name path="."/></assert>
+         </rule>
+      </pattern>
+</schema>]]></rule>
+            </validationRules>
+            <dependenciesScript><![CDATA[<schema xmlns="http://purl.oclc.org/dsdl/schematron">
+    <pattern>
+          <rule>
+		 <assert id='reportRule' test="( (not((../@administrativeState = 0) and (@generateReport = 1))) )">It is not possible to generate a report when the attribute AutomaticPerformanceValidation.administrativeState is set to LOCKED. Faulty MO: <name path="."/></assert>
+         </rule>
+      </pattern>
+</schema>]]></dependenciesScript>
+            <attribute name="keyPerformanceIndicatorReportId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="SingleInstance">
+                        <mimName>BscSupportFunction</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="reportStatus">
+                <description>Actual status of report generation.</description>
+                <readOnly/>
+                <dataType>
+                    <enumRef name="ReportStatus">
+                        <mimName>BscSupportFunction</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="generateReport">
+                <description>Creates a new KPI report.
+
+To create new KPI report, value of the attribute should be changed to ENABLED. After the report is created, value of the attribute is changed to DISABLED automatically.</description>
+                <dataType>
+                    <enumRef name="OperState">
+                        <defaultValue>DISABLED</defaultValue>
+                        <mimName>BscSupportFunction</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="AdaptiveBscSettings">
+            <description>Contains the functionality Adaptive BSC Settings configuration.
+
+This MO is created by the system.</description>
+            <attribute name="adaptiveBscSettingsId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="SingleInstance">
+                        <mimName>BscSupportFunction</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="version">
+                <description>Version of the functionality Adaptive BSC Settings.</description>
+                <readOnly/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="startTime">
+                <description>Time when the functionality Adaptive BSC Settings starts.</description>
+                <dataType>
+                    <derivedDataTypeRef name="SimpleTime">
+                        <defaultValue>03:10</defaultValue>
+                        <mimName>BscSupportFunction</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="currentState">
+                <description>Current state of the functionality Adaptive BSC Settings.</description>
+                <readOnly/>
+                <dataType>
+                    <enumRef name="CurrentState">
+                        <mimName>BscSupportFunction</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="QualityBasedTimeslotAllocation">
+            <description>Contains the functionality Quality based Timeslot Allocation configuration.
+
+This MO is created by the system.</description>
+            <attribute name="qualityBasedTimeslotAllocationId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="SingleInstance">
+                        <mimName>BscSupportFunction</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="AdaptiveSdcchConfiguration">
+            <description>Contains the configuration of adaptive SDCCH part of ABS.
+
+This MO is created by the system.</description>
+            <attribute name="administrativeState">
+                <description>Wanted state of the adaptive SDCCH part of ABS.</description>
+                <dataType>
+                    <enumRef name="BasicAdmState">
+                        <defaultValue>LOCKED</defaultValue>
+                        <mimName>BscSupportFunction</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="adaptiveSdcchConfigurationId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="SingleInstance">
+                        <mimName>BscSupportFunction</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="PerformanceComparison">
+            <description>Contains the Performance Comparison configuration.
+
+This MO is created by the system.</description>
+            <attribute name="performanceComparisonId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="SingleInstance">
+                        <mimName>BscSupportFunction</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="reportStatus">
+                <description>The actual status of report generation.</description>
+                <readOnly/>
+                <dataType>
+                    <enumRef name="ReportStatus">
+                        <mimName>BscSupportFunction</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="startOfReferencePeriod">
+                <description>The start date of reference period.</description>
+                <mandatory/>
+                <dataType>
+                    <derivedDataTypeRef name="Date">
+                        <mimName>BscSupportFunction</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="startOfTestPeriod">
+                <description>The start date of test period.</description>
+                <mandatory/>
+                <dataType>
+                    <derivedDataTypeRef name="Date">
+                        <mimName>BscSupportFunction</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="periodLength">
+                <description>The length of reference or test period. Set as a number of 1-day periods.</description>
+                <mandatory/>
+                <dataType>
+                    <uint16/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="ScldAutomation">
+            <description>Contains the configuration of the SCLD Automation, part of ABS.
+
+This MO is created by the system.</description>
+            <attribute name="scldAutomationId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="SingleInstance">
+                        <mimName>BscSupportFunction</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="administrativeState">
+                <description>Wanted state of the SCLD Automation, part of ABS.</description>
+                <dataType>
+                    <enumRef name="BasicAdmState">
+                        <defaultValue>LOCKED</defaultValue>
+                        <mimName>BscSupportFunction</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+        </class>
+        <relationship name="acdc_to_healthCheck">
+            <containment>
+                <parent>
+                    <hasClass name="AutomaticCsrDataCollection">
+                        <mimName>BscSupportFunction</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="BscCpHealthCheck">
+                        <mimName>BscSupportFunction</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="acdc_to_bscSupportFunction">
+            <containment>
+                <parent>
+                    <hasClass name="BscSupportFunction">
+                        <mimName>BscSupportFunction</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="AutomaticCsrDataCollection">
+                        <mimName>BscSupportFunction</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="eventListener_to_acdc">
+            <containment>
+                <parent>
+                    <hasClass name="AutomaticCsrDataCollection">
+                        <mimName>BscSupportFunction</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="EventListener">
+                        <mimName>BscSupportFunction</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="dcg_to_acdc">
+            <containment>
+                <parent>
+                    <hasClass name="AutomaticCsrDataCollection">
+                        <mimName>BscSupportFunction</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="DataCollectionGuidelineM">
+                        <mimName>BscSupportFunction</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="omt_to_acdc">
+            <containment>
+                <parent>
+                    <hasClass name="AutomaticCsrDataCollection">
+                        <mimName>BscSupportFunction</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="BtsDataCollection">
+                        <mimName>BscSupportFunction</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="apv_to_bscSupportFunction">
+            <containment>
+                <parent>
+                    <hasClass name="BscSupportFunction">
+                        <mimName>BscSupportFunction</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="AutomaticPerformanceValidation">
+                        <mimName>BscSupportFunction</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="kpiM_to_apv">
+            <containment>
+                <parent>
+                    <hasClass name="AutomaticPerformanceValidation">
+                        <mimName>BscSupportFunction</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="KeyPerformanceIndicatorM">
+                        <mimName>BscSupportFunction</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="kpi_to_kpiM">
+            <containment>
+                <parent>
+                    <hasClass name="KeyPerformanceIndicatorM">
+                        <mimName>BscSupportFunction</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="KeyPerformanceIndicator">
+                        <mimName>BscSupportFunction</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="kpiReport_to_apv">
+            <containment>
+                <parent>
+                    <hasClass name="AutomaticPerformanceValidation">
+                        <mimName>BscSupportFunction</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="KeyPerformanceIndicatorReport">
+                        <mimName>BscSupportFunction</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="abs_to_bscSupportFunction">
+            <containment>
+                <parent>
+                    <hasClass name="BscSupportFunction">
+                        <mimName>BscSupportFunction</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="AdaptiveBscSettings">
+                        <mimName>BscSupportFunction</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="qta_to_abs">
+            <containment>
+                <parent>
+                    <hasClass name="AdaptiveBscSettings">
+                        <mimName>BscSupportFunction</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="QualityBasedTimeslotAllocation">
+                        <mimName>BscSupportFunction</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="adaptiveSdcch_to_qta">
+            <containment>
+                <parent>
+                    <hasClass name="QualityBasedTimeslotAllocation">
+                        <mimName>BscSupportFunction</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="AdaptiveSdcchConfiguration">
+                        <mimName>BscSupportFunction</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="apv_to_pc">
+            <containment>
+                <parent>
+                    <hasClass name="AutomaticPerformanceValidation">
+                        <mimName>BscSupportFunction</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="PerformanceComparison">
+                        <mimName>BscSupportFunction</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="scldAutomation_to_qta">
+            <containment>
+                <parent>
+                    <hasClass name="QualityBasedTimeslotAllocation">
+                        <mimName>BscSupportFunction</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="ScldAutomation">
+                        <mimName>BscSupportFunction</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+    </mim>
+    <interMim>
+        <relationship name="ManagedElement_to_BscSupportFunction">
+            <domainExtension domain="CoreMW">
+                <extension name="splitImmDn" value="true"/>
+            </domainExtension>
+            <containment>
+                <parent>
+                    <hasClass name="ManagedElement">
+                        <mimName>ComTop</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="BscSupportFunction">
+                        <mimName>BscSupportFunction</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+    </interMim>
+</models>

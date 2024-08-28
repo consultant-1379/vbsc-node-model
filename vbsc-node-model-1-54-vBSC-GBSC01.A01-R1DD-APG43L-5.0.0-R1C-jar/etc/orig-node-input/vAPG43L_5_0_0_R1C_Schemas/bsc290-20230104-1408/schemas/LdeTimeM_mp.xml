@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Copyright (c) 2018 Ericsson AB.
+	All rights reserved
+
+	DX ECIM Tool-chain generated this file on 10/04/2018 7:04:09 PM using:
+	* com.ericsson.ecim.m2m 3.7.0.201711140848
+	* com.ericsson.ecim.dsl 3.7.0.201711140848
+	* com.ericsson.ecim.edm 3.7.0.201711140848
+-->
+<!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+  <dtdVersion>H</dtdVersion>
+  <momMetaData>
+    <momTitle>title</momTitle>
+    <momSubTitle>sub title</momSubTitle>
+    <momIdentity>
+      <docNum>0</docNum>
+      <docLang>English</docLang>
+      <docRev>0</docRev>
+      <docDate>date</docDate>
+    </momIdentity>
+  </momMetaData>
+  <mim author="Damion de Soto" contact="XDAMDES" correction="1" date="2017/08/11" docNo="" name="LdeTimeM" namespace="urn:com:ericsson:ecim:LdeTimeM" namespacePrefix="ldetimem" organization="XDT/DEK" release="2" revision="" version="1">
+    <description>The fragment contains the Time management attributes including handling of the NTP server information.</description>
+    <domainExtension domain="ECIM">
+      <extension name="ecimMomName" value="ECIM_TimeM"/>
+      <extension name="ecimMomVersion" value="1"/>
+      <extension name="ecimMomRelease" value="2"/>
+      <extension name="ecimMomCorrection" value="0"/>
+      <extension name="immNamespace" value="MOM_NAME"/>
+    </domainExtension>
+    <implements correction="0" name="ECIM_TimeM" release="2" version="1"/>
+    <enum name="AdmState">
+      <description>Administrative state of a resource.</description>
+      <domainExtension domain="ECIM">
+        <extension name="originatingMimVersion" value="2"/>
+        <extension name="originatingMimRelease" value="1"/>
+        <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+      </domainExtension>
+      <enumMember name="LOCKED">
+        <description>The resource is administratively prohibited from performing services for its users.</description>
+        <value>0</value>
+      </enumMember>
+      <enumMember name="UNLOCKED">
+        <description>The resource is administratively permitted to perform services for its users.&#13;
+This is independent of its inherent operability.</description>
+        <value>1</value>
+      </enumMember>
+      <enumMember name="SHUTTINGDOWN">
+        <description>Use of the resource is administratively permitted to existing instances of use only.&#13;
+While the system remains in the shutting down state the manager may at any time cause the managed object to revert to the locked state.</description>
+        <value>2</value>
+      </enumMember>
+    </enum>
+    <derivedDataType name="DateTime">
+      <description>Represents the international standard for the representation of date and time ( ISO 8601).&#13;
+The string format is "YYYY-MM-DDThh:mm:ss.SSSZ" (excluding quotes).&#13;
+A DateTime string consists of a date part, a time part, and an optional time zone information part. The time zone part may be a "Z", representing the Coordinated Universal Time (UTC) time zone (equals to +00) or a time zone offset (for example, +02:00).&#13;
+If the time zone part is not present, the DateTime value represents local time.&#13;
+&#13;
+The following pattern describes the DateTime format:&#13;
+YYYY-MM-DDThh:mm:ss[.S+][Z|+-hh:mm]&#13;
+Where:&#13;
+YYYY = Four digit year&#13;
+MM = Two digit month (01=January, and so on)&#13;
+DD = Two digit day of month (01 through 31)&#13;
+T = Time designator (shows start of time component)&#13;
+hh = Two digits of hour (00 through 23, AM/PM not allowed)&#13;
+mm = Two digits of minute (00 through 59)&#13;
+ss = Two digits of second (00 through 59, leap second not allowed)&#13;
+S+ = One or more digits of decimal fraction of a second&#13;
+Z = Time is UTC&#13;
++- = + or - character indicating positive or negative offset to UTC &#13;
+&#13;
+DateTime values are compliant with ISO 8601 "Representation of dates and times" but are restricted according to RFC 3339 "Date and Time on the Internet: Timestamps". The DateTime format is further restricted as follows:&#13;
+- T and Z designators are upper case.&#13;
+- . (dot) is used to indicate start of fractions of seconds (ISO 8601 also allows comma)&#13;
+&#13;
+</description>
+      <domainExtension domain="ECIM">
+        <extension name="originatingMimVersion" value="2"/>
+        <extension name="originatingMimRelease" value="1"/>
+        <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+      </domainExtension>
+      <baseType>
+        <string>
+          <lengthRange>
+            <min>19</min>
+            <max>31</max>
+          </lengthRange>
+          <stringLength>
+            <subrange>
+              <min>19</min>
+              <max>31</max>
+            </subrange>
+          </stringLength>
+          <validValues>^([0-9]{4})-(1[0-2]|0[1-9])-(0[1-9]|[1|2][0-9]|3[0-1])T(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])([\.][0-9]+){0,1}(([\+|\-](0[0-9]|1[0-9]|2[0-4])(:[0-5][0-9])?)|(Z)?)$</validValues>
+        </string>
+      </baseType>
+      <validationRules>
+        <rule exceptionText="" format="posix_ere" name="Pattern Constraint"><![CDATA[^([0-9]{4})-(1[0-2]|0[1-9])-(0[1-9]|[1|2][0-9]|3[0-1])T(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])([\.][0-9]+){0,1}(([\+|\-](0[0-9]|1[0-9]|2[0-4])(:[0-5][0-9])?)|(Z)?)$]]></rule>
+      </validationRules>
+    </derivedDataType>
+    <derivedDataType name="DifferenceFromUTC">
+      <description>Time zone difference between the local current time  and Coordinated Universal Time (UTC).&#13;
+The format is as follows:&#13;
+[+/-]hh:mm&#13;
+&#13;
+It is expressed as positive (that is, with the leading plus sign [+]) if the local time is ahead of or equal to UTC of day and as negative (that is, with the leading minus sign [-]) if it is behind the UTC of day.&#13;
+Example:  +01:00</description>
+      <domainExtension domain="ECIM">
+        <extension name="originatingMimVersion" value="2"/>
+        <extension name="originatingMimRelease" value="1"/>
+        <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+      </domainExtension>
+      <baseType>
+        <string>
+          <lengthRange>
+            <min>6</min>
+            <max>6</max>
+          </lengthRange>
+          <stringLength>
+            <subrange>
+              <min>6</min>
+              <max>6</max>
+            </subrange>
+          </stringLength>
+          <validValues>^([+|-])(0[0-9]|1[0-9]|2[0-4]):([0-5][0-9])$</validValues>
+        </string>
+      </baseType>
+      <validationRules>
+        <rule exceptionText="" format="posix_ere" name="Pattern Constraint"><![CDATA[^([+|-])(0[0-9]|1[0-9]|2[0-4]):([0-5][0-9])$]]></rule>
+      </validationRules>
+    </derivedDataType>
+    <derivedDataType name="IpDNSAddress">
+      <description>The IpDNSAddress type represents an IP address or a DNS domain name.&#13;
+An unicast  IPv4 address is presented in three-digit decimal blocks. It is specified in dotted-quad decimal notation (i.e. three-digit decimal blocks) in accordance with RFC791, The blocks are separated by a dot. &#13;
+- The unicast IPV4  address is within range [1-126,128-223].[0-255].[0-255].[0-255], 7-15 characters. &#13;
+- The IP address range 127.0.0.0 â€“ 127.255.255.255 is reserved for loopback&#13;
+- The IP address range 0â€“ 0.255.255.255 are reserved&#13;
+&#13;
+A  IPv6 address is specified by 8 groups of 16 bit hexadecimal values separated by colons as described in RFC 4291. &#13;
+â€¢	IPv6 addresses length: 3-39 characters. &#13;
+â€¢	Valid characters: 0123456789abcdefABCDEF: &#13;
+The format of the embedded IPv4/IPv6 addresses is described in RFC 6052.&#13;
+&#13;
+A domain name  is specified in dot separated alphanumeric notation  as described in RFC 1034 . The domain name consists of one or more parts, called labels, that are delimited by dots.  &#13;
+- Domain Name length: 253 characters&#13;
+- Label length: 63 characters &#13;
+- Valid characters: a-z, A-Z, 0,1,2,3,4,5,6,7,8,9, - &#13;
+- The Labelâ€™s first character is a letter&#13;
+- Labels shall not start or end with a hyphen.&#13;
+- Labels shall not start  with a number&#13;
+- Label shall end with a number or a letter.&#13;
+&#13;
+</description>
+      <domainExtension domain="ECIM">
+        <extension name="originatingMimVersion" value="2"/>
+        <extension name="originatingMimRelease" value="1"/>
+        <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+      </domainExtension>
+      <baseType>
+        <string>
+          <lengthRange>
+            <min>1</min>
+            <max>253</max>
+          </lengthRange>
+          <stringLength>
+            <subrange>
+              <min>1</min>
+              <max>253</max>
+            </subrange>
+          </stringLength>
+          <validValues>^(((|[1-9]|[1-9][0-9]|12[012345689]|1[013456789][0-9]|2[0-1][0-9]|22[0-3])\.)(([0-9]|[0-9][0-9]|[0-1][0-9][0-9]|2[0-4][0-9]|25[0-5])\.){2})([0-9]|[0-9][0-9]|[0-1][0-9][0-9]|2[0-4][0-9]|25[0-5])$|^((([0-9A-Fa-f]{1,4}:){1,5}:((25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})){3})?)|(([0-9A-Fa-f]{1,4}:){6,7}:)|(([0-9A-Fa-f]{1,4}:){6}((25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})){3}))|(([0-9A-Fa-f]{1,4}:){6}:[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){5}(:[0-9A-Fa-f]{1,4}){1,2})|(([0-9A-Fa-f]{1,4}:){4}(:[0-9A-Fa-f]{1,4}(:(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})){3})?))|(([0-9A-Fa-f]{1,4}:){4}(:[0-9A-Fa-f]{1,4}){2,3})|((([0-9A-Fa-f]{1,4}:){3}(:[0-9A-Fa-f]{1,4}){1,2})(:(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})){3})?)|(([0-9A-Fa-f]{1,4}:){3}(:[0-9A-Fa-f]{1,4}){3,4})|(([0-9A-Fa-f]{1,4}:){2}(:[0-9A-Fa-f]{1,4}){1,3}(:(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})){3})?)|(([0-9A-Fa-f]{1,4}:){2}(:[0-9A-Fa-f]{1,4}){4,5})|(([0-9A-Fa-f]{1,4}:)(:[0-9A-Fa-f]{1,4}){1,4}(:(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})){3})?)|(([0-9A-Fa-f]{1,4}:)(:[0-9A-Fa-f]{1,4}){5,6})|((:(:[0-9A-Fa-f]{1,4}){1,5})(:(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})){3})?)|(:(:[0-9A-Fa-f]{1,4}){6,7})|(([0-9A-Fa-f]{1,4}:){7}[0-9A-Fa-f]{1,4})|(((::FFFF)|(0:0:0:0:0:FFFF))(:(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})){3})))$|^(([a-zA-Z]|[a-zA-Z][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z]|[A-Za-z][A-Za-z0-9\-]*[A-Za-z0-9])$|^ $</validValues>
+        </string>
+      </baseType>
+      <validationRules>
+        <rule exceptionText="" format="posix_ere" name="Pattern Constraint"><![CDATA[^(((|[1-9]|[1-9][0-9]|12[012345689]|1[013456789][0-9]|2[0-1][0-9]|22[0-3])\.)(([0-9]|[0-9][0-9]|[0-1][0-9][0-9]|2[0-4][0-9]|25[0-5])\.){2})([0-9]|[0-9][0-9]|[0-1][0-9][0-9]|2[0-4][0-9]|25[0-5])$|^((([0-9A-Fa-f]{1,4}:){1,5}:((25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})){3})?)|(([0-9A-Fa-f]{1,4}:){6,7}:)|(([0-9A-Fa-f]{1,4}:){6}((25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})){3}))|(([0-9A-Fa-f]{1,4}:){6}:[0-9A-Fa-f]{1,4})|(([0-9A-Fa-f]{1,4}:){5}(:[0-9A-Fa-f]{1,4}){1,2})|(([0-9A-Fa-f]{1,4}:){4}(:[0-9A-Fa-f]{1,4}(:(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})){3})?))|(([0-9A-Fa-f]{1,4}:){4}(:[0-9A-Fa-f]{1,4}){2,3})|((([0-9A-Fa-f]{1,4}:){3}(:[0-9A-Fa-f]{1,4}){1,2})(:(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})){3})?)|(([0-9A-Fa-f]{1,4}:){3}(:[0-9A-Fa-f]{1,4}){3,4})|(([0-9A-Fa-f]{1,4}:){2}(:[0-9A-Fa-f]{1,4}){1,3}(:(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})){3})?)|(([0-9A-Fa-f]{1,4}:){2}(:[0-9A-Fa-f]{1,4}){4,5})|(([0-9A-Fa-f]{1,4}:)(:[0-9A-Fa-f]{1,4}){1,4}(:(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})){3})?)|(([0-9A-Fa-f]{1,4}:)(:[0-9A-Fa-f]{1,4}){5,6})|((:(:[0-9A-Fa-f]{1,4}){1,5})(:(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})){3})?)|(:(:[0-9A-Fa-f]{1,4}){6,7})|(([0-9A-Fa-f]{1,4}:){7}[0-9A-Fa-f]{1,4})|(((::FFFF)|(0:0:0:0:0:FFFF))(:(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})){3})))$|^(([a-zA-Z]|[a-zA-Z][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z]|[A-Za-z][A-Za-z0-9\-]*[A-Za-z0-9])$|^ $]]></rule>
+      </validationRules>
+    </derivedDataType>
+    <class name="TimeM">
+      <description>Time management concerns the calendar date and local time of the node.</description>
+      <systemCreated/>
+      <root/>
+      <attribute name="timeMId">
+        <description>The value component of the RDN.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+    </class>
+    <class name="DateAndTime">
+      <description>Local time and time zone values.</description>
+      <systemCreated/>
+      <attribute name="dateAndTimeId">
+        <description>The value component of the RDN.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="timeZone">
+        <description>The time zone of the ME.&#13;
+&#13;
+A time zone is a region that has a uniform standard time. The string must match an entry in the MEâ€™s time zone database, for example â€˜Europe/Stockholmâ€™.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="localDateTime">
+        <description>The local date and time of the ME.&#13;
+&#13;
+Local time is standard time in a time zone at a fixed offset from Coordinated Universal Time (UTC), possibly adjusted by Daylight Saving Time (DST) during part of the year.&#13;
+</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <noNotification/>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <derivedDataTypeRef name="DateTime">
+            <mimName>LdeTimeM</mimName>
+          </derivedDataTypeRef>
+        </dataType>
+      </attribute>
+      <attribute name="dateTimeOffset">
+        <description>The offset in hours and minutes from UTC to local time.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <derivedDataTypeRef name="DifferenceFromUTC">
+            <mimName>LdeTimeM</mimName>
+          </derivedDataTypeRef>
+        </dataType>
+      </attribute>
+      <attribute name="tzRevision">
+        <description>The revision of the time zone database stored on the ME.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+    </class>
+    <class name="NtpServer">
+      <description>The NTP server configuration data.&#13;
+&#13;
+This MOC presents a persistent NTP client mode network association with a specified remote server or local reference clock address. </description>
+      <specification>RFC1305; RFC5905</specification>
+      <attribute name="userLabel">
+        <description>An additional descriptive text.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="ntpServerId">
+        <description>The value component of the RDN.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="serverAddress">
+        <description>The address of the NTP server with which a persistent client server mode association is made.&#13;
+&#13;
+The serverAddress represents either a V4 or a V6 IP address, or a DNS domain name.&#13;
+</description>
+        <mandatory/>
+        <dataType>
+          <derivedDataTypeRef name="IpDNSAddress">
+            <mimName>LdeTimeM</mimName>
+          </derivedDataTypeRef>
+        </dataType>
+      </attribute>
+      <attribute name="administrativeState">
+        <description>Locks or unlocks the operation of the NTP client function.&#13;
+&#13;
+This is a convenience function to permit some or all NtpServer instances to be temporarily locked without the need to delete the object&#13;
+</description>
+        <mandatory/>
+        <dataType>
+          <enumRef name="AdmState">
+            <mimName>LdeTimeM</mimName>
+          </enumRef>
+        </dataType>
+      </attribute>
+    </class>
+    <class name="Ntp">
+      <description>The NTP top class.</description>
+      <attribute name="ntpId">
+        <description>The key attribute.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+    </class>
+    <relationship name="TimeM_to_DateAndTime">
+      <containment>
+        <parent>
+          <hasClass name="TimeM">
+            <mimName>LdeTimeM</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="DateAndTime">
+            <mimName>LdeTimeM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>1</min>
+            <max>1</max>
+          </cardinality>
+        </child>
+        <domainExtension domain="ECIM">
+          <extension name="canCreate" value="false"/>
+          <extension name="canDelete" value="false"/>
+        </domainExtension>
+        <notCreatable/>
+        <notDeleteable/>
+      </containment>
+    </relationship>
+    <relationship name="TimeM_to_Ntp">
+      <containment>
+        <parent>
+          <hasClass name="TimeM">
+            <mimName>LdeTimeM</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="Ntp">
+            <mimName>LdeTimeM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>1</min>
+            <max>1</max>
+          </cardinality>
+        </child>
+        <domainExtension domain="ECIM">
+          <extension name="canCreate" value="true"/>
+          <extension name="canDelete" value="true"/>
+        </domainExtension>
+      </containment>
+    </relationship>
+    <relationship name="Ntp_to_NtpServer">
+      <containment>
+        <parent>
+          <hasClass name="Ntp">
+            <mimName>LdeTimeM</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="NtpServer">
+            <mimName>LdeTimeM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+          </cardinality>
+        </child>
+        <domainExtension domain="ECIM">
+          <extension name="canCreate" value="true"/>
+          <extension name="canDelete" value="true"/>
+        </domainExtension>
+      </containment>
+    </relationship>
+  </mim>
+  <interMim>
+    <relationship name="SysM_to_TimeM">
+      <domainExtension domain="CoreMW">
+        <extension name="splitImmDn" value="true"/>
+      </domainExtension>
+      <containment>
+        <parent>
+          <hasClass name="SysM">
+            <mimName>ECIM_SysM</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="TimeM">
+            <mimName>LdeTimeM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>1</min>
+            <max>1</max>
+          </cardinality>
+        </child>
+        <domainExtension domain="ECIM">
+          <extension name="canCreate" value="false"/>
+          <extension name="canDelete" value="false"/>
+        </domainExtension>
+        <notCreatable/>
+        <notDeleteable/>
+      </containment>
+    </relationship>
+  </interMim>
+</models>

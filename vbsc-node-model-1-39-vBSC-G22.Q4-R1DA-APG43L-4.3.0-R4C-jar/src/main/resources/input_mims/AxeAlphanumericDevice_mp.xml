@@ -1,0 +1,1616 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--
+	Copyright (c) 2020 Ericsson AB.
+	All rights reserved
+
+	DX ECIM Tool-chain generated this file on Dec 8, 2020 12:23:05 PM using:
+	* com.ericsson.ecim.m2m 3.13.0.202006261811
+	* com.ericsson.ecim.dsl 3.13.0.202006261811
+	* com.ericsson.ecim.edm 3.13.0.202006261811
+--><!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+    <dtdVersion>K</dtdVersion>
+    <momMetaData>
+        <momTitle>Managed Object Model for Alphanumeric Device Management Function</momTitle>
+        <momSubTitle/>
+        <momIdentity>
+            <docNum>1/19089-CXA 117 0027/9</docNum>
+            <docLang>Uen</docLang>
+            <docRev>D</docRev>
+            <docDate>2020-12-08</docDate>
+        </momIdentity>
+        <createdBy>
+            <signature>XHARBAV</signature>
+        </createdBy>
+    </momMetaData>
+    <mim author="Harika Bavana" contact="XHARBAV" correction="0" date="2020-12-08" docNo="" name="AxeAlphanumericDevice" namespace="urn:com:ericsson:ecim:AxeAlphanumericDevice" namespacePrefix="axealphanumericdevice" organization="" release="7" revision="C" version="2">
+        <description>Alphanumeric Device Management function MOM.</description>
+        <domainExtension domain="ECIM">
+            <extension name="immNamespace" value="MOM_NAME"/>
+        </domainExtension>
+        <modelFeatures modelType="Template">
+            <modelFeature featureType="basic" name="CPI_HIDDEN"/>
+            <modelFeature featureType="basic" name="VIRTUALDB_HIDDEN"/>
+            <modelFeature featureType="basic" name="VIRTUALBC_HIDDEN"/>
+            <modelFeature featureType="basic" name="VIRTUAL_HIDDEN"/>
+        </modelFeatures>
+        <enum name="AlarmSeverity">
+            <description>Defines the set of possible alarm severities for an AXE alarm.</description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimVersion" value="2"/>
+                <extension name="originatingMimRelease" value="3"/>
+                <extension name="originatingMimName" value="AxeCommonLibrary"/>
+            </domainExtension>
+            <enumMember name="ALARM_HIGH">
+                <description>Indicates the highest alarm severity.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="ALARM_MEDIUM">
+                <description>Indicates the medium alarm severity.</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="ALARM_LOW">
+                <description>Indicates the lowest alarm severity.</description>
+                <value>2</value>
+            </enumMember>
+            <enumMember name="ALERT_HIGH">
+                <description>Indicates the highest alert severity.</description>
+                <value>3</value>
+            </enumMember>
+            <enumMember name="ALERT_LOW">
+                <description>Indicates the lowest alert severity.</description>
+                <value>4</value>
+            </enumMember>
+        </enum>
+        <enum name="CPSide">
+            <description>Enumeration of CPsides.</description>
+            <enumMember name="EX">
+                <description>Executing side.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="SB">
+                <description>Separated standby side.</description>
+                <value>1</value>
+            </enumMember>
+        </enum>
+        <enum name="SessionType">
+            <description>List of session types.</description>
+            <enumMember name="UNDEFINED">
+                <description>Undefined session type.</description>
+                <value>-1</value>
+            </enumMember>
+            <enumMember name="UNRESTRICTED">
+                <description>Unrestricted CP session.</description>
+                <value>2</value>
+            </enumMember>
+            <enumMember name="RESTRICTED">
+                <description>Restricted CP session.</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="CLUSTER">
+                <description>Cluster session</description>
+                <value>0</value>
+            </enumMember>
+        </enum>
+        <enum name="PrintoutClass">
+            <description>This enumuration defines the alarm severity.</description>
+            <enumMember name="OTHER">
+                <description>other printouts.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="A1">
+                <description>highest alarm severity.</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="A2">
+                <description>medium alarm severity.</description>
+                <value>2</value>
+            </enumMember>
+            <enumMember name="A3">
+                <description>lowest alarm severity.</description>
+                <value>3</value>
+            </enumMember>
+            <enumMember name="O1">
+                <description>the highest alert severity.</description>
+                <value>4</value>
+            </enumMember>
+            <enumMember name="O2">
+                <description>lowest alert severity.</description>
+                <value>5</value>
+            </enumMember>
+        </enum>
+        <enum name="DeviceState">
+            <description>State of a device.</description>
+            <enumMember name="BUSY">
+                <description>Device Busy.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="FAULTY">
+                <description>Device Faulty.</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="IDLE">
+                <description>Device Idle</description>
+                <value>2</value>
+            </enumMember>
+            <enumMember name="READ">
+                <description>Device Read</description>
+                <value>3</value>
+            </enumMember>
+            <enumMember name="UNDEFINED">
+                <description>Device Undefined</description>
+                <value>4</value>
+            </enumMember>
+            <enumMember name="WRITE">
+                <description>Device Write</description>
+                <value>5</value>
+            </enumMember>
+        </enum>
+        <enum name="PrintoutFormat">
+            <description>Defines the additional information to be added to a printout.
+
+Following information are added, depending on printout type, in textual (TXT) or eXtensible Markup Language (XML) format:
+
+alcat - Alarm category. Possible values are: 0-15.
+alcatstr - Textual description of alarm category.
+alcls - Alarm class. Possible values are: 0-4.
+alclsstr - Textual description of alarm class. Possible values are: A1, A2, A3, O1, O2.
+allevel - Alarm level. Possible values are: BLADE, CLUSTER. It is added only in a Multi-CP System.
+alno - Internal unique alarm number.
+alseqno - Alarm event sequence number.
+altype - Alarm type. Possible values are: new, clr, inc, dec, rep.
+alvisno - Visual alarm number shown in alarm.
+cmdid - Identifier of the command which initiated the printout.
+cpname - The name of CP which generates the printout. It is added only on a Multi-CP System.
+cpside - The side of the CP. Possible values are: ex, sb.
+cpstate - The state of the CP.
+datetime - It specifies the date and time when the printout is generated. Expressed as YYYY-MM-DDThh:mm:ss where YYYY specifies the year, MM specifies the month, DD specifies the day, T indicates the start of the time section, hh specifies the hour, mm specifies the minute, ss specifies the second.
+device - Identity of device which generated the printout.
+exchange - Exchange identity. It is added only on a Multi-CP System in case of textual format.
+networkid - APG name. It is added only on a Multi-CP System.
+prca - Printout category.
+prseqno - Printout sequence number.
+sessid - Session identifier.
+slogan - Printout slogan.
+type - Type of printout. Possible values are: result, restart, spontan, alarm.
+</description>
+            <enumMember name="NONE">
+                <description>No additional information.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="XML">
+                <description>The additional information are inserted in XML format.
+Such information are added as per below DTD schema.
+
+&lt;?xml version=â€�1.0â€�?&gt;&lt;DOCTYPES printouts [
+&lt;!ELEMENT printouts (printout*)&gt;
+&lt;!ELEMENT printout (alarm?,raw)&gt;
+&lt;!ATTLIST printout datetime CDATA #REQUIRED&gt;
+&lt;!ATTLIST printout type (result | restart | spontaneous | alarm) #REQUIRED&gt;
+&lt;!ATTLIST printout slogan CDATA #REQUIRED&gt;
+&lt;!ATTLIST printout exchange CDATA #REQUIRED&gt;
+&lt;!ATTLIST printout networkid CDATA #IMPLIED&gt;
+&lt;!ATTLIST printout cpname CDATA #IMPLIED&gt;
+&lt;!ATTLIST printout cpstate CDATA #REQUIRED&gt;
+&lt;!ATTLIST printout cpside (EX|SB) #REQUIRED&gt;
+&lt;!ATTLIST printout device CDATA #REQUIRED&gt;
+&lt;!ATTLIST printout sessid CDATA #IMPLIED&gt;
+&lt;!ATTLIST printout cmdid CDATA #IMPLIED&gt;
+&lt;!ATTLIST printout prca CDATA #IMPLIED&gt;
+&lt;!ELEMENT alarm EMPTY&gt;
+&lt;!ATTLIST alarm altype (new|clr|inc|dec|rep) #REQUIRED&gt;
+&lt;!ATTLIST alarm allevel CDATA #REQUIRED&gt;
+&lt;!ATTLIST alarm alno CDATA #REQUIRED&gt;
+&lt;!ATTLIST alarm alvisno CDATA #REQUIRED&gt;
+&lt;!ATTLIST alarm alseqno CDATA #REQUIRED&gt;
+&lt;!ATTLIST alarm prseqno CDATA #REQUIRED&gt;
+&lt;!ATTLIST alarm alcls (0|1|2|3|4) #REQUIRED&gt;
+&lt;!ATTLIST alarm alclsstr CDATA #REQUIRED&gt;
+&lt;!ATTLIST alarm alcat (0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15) #REQUIRED&gt;
+&lt;!ATTLIST alarm alcatstr CDATA #REQUIRED&gt;
+&lt;!ELEMENT raw ANY&gt;</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="TXT">
+                <description>The additional information are inserted in textual format.
+Such information are added depending on printout type as per below DTD schema.&#13;&#13;In case of alarm printouts:&#13;&#13;:type=&lt;type&gt;, [exchange=&lt;exchange&gt;,] [networkid=&lt;networkid&gt;,] [cpname=&lt;cpname&gt; ,] cpside=&lt;cpside&gt;, device=&lt;device&gt; , prca=&lt;prca&gt;, prseqno=&lt;prseqno&gt; , altype=&lt;altype&gt;, allevel=&lt;allevel&gt; , alcls=&lt;alcls&gt;, alcat=&lt;alcat&gt; , alseqno=&lt;alseqno&gt;, alno=&lt;alno&gt; , alvisno=&lt;alvisno&gt;[, sessid=&lt;sessid&gt; ] [, cmdid=&lt;cmdid&gt;];&#13;&#13;In case of spontaneous printouts:
+:type=&lt;type&gt;, [exchange=&lt;exchange&gt;,] [networkid=&lt;networkid&gt;,] [cpname=&lt;cpname&gt; ,] cpside=&lt;cpside&gt;, device=&lt;device&gt; , prca=&lt;prca&gt; [, sessid=&lt;sessid&gt; ] [, cmdid=&lt;cmdid&gt;];
+
+In case of result and restart printouts:
+:type=&lt;type&gt;, [exchange=&lt;exchange&gt;,] [networkid=&lt;networkid&gt;,] [cpname=&lt;cpname&gt; ,] cpside=&lt;cpside&gt;, device=&lt;device&gt; [, sessid=&lt;sessid&gt;] [, cmdid=&lt;cmdid&gt; ];</description>
+                <value>2</value>
+            </enumMember>
+        </enum>
+        <enum name="EoLChar">
+            <description>Enumeration of possible End of Line Characters.</description>
+            <enumMember name="LF">
+                <description>Line Feed.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="CR">
+                <description>Carriage Return.</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="CRLF">
+                <description>Carriage Return and Line Feed.</description>
+                <value>2</value>
+            </enumMember>
+            <enumMember name="LFCR">
+                <description>Line Feed and Carriage Return.</description>
+                <value>3</value>
+            </enumMember>
+            <enumMember name="NONE">
+                <description>No character.</description>
+                <value>4</value>
+            </enumMember>
+        </enum>
+        <enum name="SessionState">
+            <description>List of State of a MML session.</description>
+            <enumMember name="BUSY">
+                <description>An open session with an ongoing command.
+The client has sent a command and that command has not yet completed.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="LOCKED">
+                <description>A locked session in order to prevent configuration inconsistency.
+This state accepts only PTCOI,PTCOE and APLOC commands.
+This state is only valid in Multi-CP System.</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="CONNECTED">
+                <description>An open session with no ongoing command.
+This corresponds to MML client input mode.</description>
+                <value>2</value>
+            </enumMember>
+            <enumMember name="RELEASED">
+                <description>The session does not accept commands in this state.
+This corresponds to MML client output mode</description>
+                <value>3</value>
+            </enumMember>
+            <enumMember name="DISCONNECTED">
+                <description>No CP connection.</description>
+                <value>4</value>
+            </enumMember>
+            <enumMember name="UNDEFINED">
+                <description>A transient state that only exists until session parameters are determined.</description>
+                <value>5</value>
+            </enumMember>
+        </enum>
+        
+        
+        <derivedDataType name="SubfilDeleteAfterDays">
+            <description>Range 1 .. 31.</description>
+            <baseType>
+                <uint32>
+                    <range>
+                        <min>1</min>
+                        <max>31</max>
+                    </range>
+                    <ranges>
+                        <subrange>
+                            <min>1</min>
+                            <max>31</max>
+                        </subrange>
+                    </ranges>
+                </uint32>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="IpAddressType">
+            <description>Specifies the range for an IP address.</description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimVersion" value="2"/>
+                <extension name="originatingMimRelease" value="3"/>
+                <extension name="originatingMimName" value="AxeCommonLibrary"/>
+            </domainExtension>
+            <baseType>
+                <string>
+                    <lengthRange>
+                        <min>1</min>
+                        <max>253</max>
+                    </lengthRange>
+                    <stringLength>
+                        <subrange>
+                            <min>1</min>
+                            <max>253</max>
+                        </subrange>
+                    </stringLength>
+                    <validValues>(^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))|(^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:)))(%.+)?\s*$)|(^([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z0-9])(\.([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z0-9]))*$)</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="" format="posix_ere" name="Pattern Constraint"><![CDATA[(^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))|(^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:)))(%.+)?\s*$)|(^([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z0-9])(\.([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z0-9]))*$)]]></rule>
+            </validationRules>
+        </derivedDataType>
+        
+        
+        
+        
+        
+        
+        <derivedDataType name="TimeOutTime">
+            <description>Range 300..14400 seconds.</description>
+            <baseType>
+                <uint32>
+                    <range>
+                        <min>300</min>
+                        <max>14400</max>
+                    </range>
+                    <ranges>
+                        <subrange>
+                            <min>300</min>
+                            <max>14400</max>
+                        </subrange>
+                    </ranges>
+                </uint32>
+            </baseType>
+        </derivedDataType>
+        
+        <derivedDataType name="RemotePortTimeout">
+            <description>Range -1 .. 65535.</description>
+            <baseType>
+                <int32/>
+            </baseType>
+        </derivedDataType>
+        
+        <derivedDataType name="AdDevice">
+            <description>Range AD-0 .. AD-1023.</description>
+            <baseType>
+                <string>
+                    <lengthRange>
+                        <min>4</min>
+                        <max>7</max>
+                    </lengthRange>
+                    <stringLength>
+                        <subrange>
+                            <min>4</min>
+                            <max>7</max>
+                        </subrange>
+                    </stringLength>
+                    <validValues>^AD-([0-9]|[1-9][0-9]|[1-9][0-9][0-9]|10[0-1][0-9]|102[0-3])$</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="" format="posix_ere" name="Pattern Constraint"><![CDATA[^AD-([0-9]|[1-9][0-9]|[1-9][0-9][0-9]|10[0-1][0-9]|102[0-3])$]]></rule>
+            </validationRules>
+        </derivedDataType>
+        
+        
+        <derivedDataType name="ReRoutingTime">
+            <description>Range -1 .. 1400.</description>
+            <baseType>
+                <int32>
+                    <range>
+                        <min>-1</min>
+                        <max>1400</max>
+                    </range>
+                    <ranges>
+                        <subrange>
+                            <min>-1</min>
+                            <max>1400</max>
+                        </subrange>
+                    </ranges>
+                </int32>
+            </baseType>
+        </derivedDataType>
+        
+        
+        <derivedDataType name="LocalPort">
+            <description>Range 1024 .. 52200.</description>
+            <baseType>
+                <int32>
+                    <range>
+                        <min>1024</min>
+                        <max>52200</max>
+                    </range>
+                    <ranges>
+                        <subrange>
+                            <min>1024</min>
+                            <max>52200</max>
+                        </subrange>
+                    </ranges>
+                </int32>
+            </baseType>
+        </derivedDataType>
+        
+        <derivedDataType name="RemotePort">
+            <description>Remote port range.</description>
+            <baseType>
+                <int32>
+                    <range>
+                        <min>1024</min>
+                        <max>65535</max>
+                    </range>
+                    <ranges>
+                        <subrange>
+                            <min>1024</min>
+                            <max>65535</max>
+                        </subrange>
+                    </ranges>
+                </int32>
+            </baseType>
+        </derivedDataType>
+        <class name="AlphanumericDeviceM">
+            <description>Represents the root MOC for Alphanumeric Device Management function MOM. 
+It allows defining alphanumeric devices for performing configuration activities towards CP or receiving printouts from CP.
+The MmlSessions MOC represents all MML sessions that a user opened either via AP command mml or opening a connection to a specific TCP port. An opened MML session uses an automatic defined alphanumeric device.
+The PdsManager MOC represents all the alphanumeric device that a user defined to handle printouts coming from CP.</description>
+            <root/>
+            <attribute name="alphanumericDeviceMId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <attribute name="adhNextFreeAdDevice">
+                <description>Specifies the first available free device.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <derivedDataTypeRef name="AdDevice">
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            
+            
+            
+        </class>
+        <class name="MmlSession">
+            <description>Represents an opened MML session.
+All attributes are read-only.
+</description>
+            <attribute name="mmlSessionId">
+                <description>Holds the name used when identifying the MO.
+Specifies the AD device associated with the MML session.
+Range AD-0 .. AD-1023.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="AdDevice">
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="queuedPrintouts">
+                <description>Specifies the number of queued printouts.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <int32/>
+                </dataType>
+            </attribute>
+            <attribute name="state">
+                <description>Specifies the state of the MML session.
+</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <enumRef name="SessionState">
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="user">
+                <description>Specifies the user that initiated the MML session.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="cpScope">
+                <description>Specifies the CP identification the MML session is opened with.
+
+It can be one of the following value:
+- &lt;CpName&gt;EX | &lt;CpName&gt;SB
+- &lt;BcName&gt;
+- &lt;GroupName&gt;
+
+Where:
+
+CpName is the default name or the alias for the Dual-Sided CP which the MML session is opened with.
+The default name is the value component of the DualSidedCp MO representing it. The alias is the value of the cpAlias attribute of the DualSidedCp MO.
+EX indicates the Executive side of the Dual-Sided CP.
+SB indicates the Stand-by side of the Dual-Sided CP that is working separately from EX. 
+
+BcName is the default name or the alias for the Single-Sided CP which the MML session is opened with.
+The default name is the value component of the ClusterCp MO representing it. The alias is the value of the cpAlias attribute of the ClusterCp MO. It applies only in Multi-CP System.
+
+GroupName is the name of a CP group an MML session is opened with. It can be either OPGROUP or ALLBC. The attributes operativeGroup and allBcGroup in CpCluster MO contains the list of CPs belonging to the Operative Group or to all Single-Sided CPs, respectively. It applies only in Multi-CP System.
+</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="type">
+                <description>Specifies the type of  MML session.
+It is only valid in Multi-CP System configuration.
+In Single-CP System the value is "-" as UNDEFINED type.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <enumRef name="SessionType">
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </enumRef>
+                </dataType>
+                <decisionPoint>
+                    <decisionStatement decisionType="basic">if-feature NOT VIRTUALDB_HIDDEN</decisionStatement>
+                </decisionPoint>
+            </attribute>
+            <attribute name="properties">
+                <description>Specifies the available properties of the MML session opened with the CP.
+It can be one of the following values:
+- Receive spontaneous printouts
+- Copy printouts to the specified IO device.
+- Redirect printouts to the specified IO device.
+- Compare printouts.</description>
+                <readOnly/>
+                <dataType>
+                    <sequence>
+                        <string/>
+                        <minLength>0</minLength>
+                        <maxLength>15</maxLength>
+                        <nonUnique/>
+                    </sequence>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="PdsIpClient">
+            <description>Represents a PDS device of type "Client".
+It enables sending spontaneous printouts to a TCP/IP port of a remote server. The communication is not encrypted. The user must provide the listening application on the chosen port on the remote host (remoteport and remoteIpAdress).</description>
+            <action name="moveQueuedPrintouts">
+                <description>Moves all queued printouts to another AD device.
+
+The action can fails due to one of the following reasons: 
+- Device does not exist: The destination device doesn't exist.
+- Destination device is faulty: The destination device is faulty.
+- Empty printout queue: There are no queued printouts.
+- Operation not allowed for this device type: The action cannot be executed from a standby device.     
+- Operation not allowed: The action cannot move the printouts to the same device.
+- Unreasonable value: The destination device number is out of AD-0 .. AD-1023.
+- General Fault: An error was detected while the action was executing.
+</description>
+                <domainExtension domain="CoreMW">
+                    <extension name="admOpId" value="0"/>
+                </domainExtension>
+                <returnType>
+                    <void/>
+                </returnType>
+                <parameter name="destinationDevice">
+                    <description>The device that queued printouts shall be moved to.
+Range AD-0 .. AD-1023.</description>
+                    <in/>
+                    <dataType>
+                        <derivedDataTypeRef name="AdDevice">
+                            <mimName>AxeAlphanumericDevice</mimName>
+                        </derivedDataTypeRef>
+                    </dataType>
+                </parameter>
+            </action>
+            <attribute name="pdsIpClientId">
+                <description>Holds the name used when identifying the MO.
+Specifies the AD device associated with the PDS.
+Range AD-0 .. AD-1023.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="AdDevice">
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="cpSide">
+                <description>Specifies the CP side the printouts are fetched from.
+</description>
+                <noNotification/>
+                <dataType>
+                    <enumRef name="CPSide">
+                        <defaultValue>EX</defaultValue>
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="prcaValues">
+                <description>Specifies the printout category handled by the PDS.
+Typical PRCA values are:
+
+35 Processor supervision (heartbeat)
+36 Periodic alarm list printout
+37-46 Alarm categories 0-9
+51-56 Alarm categories 10-15
+
+Expressed as a series of numbers separated by comma signs (,). A range can be specified by using double full stops (..)
+or with a single dash (-).
+
+Printout categories can be set in the range 0 - 255. For example '2-4,7-157' </description>
+                <mandatory/>
+                <noNotification/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="endOfLineCharacter">
+                <description>Specifies the end of line characters that seperates each row in the printout.</description>
+                <noNotification/>
+                <dataType>
+                    <enumRef name="EoLChar">
+                        <defaultValue>CRLF</defaultValue>
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="endOfPrintoutMarker">
+                <description>Specifies the character that mark the end of the printout.
+
+Use one of the following values:
+
+"-1" = No printout separator is used.
+"x,y,z" = A maximum number of three values, separated by comma and in hexadecimal format, each consisting of two hexadecimal digits. For example "03,04".</description>
+                <noNotification/>
+                <dataType>
+                    <string>
+                        <defaultValue>4</defaultValue>
+                    </string>
+                </dataType>
+            </attribute>
+            <attribute name="printoutClasses">
+                <description>Specifies printout classes handled by the PDS.
+This attribute is not changeable once defined.</description>
+                <noNotification/>
+                <dataType>
+                    <sequence>
+                        <enumRef name="PrintoutClass">
+                            <mimName>AxeAlphanumericDevice</mimName>
+                        </enumRef>
+                        <minLength>0</minLength>
+                        <maxLength>5</maxLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="printoutFormat">
+                <description>Specifies the additional information format to be added to the printout. 
+This attribute is not changeable once defined.</description>
+                <noNotification/>
+                <restricted/>
+                <dataType>
+                    <enumRef name="PrintoutFormat">
+                        <defaultValue>NONE</defaultValue>
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="queuedPrintouts">
+                <description>Specifies the number of queued printouts.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <int32/>
+                </dataType>
+            </attribute>
+            <attribute name="remoteIpAddress">
+                <description>Specifies the IP address of the remote server to connect and send the printouts to.
+This attribute is not changeable once defined.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <dataType>
+                    <derivedDataTypeRef name="IpAddressType">
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="remotePort">
+                <description>Specifies the port number of the remote server to connect and send the printouts to.
+
+Range 1024 .. 65535
+
+This attribute is not changeable once defined.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <dataType>
+                    <derivedDataTypeRef name="RemotePort">
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="remotePortTimeout">
+                <description>Specifies the timeout value, in minutes, for a remote connection handling.
+
+Use one of the following values:
+-1 = The connection is open until the PDS is ended.
+0 = The connection to the remote server is established when the PDS program receives one or more printouts. After all received printouts have been transferred, the connection is closed.
+1 - 65535 = The connection is closed after specifed number of idle minutes have elapsed.
+
+This attribute is not changeable once defined.</description>
+                <noNotification/>
+                <restricted/>
+                <dataType>
+                    <derivedDataTypeRef name="RemotePortTimeout">
+                        <defaultValue>-1</defaultValue>
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="state">
+                <description>Specifies the state of the PDS session.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <enumRef name="DeviceState">
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="pdsStandByDevicereRoutingTime">
+                <description>Specifies the amount of minutes to wait for before re-routing to a stand-by AD device.
+If value is set to -1, re-routing is disabled.</description>
+                <noNotification/>
+                <dataType>
+                    <derivedDataTypeRef name="ReRoutingTime">
+                        <defaultValue>-1</defaultValue>
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="pdsStandByDevice">
+                <description>Specifies the PDS standby device.
+All queued printouts are redirected to this device if the AD device associated with the PDS becomes faulty.
+
+Range AD-0 .. AD-1023.
+
+This attribute is not changeable once defined.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="AdDevice">
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="PdsIpServer">
+            <description>Represents a PDS device of type "Server".
+It listens to a local TCP/IP port for sending the received spontaneous printouts.
+As long as the remote client keeps the connection opened, it receives generated printouts.</description>
+            <action name="moveQueuedPrintouts">
+                <description>Moves all queued printouts to another AD device.
+
+The action can fails due to one of the following reasons: 
+- Device does not exist: The destination device doesn't exist.
+- Destination device is faulty: The destination device is faulty.
+- Empty printout queue: There are no queued printouts.
+- Operation not allowed for this device type: The action cannot be executed from a standby device.     
+- Operation not allowed: The action cannot move the printouts to the same device.
+- Unreasonable value: The destination device number is out of AD-0 .. AD-1023.
+- General Fault: An error was detected while the action was executing.
+</description>
+                <domainExtension domain="CoreMW">
+                    <extension name="admOpId" value="0"/>
+                </domainExtension>
+                <returnType>
+                    <void/>
+                </returnType>
+                <parameter name="destinationDevice">
+                    <description>The device that queued printouts shall be moved to.
+Range AD-0 .. AD-1023.</description>
+                    <in/>
+                    <dataType>
+                        <derivedDataTypeRef name="AdDevice">
+                            <mimName>AxeAlphanumericDevice</mimName>
+                        </derivedDataTypeRef>
+                    </dataType>
+                </parameter>
+            </action>
+            <attribute name="pdsIpServerId">
+                <description>Holds the name used when identifying the MO.
+Specifies the AD device associated with the PDS.
+Range AD-0 .. AD-1023.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="AdDevice">
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="cpSide">
+                <description>Specifies the CP side the printouts are fetched from.</description>
+                <noNotification/>
+                <dataType>
+                    <enumRef name="CPSide">
+                        <defaultValue>EX</defaultValue>
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="prcaValues">
+                <description>Specifies the printout category handled by the PDS.
+Typical PRCA values are:
+
+35 Processor supervision (heartbeat)
+36 Periodic alarm list printout
+37-46 Alarm categories 0-9
+51-56 Alarm categories 10-15
+
+Expressed as a series of numbers separated by comma signs (,). A range can be specified by using double full stops (..)
+or with a single dash (-).
+
+Printout categories can be set in the range 0 - 255. For example '2-4,7-157' </description>
+                <mandatory/>
+                <noNotification/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="endOfLineCharacter">
+                <description>Specifies the end of line characters that seperates each row in the printout.</description>
+                <noNotification/>
+                <dataType>
+                    <enumRef name="EoLChar">
+                        <defaultValue>CRLF</defaultValue>
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="endOfPrintoutMarker">
+                <description>Specifies the character that mark the end of the printout.
+
+Use one of the following values:
+
+"-1" = No printout separator is used.
+"x,y,z" = A maximum number of three values, separated by comma and in hexadecimal format, each consisting of two hexadecimal digits. For example "03,04".</description>
+                <noNotification/>
+                <dataType>
+                    <string>
+                        <defaultValue>4</defaultValue>
+                    </string>
+                </dataType>
+            </attribute>
+            <attribute name="printoutClasses">
+                <description>Specifies printout classes handled by the PDS.</description>
+                <noNotification/>
+                <dataType>
+                    <sequence>
+                        <enumRef name="PrintoutClass">
+                            <mimName>AxeAlphanumericDevice</mimName>
+                        </enumRef>
+                        <minLength>0</minLength>
+                        <maxLength>5</maxLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="printoutFormat">
+                <description>Specifies the additional information format to be added to the printout. 
+This attribute is not changeable once defined.</description>
+                <noNotification/>
+                <restricted/>
+                <dataType>
+                    <enumRef name="PrintoutFormat">
+                        <defaultValue>NONE</defaultValue>
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="queuedPrintouts">
+                <description>Specifies the number of queued printouts.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <int32/>
+                </dataType>
+            </attribute>
+            <attribute name="state">
+                <description>Specifies the state of the PDS session.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <enumRef name="DeviceState">
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="localPort">
+                <description>Specifies the port number to be used by the IpServer when publishing itself on the network.
+Recommended ports to be used is in the range 50000 .. 50020.
+
+Range 1024 .. 52200
+
+This attribute is not changeable once defined.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <dataType>
+                    <derivedDataTypeRef name="LocalPort">
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="pdsStandByDevicereRoutingTime">
+                <description>Specifies the amount of minutes to wait for before re-routing to a stand-by AD device.
+If value is set to -1, re-routing is disabled.</description>
+                <noNotification/>
+                <dataType>
+                    <derivedDataTypeRef name="ReRoutingTime">
+                        <defaultValue>-1</defaultValue>
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="pdsStandByDevice">
+                <description>Specifies the PDS standby device.
+All queued printouts are redirected to this device if the AD device associated with the PDS becomes faulty.
+	
+Range AD-0 .. AD-1023.
+
+This attribute is not changeable once defined.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="AdDevice">
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="PdsSubFile">
+            <description>Represents a PDS device of type SubFile enabling spontaneous printouts to be stored on files. 
+The active log is written to file and a new active log is created. 
+The file is deleted after a period of time, which is set to 5 days by default.</description>
+            <action name="moveQueuedPrintouts">
+                <description>Moves all queued printouts to another AD device.
+
+The action can fails due to one of the following reasons: 
+- Device does not exist: The destination device doesn't exist.
+- Destination device is faulty: The destination device is faulty.
+- Empty printout queue: There are no queued printouts.
+- Operation not allowed for this device type: The action cannot be executed from a standby device.     
+- Operation not allowed: The action cannot move the printouts to the same device.
+- Unreasonable value: The destination device number is out of AD-0 .. AD-1023.
+- General Fault: An error was detected while the action was executing.
+</description>
+                <domainExtension domain="CoreMW">
+                    <extension name="admOpId" value="0"/>
+                </domainExtension>
+                <returnType>
+                    <void/>
+                </returnType>
+                <parameter name="destinationDevice">
+                    <description>The device that queued printouts shall be moved to.
+Range AD-0 .. AD-1023.</description>
+                    <in/>
+                    <dataType>
+                        <derivedDataTypeRef name="AdDevice">
+                            <mimName>AxeAlphanumericDevice</mimName>
+                        </derivedDataTypeRef>
+                    </dataType>
+                </parameter>
+            </action>
+            <attribute name="pdsStandByDevicereRoutingTime">
+                <description>Specifies the amount of minutes to wait for before re-routing to a stand-by AD device.
+If value is set to -1, re-routing is disabled.</description>
+                <noNotification/>
+                <dataType>
+                    <derivedDataTypeRef name="ReRoutingTime">
+                        <defaultValue>-1</defaultValue>
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="pdsSubFileId">
+                <description>Holds the name used when identifying the MO.
+Specifies the AD device associated with the PDS.
+Range AD-0 .. AD-1023.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="AdDevice">
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="cpSide">
+                <description>Specifies the CP side the printouts are fetched from.</description>
+                <noNotification/>
+                <dataType>
+                    <enumRef name="CPSide">
+                        <defaultValue>EX</defaultValue>
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="prcaValues">
+                <description>Specifies the printout category handled by the PDS.
+Typical PRCA values are:
+
+35 Processor supervision (heartbeat)
+36 Periodic alarm list printout
+37-46 Alarm categories 0-9
+51-56 Alarm categories 10-15
+
+Expressed as a series of numbers separated by comma signs (,). A range can be specified by using double full stops ( ..)
+or with a single dash (-).
+
+Printout categories can be set in the range 0 - 255. For example '2-4,7-157' </description>
+                <mandatory/>
+                <noNotification/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="printoutClasses">
+                <description>Specifies printout classes handled by the PDS.</description>
+                <noNotification/>
+                <dataType>
+                    <sequence>
+                        <enumRef name="PrintoutClass">
+                            <mimName>AxeAlphanumericDevice</mimName>
+                        </enumRef>
+                        <minLength>0</minLength>
+                        <maxLength>5</maxLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="printoutFormat">
+                <description>Specifies the additional information format to be added to the printout. 
+This attribute is not changeable once defined.</description>
+                <noNotification/>
+                <restricted/>
+                <dataType>
+                    <enumRef name="PrintoutFormat">
+                        <defaultValue>NONE</defaultValue>
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="queuedPrintouts">
+                <description>Specifies the number of queued printouts.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <int32/>
+                </dataType>
+            </attribute>
+            <attribute name="state">
+                <description>Specifies the state of the PDS session.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <enumRef name="DeviceState">
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="time">
+                <description>Specifies when PDS SubFile switches to a new log file.
+It is expressed as an absolute time [day[,...]:]hour[,...]:minute[,...].
+For example: Mon,Tue,Wed,Thu,Fri:00,12:00.
+
+This attribute is not changeable once defined.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="transferQueue">
+                <description>Specifies the identifier of a TQ.
+
+This attribute is not changeable once defined.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="pdsStandByDevice">
+                <description>Specifies the PDS standby device.
+All queued printouts are redirected to this device if the AD device associated with the PDS becomes faulty.
+
+Range AD-0 .. AD-1023.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="AdDevice">
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="transferQueueDn">
+                <description>Specifies the DN of the TQ associated to PdsSubFile MO.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <moRef name="ManagedObject"/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="PdsStandByDevice">
+            <description>Represents a PDS standby device used to automatically route the printouts from faulty PDS devices.
+</description>
+            <action name="moveQueuedPrintouts">
+                <description>Moves all queued printouts to another AD device.
+
+The action can fails due to one of the following reasons: 
+- Device does not exist: The destination device doesn't exist.
+- Destination device is faulty: The destination device is faulty.
+- Empty printout queue: There are no queued printouts.
+- Operation not allowed for this device type: The action cannot be executed from a standby device.     
+- Operation not allowed: The action cannot move the printouts to the same device.
+- Unreasonable value: The destination device number is out of AD-0 .. AD-1023.
+- General Fault: An error was detected while the action was executing.
+</description>
+                <domainExtension domain="CoreMW">
+                    <extension name="admOpId" value="0"/>
+                </domainExtension>
+                <returnType>
+                    <void/>
+                </returnType>
+                <parameter name="destinationDevice">
+                    <description>The device that queued printouts shall be moved to.
+Range AD-0 .. AD-1023.</description>
+                    <in/>
+                    <dataType>
+                        <derivedDataTypeRef name="AdDevice">
+                            <mimName>AxeAlphanumericDevice</mimName>
+                        </derivedDataTypeRef>
+                    </dataType>
+                </parameter>
+            </action>
+            <attribute name="pdsStandByDeviceId">
+                <description>Holds the name used when identifying the MO.
+Specifies the AD device associated with the PDS.
+Range AD-0 .. AD-1023.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="AdDevice">
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="printoutFormat">
+                <description>Specifies the additional information format to be added to the printout. 
+This attribute is not changeable once defined.
+</description>
+                <noNotification/>
+                <restricted/>
+                <dataType>
+                    <enumRef name="PrintoutFormat">
+                        <defaultValue>NONE</defaultValue>
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="queuedPrintouts">
+                <description>Specifies the number of queued printouts.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <int32/>
+                </dataType>
+            </attribute>
+            <attribute name="state">
+                <description>Specifies the state of the PDS session.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <enumRef name="DeviceState">
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="time">
+                <description>Specifies the time when a PDS SubFile switches to a new log file.
+It is expressed as an absolute time [day[,...]:]hour[,...]:minute[,...].
+For example: Mon,Tue,Wed,Thu,Fri:00,12:00.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="transferQueue">
+                <description>Specifies the identifier of TQ defined in PDS function.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="transferQueueDn">
+                <description>Specifies the reference to the PDS Transfer Queue Managed Object.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <moRef name="ManagedObject"/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="MmlSessions">
+            <description>Represents all opened MML sessions.</description>
+            <action name="removeClusterSessionLocks">
+                <description>Removes active CSL(s) in all established Cluster Sessions.
+All sessions in state LOCKED become RELEASED.
+It is only valid in Multi-CP System when the Cluster Operation Mode is set to EXPERT and the user belongs to role SystemAdministrator.
+The Cluster Operation Mode is defined via the attribute clusterOpMode in MOC CpCluster. 
+
+The action can fails due to one of the following reasons: 
+- Cluster Session Lock not held : The CSL is actually not in place.
+- Illegal command in this system configuration : The action is not allowed in Single-CP System.
+- General Fault : An error was detected while the action was executing.
+</description>
+                <domainExtension domain="CoreMW">
+                    <extension name="admOpId" value="1"/>
+                </domainExtension>
+                <returnType>
+                    <void/>
+                </returnType>
+                <decisionPoint>
+                    <decisionStatement decisionType="basic">if-feature NOT VIRTUALDB_HIDDEN</decisionStatement>
+                </decisionPoint>
+            </action>
+            <attribute name="mmlLoggOffTimeout">
+                <description>Specifies the time after which an opened MML session is automatically closed.
+Range 300..14400 seconds.</description>
+                <noNotification/>
+                <dataType>
+                    <derivedDataTypeRef name="TimeOutTime">
+                        <defaultValue>1800</defaultValue>
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="mmlReleaseTimeout">
+                <description>Specifies the time after which an opened MML session is automatically switched to output mode.
+
+When this happens the string "TIME OUT" is shown into MML session.
+Range 300..14400 seconds.</description>
+                <noNotification/>
+                <dataType>
+                    <derivedDataTypeRef name="TimeOutTime">
+                        <defaultValue>300</defaultValue>
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="mmlSessionsId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="PdsManager">
+            <description>Represents all defined PDS devices.</description>
+            <attribute name="pdsSubfileDeleteAfterDays">
+                <description>Specifies numbers of days subfiles are to be deleted if they are not retrieved by the remote host.
+Subfiles which are not retrieved within this period of time are deleted without further notification. This parameter is expressed in number of days.
+Range 1 .. 31</description>
+                <noNotification/>
+                <dataType>
+                    <derivedDataTypeRef name="SubfilDeleteAfterDays">
+                        <defaultValue>5</defaultValue>
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="pdsManagerId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <relationship name="MmlSessions_to_MmlSession">
+            <containment>
+                <parent>
+                    <hasClass name="MmlSessions">
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="MmlSession">
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+                <noNotification/>
+            </containment>
+        </relationship>
+        <relationship name="AlphaNumericDeviceM_to_MmlSessions">
+            <containment>
+                <parent>
+                    <hasClass name="AlphanumericDeviceM">
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="MmlSessions">
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+                <noNotification/>
+            </containment>
+        </relationship>
+        <relationship name="AlphanumericDeviceM_to_PdsManager">
+            <containment>
+                <parent>
+                    <hasClass name="AlphanumericDeviceM">
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="PdsManager">
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+                <noNotification/>
+            </containment>
+        </relationship>
+        <relationship name="PdsManager_to_PdsIpServer">
+            <containment>
+                <parent>
+                    <hasClass name="PdsManager">
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="PdsIpServer">
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+                <noNotification/>
+            </containment>
+        </relationship>
+        <relationship name="PdsManager_to_PdsIpClient">
+            <containment>
+                <parent>
+                    <hasClass name="PdsManager">
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="PdsIpClient">
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+                <noNotification/>
+            </containment>
+        </relationship>
+        <relationship name="PdsManager_to_PdsSubFile">
+            <containment>
+                <parent>
+                    <hasClass name="PdsManager">
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="PdsSubFile">
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+                <noNotification/>
+            </containment>
+        </relationship>
+        <relationship name="PdsManager_to_PdsStandByDevice">
+            <containment>
+                <parent>
+                    <hasClass name="PdsManager">
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="PdsStandByDevice">
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+                <noNotification/>
+            </containment>
+        </relationship>
+    </mim>
+    <interMim>
+        <relationship name="SystemHandling_to_AlphanumericDeviceM">
+            <domainExtension domain="CoreMW">
+                <extension name="splitImmDn" value="true"/>
+            </domainExtension>
+            <containment>
+                <parent>
+                    <hasClass name="SystemHandling">
+                        <mimName>AxeFunctions</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="AlphanumericDeviceM">
+                        <mimName>AxeAlphanumericDevice</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+                <noNotification/>
+            </containment>
+        </relationship>
+    </interMim>
+</models>

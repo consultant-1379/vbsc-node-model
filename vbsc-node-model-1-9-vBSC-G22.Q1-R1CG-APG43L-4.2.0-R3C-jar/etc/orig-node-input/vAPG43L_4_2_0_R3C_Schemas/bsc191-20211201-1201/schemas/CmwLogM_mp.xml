@@ -1,0 +1,831 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Copyright (c) 2020 Ericsson AB.
+	All rights reserved
+
+	DX ECIM Tool-chain generated this file on Oct 8, 2020 5:53:41 PM using:
+	* com.ericsson.ecim.m2m 3.13.0.202006261811
+	* com.ericsson.ecim.dsl 3.13.0.202006261811
+	* com.ericsson.ecim.edm 3.13.0.202006261811
+--><!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+    <dtdVersion>K</dtdVersion>
+    <momMetaData>
+        <momTitle>Log management model.</momTitle>
+        <momSubTitle/>
+        <momIdentity>
+            <docNum/>
+            <docLang>English</docLang>
+            <docRev>0</docRev>
+            <docDate>2020-10-05</docDate>
+        </momIdentity>
+        <createdBy>
+            <signature>xnikvap</signature>
+        </createdBy>
+        <approvedBy>
+            <signature>xkathof</signature>
+        </approvedBy>
+    </momMetaData>
+    <mim author="xnikvap" contact="xnikvap" correction="0" date="2020-10-05" docNo="" name="CmwLogM" namespace="urn:com:ericsson:ecim:CmwLogM" namespacePrefix="cmwlogm" organization="Ericsson AB" release="1" revision="2" variant="Variant_CBA" version="2">
+        <description>This is the model for the log management fragment.</description>
+        <domainExtension domain="ECIM">
+            <extension name="ecimMomName" value="ECIM_LogM"/>
+            <extension name="ecimMomVersion" value="2"/>
+            <extension name="ecimMomRelease" value="1"/>
+            <extension name="ecimMomCorrection" value="0"/>
+            <extension name="immNamespace" value="MOM_NAME"/>
+        </domainExtension>
+        <implements correction="0" name="ECIM_LogM" release="1" version="2"/>
+        <modelFeatures modelType="Derived">
+            <modelFeature featureType="basic" name="OnDemandLog"/>
+            <modelFeature featureType="basic" name="AutoLogExportStreaming"/>
+        </modelFeatures>
+        <struct name="AsyncActionProgress">
+            <description>Records the progress of an asynchronous action.</description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimVersion" value="2"/>
+                <extension name="originatingMimRelease" value="7"/>
+                <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+            </domainExtension>
+            <structMember name="actionId">
+                <description>Uniquely identifies the invocation of an action.
+Identifies the invocation of an action when the managed object allows invocation of more than one action at a time.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isKey" value="true"/>
+                </domainExtension>
+                <derivedDataTypeRef name="ActionInvocationResult">
+                    <mimName>CmwLogM</mimName>
+                </derivedDataTypeRef>
+            </structMember>
+            <structMember name="actionName">
+                <description>Name of the invoked asynchronous action.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <string/>
+            </structMember>
+            <structMember name="additionalInfo">
+                <description>Used for logging significant messages during execution of an action.</description>
+                <sequence>
+                    <string/>
+                    <minLength>0</minLength>
+                </sequence>
+            </structMember>
+            <structMember name="progressInfo">
+                <description>Textual information that describes the actual state of the action execution.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <string/>
+            </structMember>
+            <structMember name="progressPercentage">
+                <description>Progress of the action.
+The range is between 0 and 100.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <uint8/>
+            </structMember>
+            <structMember name="result">
+                <description>Result state of a completed action.
+This field has value NOT_AVAILABLE if the action is not finished.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <enumRef name="ActionResultType">
+                    <mimName>CmwLogM</mimName>
+                </enumRef>
+            </structMember>
+            <structMember name="resultInfo">
+                <description>Textual description of the outcome/result of the action containing useful information for the NMS.
+If the action failed, it can contain an error message.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <string/>
+            </structMember>
+            <structMember name="state">
+                <description>Current state of the action.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <enumRef name="ActionStateType">
+                    <mimName>CmwLogM</mimName>
+                </enumRef>
+            </structMember>
+            <structMember name="timeActionCompleted">
+                <description>Date and time when the action was completed (successfully or unsuccessfully).</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <derivedDataTypeRef name="DateTime">
+                    <mimName>CmwLogM</mimName>
+                </derivedDataTypeRef>
+            </structMember>
+            <structMember name="timeActionStarted">
+                <description>Date and time when the current action was started.</description>
+                <derivedDataTypeRef name="DateTime">
+                    <mimName>CmwLogM</mimName>
+                </derivedDataTypeRef>
+            </structMember>
+            <structMember name="timeOfLastStatusUpdate">
+                <description>Date and time when the struct member state was last updated.</description>
+                <derivedDataTypeRef name="DateTime">
+                    <mimName>CmwLogM</mimName>
+                </derivedDataTypeRef>
+            </structMember>
+        </struct>
+        <enum name="ActionResultType">
+            <description>Lists the different results of an action.</description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimVersion" value="2"/>
+                <extension name="originatingMimRelease" value="7"/>
+                <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+            </domainExtension>
+            <enumMember name="SUCCESS">
+                <description>The asynchronous action ended with success.</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="FAILURE">
+                <description>The asynchronous action ended with failure.</description>
+                <value>2</value>
+            </enumMember>
+            <enumMember name="NOT_AVAILABLE">
+                <description>No result is available yet.</description>
+                <value>3</value>
+            </enumMember>
+        </enum>
+        <enum name="ActionStateType">
+            <description>Lists the action states.</description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimVersion" value="2"/>
+                <extension name="originatingMimRelease" value="7"/>
+                <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+            </domainExtension>
+            <enumMember name="CANCELLING">
+                <description>Cancellation is in progress.</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="RUNNING">
+                <description>The execution of the action is currently in progress.</description>
+                <value>2</value>
+            </enumMember>
+            <enumMember name="FINISHED">
+                <description>The action is finished.</description>
+                <value>3</value>
+            </enumMember>
+            <enumMember name="CANCELLED">
+                <description>The action has been cancelled and cancellation has been done.</description>
+                <value>4</value>
+            </enumMember>
+        </enum>
+        <enum name="AvailStatus">
+            <description>The availability status is used to qualify the operational state.
+It indicates why the operational state has changed its value.</description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimVersion" value="2"/>
+                <extension name="originatingMimRelease" value="7"/>
+                <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+            </domainExtension>
+            <enumMember name="IN_TEST">
+                <description>The resource is undergoing a test procedure.
+If the administrative state is locked or  shutting down, normal users are prevented from using the resource.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="FAILED">
+                <description>The resource has an internal fault that prevents it from operating.</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="POWER_OFF">
+                <description>The resource requires power to be applied and is not powered on.</description>
+                <value>2</value>
+            </enumMember>
+            <enumMember name="OFF_LINE">
+                <description>The resource requires a routine operation to be performed.
+This routine operation is to place the resource online and make it available for use. The operation may be manual or automatic, or both.
+The operational state is disabled.</description>
+                <value>3</value>
+            </enumMember>
+            <enumMember name="OFF_DUTY">
+                <description>The resource has been made inactive by an internal control process.</description>
+                <value>4</value>
+            </enumMember>
+            <enumMember name="DEPENDENCY">
+                <description>The resource cannot operate because some other resource on which it depends is unavailable.</description>
+                <value>5</value>
+            </enumMember>
+            <enumMember name="DEGRADED">
+                <description>The service available from the resource is degraded in some respect.</description>
+                <value>6</value>
+            </enumMember>
+            <enumMember name="NOT_INSTALLED">
+                <description>The resource represented by the managed object is not present, or is incomplete.</description>
+                <value>7</value>
+            </enumMember>
+            <enumMember name="LOG_FULL">
+                <description>Indicates a log full condition.
+The semantics are defined in CCITT Rec. X.735 | ISO/IEC 10164-6.</description>
+                <value>8</value>
+            </enumMember>
+            <enumMember name="DEPENDENCY_LOCKED">
+                <description>The administrative state of a resource that this resource depends on is locked.
+Alternatively, the availability status of the other resource is dependency locked.</description>
+                <value>9</value>
+            </enumMember>
+            <enumMember name="DEPENDENCY_FAILED">
+                <description>The availability status of a resource that this resource depends on is failed or dependency failed.</description>
+                <value>10</value>
+            </enumMember>
+            <enumMember name="DEPENDENCY_SHUTTINGDOWN">
+                <description>The administrative state of a resource that this resource depends on is shutting down.
+Alternatively, the availability status of the other resource is dependency shutting down.</description>
+                <value>11</value>
+            </enumMember>
+            <enumMember name="DEPENDENCY_RECOVERY">
+                <description>Resource that this resource depends on is undergoing a recovery procedure.</description>
+                <value>12</value>
+            </enumMember>
+            <enumMember name="DEPENDENCY_HOLDING">
+                <description>Resource cannot operate because some other resource on which it depends is currently unavailable.&#13;
+The situation is expected to be resolved. Actions to facilitate dependency resolution may be ongoing.</description>
+                <value>13</value>
+            </enumMember>
+        </enum>
+        <enum name="BasicAdmState">
+            <description>Basic administrative states for a resource.</description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimVersion" value="2"/>
+                <extension name="originatingMimRelease" value="7"/>
+                <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+            </domainExtension>
+            <enumMember name="LOCKED">
+                <description> The resource is administratively prohibited from performing services for its users.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="UNLOCKED">
+                <description>The resource is administratively permitted to perform services for its users.
+This is independent of its inherent operability.</description>
+                <value>1</value>
+            </enumMember>
+        </enum>
+        <enum name="LogFacilityNumber">
+            <description>Facility number as described in RFC 5424 The Syslog Protocol.
+To be used for log streaming to provide extra information about the log category.
+</description>
+            <enumMember name="KERNEL_MESSAGES">
+                <description>kernel messages.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="USER_LEVEL_MESSAGES">
+                <description>user-level messages.</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="MAIL_SYSTEM">
+                <description>mail system.</description>
+                <value>2</value>
+            </enumMember>
+            <enumMember name="SYSTEM_DAEMONS">
+                <description>system daemons.</description>
+                <value>3</value>
+            </enumMember>
+            <enumMember name="SECURITY_AUTH_MESSAGES">
+                <description>security/authorization messages.</description>
+                <value>4</value>
+            </enumMember>
+            <enumMember name="INTERNAL_SYSLOG_MESSAGES">
+                <description>messages generated internally by syslogd.</description>
+                <value>5</value>
+            </enumMember>
+            <enumMember name="LINE_PRINTER_SUBSYSTEM">
+                <description>line printer subsystem.</description>
+                <value>6</value>
+            </enumMember>
+            <enumMember name="NETWORK_NEWS_SUBSYSTEM">
+                <description>network news subsystem.</description>
+                <value>7</value>
+            </enumMember>
+            <enumMember name="UUCP_SUBSYSTEM">
+                <description>UUCP subsystem.</description>
+                <value>8</value>
+            </enumMember>
+            <enumMember name="CLOCK_DAEMON">
+                <description>clock daemon.</description>
+                <value>9</value>
+            </enumMember>
+            <enumMember name="SECURITY_AUTH_MESSAGES_2">
+                <description>security/authorization messages.</description>
+                <value>10</value>
+            </enumMember>
+            <enumMember name="FTP_DAEMON">
+                <description>FTP daemon.</description>
+                <value>11</value>
+            </enumMember>
+            <enumMember name="NTP_SUBSYSTEM">
+                <description>NTP subsystem.</description>
+                <value>12</value>
+            </enumMember>
+            <enumMember name="LOG_AUDIT">
+                <description>log audit.</description>
+                <value>13</value>
+            </enumMember>
+            <enumMember name="LOG_ALERT">
+                <description>log alert.</description>
+                <value>14</value>
+            </enumMember>
+            <enumMember name="CLOCK_DAEMON_2">
+                <description>clock daemon (note 2).</description>
+                <value>15</value>
+            </enumMember>
+            <enumMember name="LOCAL_USE_0">
+                <description>local use 0  (local0).</description>
+                <value>16</value>
+            </enumMember>
+            <enumMember name="LOCAL_USE_1">
+                <description>local use 1  (local1).</description>
+                <value>17</value>
+            </enumMember>
+            <enumMember name="LOCAL_USE_2">
+                <description>local use 2  (local2).</description>
+                <value>18</value>
+            </enumMember>
+            <enumMember name="LOCAL_USE_3">
+                <description>local use 3  (local3).</description>
+                <value>19</value>
+            </enumMember>
+            <enumMember name="LOCAL_USE_4">
+                <description>local use 4  (local4).</description>
+                <value>20</value>
+            </enumMember>
+            <enumMember name="LOCAL_USE_5">
+                <description>local use 5  (local5).</description>
+                <value>21</value>
+            </enumMember>
+            <enumMember name="LOCAL_USE_6">
+                <description>local use 6  (local6).</description>
+                <value>22</value>
+            </enumMember>
+            <enumMember name="LOCAL_USE_7">
+                <description>local use 7  (local7).</description>
+                <value>23</value>
+            </enumMember>
+        </enum>
+        <enum name="LogSeverity">
+            <description>Each log entry is assigned a severity.&#13;
+&#13;
+This can be used to put a filter on the log so that only events of a certain severity get logged.</description>
+            <enumMember name="EMERGENCY">
+                <description>Add this to the severity filter to capture EMERGENCY events to the log.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="ALERT">
+                <description>Add this to the severity filter to capture ALERT type events in the log.</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="CRITICAL">
+                <description>Add this to the severity filter to capture CRITICAL events to the log.</description>
+                <value>2</value>
+            </enumMember>
+            <enumMember name="ERROR">
+                <description>Add this to the severity filter to capture ERROR events to the log.</description>
+                <value>3</value>
+            </enumMember>
+            <enumMember name="WARNING">
+                <description>add this to the severity filter to capture WARNING events to the log.</description>
+                <value>4</value>
+            </enumMember>
+            <enumMember name="NOTICE">
+                <description>Add this to the severity filter to capture NOTICE events to the log.</description>
+                <value>5</value>
+            </enumMember>
+            <enumMember name="INFO">
+                <description>Add this to the severity filter to capture INFO events to the log.</description>
+                <value>6</value>
+            </enumMember>
+            <enumMember name="DEBUG">
+                <description>Add this to the severity filter to capture DEBUG events to the log.</description>
+                <value>7</value>
+            </enumMember>
+        </enum>
+        <enum name="OperState">
+            <description>Operational states of a resource.</description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimVersion" value="2"/>
+                <extension name="originatingMimRelease" value="7"/>
+                <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+            </domainExtension>
+            <enumMember name="DISABLED">
+                <description>The resource is  totally inoperable.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="ENABLED">
+                <description>The resource is partially or fully operable.</description>
+                <value>1</value>
+            </enumMember>
+        </enum>
+        <derivedDataType name="ActionInvocationResult">
+            <description>This is the datatype for the Asychronous Action Id. </description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimVersion" value="2"/>
+                <extension name="originatingMimRelease" value="7"/>
+                <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+            </domainExtension>
+            <baseType>
+                <uint16/>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="DateTime">
+            <description>Represents the international standard for the representation of date and time ( ISO 8601).
+The string format is "YYYY-MM-DDThh:mm:ss.SSSZ" (excluding quotes).
+A DateTime string consists of a date part, a time part, and an optional time zone information part. The time zone part may be a "Z", representing the Coordinated Universal Time (UTC) time zone (equals to +00) or a time zone offset (for example, +02:00).
+If the time zone part is not present, the DateTime value represents local time.
+
+The following pattern describes the DateTime format:
+YYYY-MM-DDThh:mm:ss[.S+][Z|+-hh:mm]
+Where:
+YYYY = Four digit year
+MM = Two digit month (01=January, and so on)
+DD = Two digit day of month (01 through 31)
+T = Time designator (shows start of time component)
+hh = Two digits of hour (00 through 23, AM/PM not allowed)
+mm = Two digits of minute (00 through 59)
+ss = Two digits of second (00 through 59, leap second not allowed)
+S+ = One or more digits of decimal fraction of a second
+Z = Time is UTC
++- = + or - character indicating positive or negative offset to UTC
+
+DateTime values are compliant with ISO 8601 "Representation of dates and times" but are restricted according to RFC 3339 "Date and Time on the Internet: Timestamps". The DateTime format is further restricted as follows:
+- T and Z designators are upper case.
+- . (dot) is used to indicate start of fractions of seconds (ISO 8601 also allows comma)</description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimVersion" value="2"/>
+                <extension name="originatingMimRelease" value="7"/>
+                <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+            </domainExtension>
+            <baseType>
+                <string>
+                    <lengthRange>
+                        <min>19</min>
+                        <max>31</max>
+                    </lengthRange>
+                    <stringLength>
+                        <subrange>
+                            <min>19</min>
+                            <max>31</max>
+                        </subrange>
+                    </stringLength>
+                    <validValues>^([0-9]{4})-(1[0-2]|0[1-9])-(0[1-9]|[1|2][0-9]|3[0-1])T(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])([\.][0-9]+){0,1}(([\+|\-](0[0-9]|1[0-9]|2[0-4])(:[0-5][0-9])?)|(Z)?)$</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="Must be of the format YYYY-MM-DDTHH:MM:SS[.S+][Z|+-hh:mm] where T separates the time and the date parts and Z indicates the time zone in relation to UTC. Example 2000-08-01T17:17:34.1+01:00." format="posix_ere" name="Pattern Constraint"><![CDATA[^([0-9]{4})-(1[0-2]|0[1-9])-(0[1-9]|[1|2][0-9]|3[0-1])T(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])([\.][0-9]+){0,1}(([\+|\-](0[0-9]|1[0-9]|2[0-4])(:[0-5][0-9])?)|(Z)?)$]]></rule>
+            </validationRules>
+        </derivedDataType>
+        <derivedDataType name="Log_export_password">
+            <baseType>
+                <string>
+                    <isPassphrase/>
+                </string>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="RetentionDays">
+            <description>Unsigned integer to be used for the logRetentionDays attribute.
+The aim is to eliminate the value of 0 which does not have meaning for log retention days.</description>
+            <baseType>
+                <uint32>
+                    <range>
+                        <min>1</min>
+                        <max>65535</max>
+                    </range>
+                    <ranges>
+                        <subrange>
+                            <min>1</min>
+                            <max>65535</max>
+                        </subrange>
+                    </ranges>
+                    <unit>days</unit>
+                </uint32>
+            </baseType>
+        </derivedDataType>
+        <class name="Log">
+            <description>Enables configuration of the Log general properties.&#13;
+The Log MO contains parameters for a specific log file/stream in the system.</description>
+            <systemCreated/>
+            <action name="export">
+                <description>Exports this log type to a given destination.&#13;
+This action will move all log entries into a single ASCII encoded file which is transfered to the destination given in the parameters of the action.</description>
+                <domainExtension domain="CoreMW">
+                    <extension name="admOpId" value="1"/>
+                </domainExtension>
+                <returnType>
+                    <derivedDataTypeRef name="ActionInvocationResult">
+                        <mimName>CmwLogM</mimName>
+                    </derivedDataTypeRef>
+                </returnType>
+                <parameter name="uri">
+                    <description>A uniform resource locator describing the file transfer for the Log stream file.&#13;
+(i.e. identifying protocol, server and destination directory)&#13;
+ e.g. sftp://myserver.mydomain.com/support/LogStreamA&#13;
+&#13;
+The file name is determined by the system</description>
+                    <in/>
+                    <dataType>
+                        <string/>
+                    </dataType>
+                </parameter>
+                <parameter name="password">
+                    <description>If credentials are required, the password is filled in here.&#13;
+If no credentials are required, this parameter is ignored.</description>
+                    <domainExtension domain="ECIM">
+                        <extension name="isNillable" value="true"/>
+                    </domainExtension>
+                    <isNillable/>
+                    <in/>
+                    <dataType>
+                        <derivedDataTypeRef name="Log_export_password">
+                            <mimName>CmwLogM</mimName>
+                        </derivedDataTypeRef>
+                    </dataType>
+                </parameter>
+            </action>
+            <action name="cancel">
+                <description>Action will cancel the current  action invoked on this MO.&#13;
+</description>
+                <domainExtension domain="CoreMW">
+                    <extension name="admOpId" value="2"/>
+                </domainExtension>
+                <returnType>
+                    <void/>
+                </returnType>
+            </action>
+            <attribute name="logFacilityNumber">
+                <description>The facility number used by this log stream as described in RFC 5424.
+Optional. Can be used as extra indication of the log category. For example, to identify a log stream as a security one.
+One of the values 4, 10 or 13 must be used for security log streams.
+If omitted then the implementation shall classify the log stream to belong to
+a default category.
+</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <enumRef name="LogFacilityNumber">
+                        <mimName>CmwLogM</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="logId">
+                <description>Holds the name used when identifying the MO. It has no effect on the transfer function.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="logRetentionDays">
+                <description>Number of days for log retention.
+If the retention housekeeping is enabled then any log file will be deleted
+from the local storage after this number of days has elapsed since the file creation.
+The minimum value is 1 day.
+</description>
+                <mandatory/>
+                <dataType>
+                    <derivedDataTypeRef name="RetentionDays">
+                        <mimName>CmwLogM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="logRetentionHousekeeping">
+                <description>Enable or disable the log retention housekeeping.
+The recommended default value is enabled (UNLOCKED).
+If enabled then the logRetentionDays must have a value.</description>
+                <mandatory/>
+                <dataType>
+                    <enumRef name="BasicAdmState">
+                        <mimName>CmwLogM</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="remoteLogServer">
+                <description>The remote log server this log stream is to be streamed.
+A reference to MO instance of the RemoteLogServer class.
+Optional. If omitted then the implementation shall classify the log stream to belong to
+a default log server.
+</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <moRef name="RemoteLogServer">
+                        <mimName>CmwLogM</mimName>
+                    </moRef>
+                </dataType>
+            </attribute>
+            <attribute name="reportProgress">
+                <description>Represents the progress and result of the ongoing action.</description>
+                <readOnly/>
+                <dataType>
+                    <sequence>
+                        <structRef name="AsyncActionProgress">
+                            <mimName>CmwLogM</mimName>
+                        </structRef>
+                        <minLength>0</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="severityFilter">
+                <description>This can be used to put a filter on the log so that only events of a certain severity get logged.&#13;
+&#13;
+If no value is set, all entries will be kept.&#13;
+</description>
+                <dataType>
+                    <sequence>
+                        <enumRef name="LogSeverity">
+                            <mimName>CmwLogM</mimName>
+                        </enumRef>
+                        <minLength>0</minLength>
+                        <maxLength>8</maxLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="LogM">
+            <description>Enables configuration of the LogM general properties.&#13;
+This is the root MO for the log management fragment.&#13;
+It contains various parameters concerning the log management service.</description>
+            <systemCreated/>
+            <root/>
+            <attribute name="logMId">
+                <description>This is the identity  for the LogM, it does not affect the file transfer and default value is 1.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="RemoteLogServer">
+            <description>Class used to configure remote server for streaming of logs.
+The same server can be used for a group of logs.
+The attributes are common for all logs of the group.</description>
+            <systemCreated/>
+            <attribute name="availStatus">
+                <description>Available status for this remote log server object.</description>
+                <readOnly/>
+                <dataType>
+                    <sequence>
+                        <enumRef name="AvailStatus">
+                            <mimName>CmwLogM</mimName>
+                        </enumRef>
+                        <minLength>0</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="nodeCredential">
+                <description>The nodeCredential for streaming to be used for all logs of this group.
+A reference to MO of type NodeCredential from the ECIM CertM fragment.
+</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <moRef name="ManagedObject"/>
+                </dataType>
+            </attribute>
+            <attribute name="operationalState">
+                <description>Operational state of this remote log server object.</description>
+                <readOnly/>
+                <dataType>
+                    <enumRef name="OperState">
+                        <mimName>CmwLogM</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="remoteLogServerId">
+                <description>The key attribute is the name of the remote server.
+Used to identify a group of log streams, e.g. security logs, regular logs, etc.
+</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string>
+                        <defaultValue/>
+                    </string>
+                </dataType>
+            </attribute>
+            <attribute name="trustCategory">
+                <description>The trustCategory for streaming to be used for all logs of this group.
+A reference to MO of type TrustCategory from the ECIM CertM fragment.
+If not provided streaming is disabled for all logs which belong to this group.
+</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <moRef name="ManagedObject"/>
+                </dataType>
+            </attribute>
+            <attribute name="uri">
+                <description>The URI for streaming to be used for all logs of one group.
+If not provided streaming is disabled for all logs which belong to this group.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <relationship name="LogM_to_Log">
+            <containment>
+                <parent>
+                    <hasClass name="LogM">
+                        <mimName>CmwLogM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="Log">
+                        <mimName>CmwLogM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="LogM_to_RemoteLogServer">
+            <containment>
+                <parent>
+                    <hasClass name="LogM">
+                        <mimName>CmwLogM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="RemoteLogServer">
+                        <mimName>CmwLogM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+    </mim>
+    <interMim>
+        <description>Relationship to the system function LogM class dedicated to logging management.&#13;
+ (log streams severity levels, on demand logs, logs exports, ...)</description>
+        <relationship name="SystemFunctions_to_LogM">
+            <description>Relationship to the system function LogM class dedicated to logging management.&#13;
+ (log streams severity levels, on demand logs, logs exports, ...)</description>
+            <domainExtension domain="CoreMW">
+                <extension name="splitImmDn" value="true"/>
+            </domainExtension>
+            <containment>
+                <parent>
+                    <hasClass name="SystemFunctions">
+                        <mimName>ComTop</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="LogM">
+                        <mimName>CmwLogM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+    </interMim>
+</models>

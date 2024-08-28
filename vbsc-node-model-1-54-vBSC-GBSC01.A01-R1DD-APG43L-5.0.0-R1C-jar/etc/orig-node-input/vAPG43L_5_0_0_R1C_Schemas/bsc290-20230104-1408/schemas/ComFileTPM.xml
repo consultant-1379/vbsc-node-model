@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Copyright (c) 2020 Ericsson AB.
+	All rights reserved
+
+	DX ECIM Tool-chain generated this file on Jul 20, 2020 6:50:53 AM using:
+	* com.ericsson.ecim.m2m 3.12.0.202001131148
+	* com.ericsson.ecim.dsl 3.12.0.202001131148
+	* com.ericsson.ecim.edm 3.12.0.202001131148
+--><!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+    <dtdVersion>K</dtdVersion>
+    <momMetaData>
+        <momTitle>title</momTitle>
+        <momSubTitle>sub title</momSubTitle>
+        <momIdentity>
+            <docNum>0</docNum>
+            <docLang>English</docLang>
+            <docRev>0</docRev>
+            <docDate>28/04/2017</docDate>
+        </momIdentity>
+    </momMetaData>
+    <mim author="ZMDSCHN" contact="" correction="1" date="2020-07-14" docNo="" name="ComFileTPM" namespace="urn:com:ericsson:ecim:ComFileTPM" namespacePrefix="comfiletpm" organization="EAB" release="0" revision="A" version="1">
+        <description>This fragment supports configuration management of the file transfer protocols.&#13;
+</description>
+        <domainExtension domain="ECIM">
+            <extension name="ecimMomName" value="ECIM_FileTPM"/>
+            <extension name="ecimMomVersion" value="2"/>
+            <extension name="ecimMomRelease" value="0"/>
+            <extension name="ecimMomCorrection" value="1"/>
+        </domainExtension>
+        <implements correction="1" name="ECIM_FileTPM" release="0" version="2"/>
+        <modelFeatures modelType="Template">
+            <modelFeature featureType="basic" name="FtpTlsServer"/>
+            <modelFeature featureType="basic" name="SftpServer"/>
+            <modelFeature featureType="basic" name="FtpTlsClient"/>
+            <modelFeature featureType="basic" name="SftpClient"/>
+        </modelFeatures>
+        <enum name="BasicAdmState">
+            <description>Basic administrative states for a resource.</description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimVersion" value="2"/>
+                <extension name="originatingMimRelease" value="7"/>
+                <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+            </domainExtension>
+            <enumMember name="LOCKED">
+                <description> The resource is administratively prohibited from performing services for its users.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="UNLOCKED">
+                <description>The resource is administratively permitted to perform services for its users.
+This is independent of its inherent operability.</description>
+                <value>1</value>
+            </enumMember>
+        </enum>
+        <derivedDataType name="ComFileTPM_FtpServer_idleTimer">
+            <baseType>
+                <uint16>
+                    <range>
+                        <min>1</min>
+                    </range>
+                    <ranges>
+                        <subrange>
+                            <min>1</min>
+                            <max>*</max>
+                        </subrange>
+                    </ranges>
+                    <unit>seconds</unit>
+                </uint16>
+            </baseType>
+        </derivedDataType>
+        <class name="FileTPM">
+            <description>The top class for server and client configuration of different protocols implementing file transfer.&#13;
+Lists the protocols supported by the ME by any file transfer client or server.</description>
+            <systemCreated/>
+            <root/>
+            <attribute name="fileTPMId">
+                <description>The value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="FtpTls">
+            <description>Represents the common configuration parameters of FTP over Transport Layer Security (TLS) clients on the ME.&#13;
+&#13;
+&#13;
+</description>
+            <systemCreated/>
+            <decisionPoint>
+                <decisionStatement decisionType="basic">if-feature FtpTlsClient</decisionStatement>
+            </decisionPoint>
+            <attribute name="ftpTlsId">
+                <description>The value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="nodeCredential">
+                <description>The credential used for FTP over TLS based file transfer. &#13;
+Specifies the DN of a NodeCredential MO in Certificate Management.&#13;
+</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <moRef name="ManagedObject"/>
+                </dataType>
+            </attribute>
+            <attribute name="trustCategory">
+                <description>The set of certificates trusted by the FTP over TLS based file transfer. &#13;
+Specifies the DN of a TrustCategory MO in Certificate Management.&#13;
+</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <moRef name="ManagedObject"/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="FtpTlsServer">
+            <description>Represents the FTP over Transport Layer Security (TLS) server of the ME.&#13;
+&#13;
+The server only accepts FTP sessions that are explicitly requesting a TLS layer by the "AUTH TLS" command.</description>
+            <systemCreated/>
+            <validationRules>
+                <rule exceptionText="" format="ECIM_Schematron_1.0" name="every $value in @nodeCredential and @trustCategory satisfies exists($value)"><![CDATA[<schema xmlns="http://purl.oclc.org/dsdl/schematron">
+        <pattern>
+                <rule>
+                        <assert test='(every $value in @nodeCredential satisfies exists($value))'>ERROR: the attribute value must be an existing NodeCredential MO.</assert>
+                        <assert test='(every $value in @trustCategory satisfies exists($value))'>ERROR: the attribute value must be an existing TrustCategory MO.</assert>
+                </rule>
+        </pattern>
+</schema>]]></rule>
+            </validationRules>
+            <dependenciesScript><![CDATA[<schema xmlns="http://purl.oclc.org/dsdl/schematron">
+        <pattern>
+                <rule>
+                        <assert test='(every $value in @nodeCredential satisfies exists($value))'>ERROR: the attribute value must be an existing NodeCredential MO.</assert>
+                        <assert test='(every $value in @trustCategory satisfies exists($value))'>ERROR: the attribute value must be an existing TrustCategory MO.</assert>
+                </rule>
+        </pattern>
+</schema>]]></dependenciesScript>
+            <decisionPoint>
+                <decisionStatement decisionType="basic">if-feature FtpTlsServer</decisionStatement>
+            </decisionPoint>
+            <attribute name="ftpTlsServerId">
+                <description>The value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="administrativeState">
+                <description>The administrative state for the FTP server.&#13;
+When LOCKED all on-going connections will immediately be terminated.</description>
+                <mandatory/>
+                <dataType>
+                    <enumRef name="BasicAdmState">
+                        <mimName>ComFileTPM</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="nodeCredential">
+                <description>The credential used for FTP over TLS based file transfer. &#13;
+Specifies the DN of a NodeCredential MO in Certificate Management.&#13;
+</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <moRef name="ManagedObject"/>
+                </dataType>
+            </attribute>
+            <attribute name="trustCategory">
+                <description>The set of certificates trusted by the FTP over TLS based file transfer. &#13;
+Specifies the DN of a TrustCategory MO in Certificate Management.&#13;
+</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <moRef name="ManagedObject"/>
+                </dataType>
+            </attribute>
+            <attribute name="port">
+                <description>The listening port number of the FTP over TLS server control connection.&#13;
+&#13;
+The TLS layer is established on the regular FTP port by issuing an "AUTH TLS" command.&#13;
+</description>
+                <dataType>
+                    <uint16>
+                        <defaultValue>21</defaultValue>
+                    </uint16>
+                </dataType>
+            </attribute>
+            <attribute name="minDataPort">
+                <description>The minimum port number for PASV data connections.&#13;
+&#13;
+Must be lower or equal to maxDataPort.</description>
+                <mandatory/>
+                <dataType>
+                    <uint16/>
+                </dataType>
+            </attribute>
+            <attribute name="maxDataPort">
+                <description>The maximum port number for PASV data connections.&#13;
+&#13;
+Must be greater or equal to minDataPort.</description>
+                <mandatory/>
+                <dataType>
+                    <uint16/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="Sftp">
+            <description>Represents the common configuration parameters of Secure Shell File Transfer Protocol (SFTP) clients on the ME.</description>
+            <systemCreated/>
+            <decisionPoint>
+                <decisionStatement decisionType="basic">if-feature SftpClient</decisionStatement>
+            </decisionPoint>
+            <attribute name="sftpId">
+                <description>The value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="SftpServer">
+            <description>Represents the Secure Shell File Transfer Protocol (SFTP) server of the ME.</description>
+            <systemCreated/>
+            <decisionPoint>
+                <decisionStatement decisionType="basic">if-feature SftpServer</decisionStatement>
+            </decisionPoint>
+            <attribute name="sftpServerId">
+                <description>The value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="administrativeState">
+                <description>The administrative state for the SFTP server.&#13;
+When LOCKED all on-going connections will immediately be terminated.</description>
+                <mandatory/>
+                <dataType>
+                    <enumRef name="BasicAdmState">
+                        <mimName>ComFileTPM</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="port">
+                <description>The listening port number of the SFTP server.</description>
+                <dataType>
+                    <uint16>
+                        <defaultValue>115</defaultValue>
+                    </uint16>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="FtpServer">
+            <description>Generic configuration options for a file transfer server.</description>
+            <systemCreated/>
+            <decisionPoint>
+                <decisionStatement decisionType="basic">if-feature FtpTlsServer</decisionStatement>
+                <decisionStatement decisionType="basic">if-feature SftpServer</decisionStatement>
+            </decisionPoint>
+            <attribute name="ftpServerId">
+                <description>The value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="idleTimer">
+                <description>The amount of seconds after which an idle session is terminated.&#13;
+&#13;
+Specifies the maximum time an FTP session may remain idle. A session will be dropped if the length of the idle session exceeds the configured time. No idleTimer means idle sessions are not limited.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="ComFileTPM_FtpServer_idleTimer">
+                        <mimName>ComFileTPM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+        </class>
+        <relationship name="FileTPM_to_FtpServer">
+            <containment>
+                <parent>
+                    <hasClass name="FileTPM">
+                        <mimName>ComFileTPM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="FtpServer">
+                        <mimName>ComFileTPM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="FtpServer_to_FtpTlsServer">
+            <containment>
+                <parent>
+                    <hasClass name="FtpServer">
+                        <mimName>ComFileTPM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="FtpTlsServer">
+                        <mimName>ComFileTPM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="FtpServer_to_SftpServer">
+            <containment>
+                <parent>
+                    <hasClass name="FtpServer">
+                        <mimName>ComFileTPM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="SftpServer">
+                        <mimName>ComFileTPM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="FileTPM_to_FtpTls">
+            <containment>
+                <parent>
+                    <hasClass name="FileTPM">
+                        <mimName>ComFileTPM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="FtpTls">
+                        <mimName>ComFileTPM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="FileTPM_to_Sftp">
+            <containment>
+                <parent>
+                    <hasClass name="FileTPM">
+                        <mimName>ComFileTPM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="Sftp">
+                        <mimName>ComFileTPM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+    </mim>
+    <interMim>
+        <relationship name="SysM_to_FileTPM">
+            <containment>
+                <parent>
+                    <hasClass name="SysM">
+                        <mimName>ComSysM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="FileTPM">
+                        <mimName>ComFileTPM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+    </interMim>
+</models>

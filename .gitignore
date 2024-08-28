@@ -1,0 +1,12 @@
+# Build files
+target
+model-build
+
+# Intellij files
+*.iml
+*.idea
+
+# Eclipse files
+.project
+.classpath
+.settings

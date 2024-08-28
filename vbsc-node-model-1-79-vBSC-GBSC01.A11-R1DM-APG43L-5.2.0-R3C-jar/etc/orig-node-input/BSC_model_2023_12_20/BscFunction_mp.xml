@@ -1,0 +1,1471 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+	Copyright (c) 2023 Ericsson AB.
+	All rights reserved
+
+	DX ECIM Tool-chain generated this file on Dec 19, 2023 5:25:35 PM using:
+	* com.ericsson.ecim.m2m 3.4.0.201705111308
+	* com.ericsson.ecim.dsl 3.4.0.201705111308
+	* com.ericsson.ecim.edm 3.4.0.201705111308
+-->
+<!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+    <dtdVersion>G</dtdVersion>
+    <momMetaData>
+        <momTitle>title</momTitle>
+        <momSubTitle>sub title</momSubTitle>
+        <momIdentity>
+            <docNum>0</docNum>
+            <docLang>English</docLang>
+            <docRev>R1V</docRev>
+            <docDate>2019-01-14</docDate>
+        </momIdentity>
+        <createdBy>
+            <signature>Michal Dutkiewicz</signature>
+        </createdBy>
+    </momMetaData>
+    <mim author="edutmic" contact="edutmic" correction="2" date="2023-12-20" docNo="155 54-CXA 113 13/1" name="BscFunction" namespace="urn:com:ericsson:ecim:BscFunction" namespacePrefix="bscfunction" organization="" release="68" revision="R1DM" version="10">
+        <description>Contains the BscFunction part of the BSC node model.</description>
+        <domainExtension domain="ECIM">
+            <extension name="immNamespace" value="MOM_NAME"/>
+        </domainExtension>
+        <struct name="ErrorLogItem">
+            <description>Error log for a failed configuration transaction in the BSC.</description>
+            <structMember name="dn">
+                <description>Distinguished name for the class where the transaction failed.</description>
+                <string/>
+                <obsolete/>
+                <statusInformation>Since G19.Q4 release.</statusInformation>
+            </structMember>
+            <structMember name="errorMessage">
+                <description>Error message information about the failure.</description>
+                <string/>
+                <obsolete/>
+                <statusInformation>Since G19.Q4 release.</statusInformation>
+            </structMember>
+            <structMember name="mmlCommand">
+                <description>MML command that failed.
+If the failure was not due to a failed command, this field will be empty.</description>
+                <string/>
+                <obsolete/>
+                <statusInformation>Since G19.Q4 release.</statusInformation>
+            </structMember>
+            <structMember name="timestamp">
+                <description>Time when the transaction failed.</description>
+                <derivedDataTypeRef name="DateTime">
+                    <mimName>BscFunction</mimName>
+                </derivedDataTypeRef>
+                <obsolete/>
+                <statusInformation>Since G19.Q4 release.</statusInformation>
+            </structMember>
+        </struct>
+        <struct name="EventFilter">
+            <description>Struct used to specify the event filter criteria.</description>
+            <structMember name="filterName">
+                <description>Filter name.
+This member contains the name of the referenced EventFilterType MO instance, found in key attribute eventFilterTypeId.</description>
+                <string/>
+                <preliminary/>
+            </structMember>
+            <structMember name="filterValue">
+                <description>Filter value.</description>
+                <string/>
+                <preliminary/>
+            </structMember>
+            <structMember name="reportedFilterValue">
+                <description>Reported filter value.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <derivedDataTypeRef name="BscFunction_EventFilter_reportedFilterValue">
+                    <mimName>BscFunction</mimName>
+                </derivedDataTypeRef>
+                <preliminary/>
+            </structMember>
+        </struct>
+        <struct name="ProgressInfo">
+            <description>Progress Information data.</description>
+            <structMember name="progressPercentage">
+                <description>Progress of the activity.
+The range is between 0 and 100.</description>
+                <derivedDataTypeRef name="BscFunction_ProgressInfo_progressPercentage">
+                    <mimName>BscFunction</mimName>
+                </derivedDataTypeRef>
+                <preliminary/>
+            </structMember>
+            <structMember name="progressInfo">
+                <description>Textual information that describes the actual state of the activity execution.</description>
+                <string/>
+                <preliminary/>
+            </structMember>
+            <structMember name="timeStarted">
+                <description>Date and time when the current activity was started.</description>
+                <derivedDataTypeRef name="DateTime">
+                    <mimName>BscFunction</mimName>
+                </derivedDataTypeRef>
+                <preliminary/>
+            </structMember>
+            <structMember name="timeCompleted">
+                <description>Date and time when the activity was completed (successfully or unsuccessfully).</description>
+                <derivedDataTypeRef name="DateTime">
+                    <mimName>BscFunction</mimName>
+                </derivedDataTypeRef>
+                <preliminary/>
+            </structMember>
+            <structMember name="timeOfLastUpdate">
+                <description>Date and time when the activity was last updated.</description>
+                <derivedDataTypeRef name="DateTime">
+                    <mimName>BscFunction</mimName>
+                </derivedDataTypeRef>
+                <preliminary/>
+            </structMember>
+            <structMember name="state">
+                <description>Current state of the activity.</description>
+                <enumRef name="ProgressState">
+                    <defaultValue>FINISHED</defaultValue>
+                    <mimName>BscFunction</mimName>
+                </enumRef>
+                <preliminary/>
+            </structMember>
+            <structMember name="result">
+                <description>Result of a completed activity.
+</description>
+                <enumRef name="ProgressResult">
+                    <defaultValue>NOT_AVAILABLE</defaultValue>
+                    <mimName>BscFunction</mimName>
+                </enumRef>
+                <preliminary/>
+            </structMember>
+        </struct>
+        <enum name="CompressionTypes">
+            <description>Supported common File Compression Type(s).</description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimVersion" value="2"/>
+                <extension name="originatingMimRelease" value="1"/>
+                <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+            </domainExtension>
+            <enumMember name="GZIP">
+                <description>GNU zip file compression type.</description>
+                <value>0</value>
+            </enumMember>
+        </enum>
+        <enum name="FilterMethod">
+            <description>Method of filter classification.</description>
+            <enumMember name="SINGLE_SELECT">
+                <description>Select one value only from a defined set of options.</description>
+                <value>0</value>
+                <preliminary/>
+            </enumMember>
+            <enumMember name="MULTI_SELECT">
+                <description>Select multiple values from a predefined set, separated by a space.</description>
+                <value>1</value>
+                <preliminary/>
+            </enumMember>
+            <enumMember name="INTERVAL">
+                <description>Select an interval value within the specified range.</description>
+                <value>2</value>
+                <preliminary/>
+            </enumMember>
+            <enumMember name="DISTINGUISHED_NAMES">
+                <description>Select one or more DNs.</description>
+                <value>3</value>
+            </enumMember>
+            <enumMember name="REGEXP">
+                <description>Regular expression.</description>
+                <value>4</value>
+            </enumMember>
+        </enum>
+        <enum name="BasicAdmState">
+            <description>Basic administrative states for a resource.</description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimVersion" value="2"/>
+                <extension name="originatingMimRelease" value="1"/>
+                <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+            </domainExtension>
+            <enumMember name="LOCKED">
+                <description>The resource is administratively prohibited from performing services for its users.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="UNLOCKED">
+                <description>The resource is administratively permitted to perform services for its users.
+This is independent of its inherent operability.</description>
+                <value>1</value>
+            </enumMember>
+        </enum>
+        <enum name="ProgressResult">
+            <description>Lists the different results of an activity.</description>
+            <enumMember name="NOT_AVAILABLE">
+                <description>No result is available yet.</description>
+                <value>0</value>
+                <preliminary/>
+            </enumMember>
+            <enumMember name="SUCCESS">
+                <description>The activity ended with success.</description>
+                <value>1</value>
+                <preliminary/>
+            </enumMember>
+            <enumMember name="FAILURE">
+                <description>The activity ended with failure.</description>
+                <value>2</value>
+                <preliminary/>
+            </enumMember>
+        </enum>
+        <enum name="DisableState">
+            <description>ENM DisableStates list.</description>
+            <enumMember name="INCONSISTENT_VERSIONS">
+                <description>CP dump and APT Configuration Mediation Module versions are inconsistent.
+Use OPI Function Change, Configuration Mediation Module, Initiate to perform install/update of APT Configuration Mediation Module which corresponds to the CP dump version on executive CP side.</description>
+                <value>1</value>
+                <preliminary/>
+            </enumMember>
+        </enum>
+        <enum name="MinLogLevel">
+            <description>Minimal application logging level.</description>
+            <enumMember name="TRACE">
+                <description>Trace logging level.
+All messages are included in the log file.</description>
+                <value>0</value>
+                <preliminary/>
+            </enumMember>
+            <enumMember name="DEBUG">
+                <description>Debug logging level.
+Messages with logging levels DEBUG, INFO, WARN, ERROR, and FATAL are included in the log file.</description>
+                <value>1</value>
+                <preliminary/>
+            </enumMember>
+            <enumMember name="INFO">
+                <description>Info logging level.
+Messages with logging levels INFO, WARN, ERROR, and FATAL are included in the log file.</description>
+                <value>2</value>
+                <preliminary/>
+            </enumMember>
+            <enumMember name="WARN">
+                <description>Warning logging level.
+Messages with logging levels WARN, ERROR, and FATAL are included in the log file.</description>
+                <value>3</value>
+                <preliminary/>
+            </enumMember>
+            <enumMember name="ERROR">
+                <description>Error logging level.
+Messages with logging levels ERROR and FATAL are included in the log file.</description>
+                <value>4</value>
+                <preliminary/>
+            </enumMember>
+            <enumMember name="FATAL">
+                <description>Fatal logging level.
+Messages with logging level FATAL are included in the log file.</description>
+                <value>5</value>
+                <preliminary/>
+            </enumMember>
+        </enum>
+        <enum name="JobState">
+            <description>Job state that has been requested.</description>
+            <enumMember name="ACTIVE">
+                <description>The job is requested to be activated.</description>
+                <value>1</value>
+                <preliminary/>
+            </enumMember>
+            <enumMember name="STOPPED">
+                <description>The job is requested to be stopped.</description>
+                <value>2</value>
+                <preliminary/>
+            </enumMember>
+        </enum>
+        <enum name="OperState">
+            <description>Operational states of a resource.</description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimVersion" value="2"/>
+                <extension name="originatingMimRelease" value="1"/>
+                <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+            </domainExtension>
+            <enumMember name="DISABLED">
+                <description>The resource is  totally inoperable.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="ENABLED">
+                <description>The resource is partially or fully operable.</description>
+                <value>1</value>
+            </enumMember>
+        </enum>
+        <enum name="JobControl">
+            <description>The level of MS control of the PMEvent job.</description>
+            <enumMember name="FULL">
+                <description>MS has Full control of the PMEvent Job.
+MS can create, delete, start and stop a job.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="STARTSTOP">
+                <description>MS has restricted control of the PMEvent Job.
+MS can stop and start a job but cannot delete or create it.
+The selection of this option for predefined jobs indicates that no event can be added or removed. Updates can only be done to the request state, destination attributes and job group under EventJob MOC. eventGroupRef and eventTypeRef are not modifiable in this condition.</description>
+                <value>1</value>
+                <preliminary/>
+            </enumMember>
+            <enumMember name="VIEWONLY">
+                <description>MS can only view the PMEvent job.</description>
+                <value>2</value>
+                <preliminary/>
+            </enumMember>
+        </enum>
+        <enum name="ProgressState">
+            <description>Lists the activity states.</description>
+            <enumMember name="FINISHED">
+                <description>The activity is finished.</description>
+                <value>0</value>
+                <preliminary/>
+            </enumMember>
+            <enumMember name="PENDING">
+                <description>The activity is waiting for other activities to finish.</description>
+                <value>1</value>
+                <preliminary/>
+            </enumMember>
+            <enumMember name="RUNNING">
+                <description>The execution of the activity is currently in progress.</description>
+                <value>2</value>
+                <preliminary/>
+            </enumMember>
+        </enum>
+        <enum name="SessionState">
+            <description>Actual job state for an event job.</description>
+            <enumMember name="ACTIVATING">
+                <description>The job is switching from STOPPED to ACTIVE.</description>
+                <value>0</value>
+                <preliminary/>
+            </enumMember>
+            <enumMember name="ACTIVE">
+                <description>The job is producing events as intended.</description>
+                <value>1</value>
+                <preliminary/>
+            </enumMember>
+            <enumMember name="DEACTIVATING">
+                <description>The job is switching from ACTIVE to STOPPED.</description>
+                <value>3</value>
+                <preliminary/>
+            </enumMember>
+            <enumMember name="STOPPED">
+                <description>The job is passive, by request or because of other reasons.</description>
+                <value>2</value>
+                <preliminary/>
+            </enumMember>
+            <enumMember name="FAILED">
+                <description>The job is permanently failed and deactivated.
+In this state it will not respond to further attempts to activate it. The job leaves the FAILED state and enters the STOPPED state if the failure reason is removed.</description>
+                <value>4</value>
+                <preliminary/>
+            </enumMember>
+        </enum>
+        <derivedDataType name="DateTime">
+            <description>Represents the International Standard for the representation of date and time ( ISO 8601).
+The string format is "YYYY-MM-DDThh:mm:ss.SSSZ" (excluding quotes).
+A DateTime string consists of a date part followed by a time part. When the time part represents local time, as opposed to UTC time indicated by Z as last character, an additional time offset part is added to the DateTime string.
+
+The following pattern describes the DateTime format in detail:
+YYYY-MM-DDThh:mm:ss[.S+][Z|+-hh:mm]
+Where:
+YYYY = four digit year
+MM = two digit month (01=January, etc.)
+DD = two digit day of month (01 through 31)
+T = time designator (shows start of time component)
+hh = two digits of hour (00 through 23, AM/PM not allowed)
+mm = two digits of minute (00 through 59)
+ss = two digits of second (00 through 59, leap second not allowed)
+S+ = one or more digits of decimal fraction of a second
+Z = time is Coordinated Universal Time (UTC)
++- = + or - character indicating positive or negative offset to UTC
+
+DateTime values are compliant with ISO 8601 "Representation of dates and times" but are restricted according to RFC 3339 "Date and Time on the Internet: Timestamps". The DateTime format is further restricted:
+- T and Z designators are upper case.
+- . (dot) is used to indicate start of fractions of seconds (ISO 8601 also allows comma)</description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimVersion" value="10"/>
+                <extension name="originatingMimRelease" value="10"/>
+                <extension name="originatingMimName" value="ComTop"/>
+            </domainExtension>
+            <baseType>
+                <string>
+                    <lengthRange>
+                        <min>20</min>
+                        <max>31</max>
+                    </lengthRange>
+                    <stringLength>
+                        <subrange>
+                            <min>20</min>
+                            <max>31</max>
+                        </subrange>
+                    </stringLength>
+                    <validValues>^([0-9]{4})-(1[0-2]|0[1-9])-(0[1-9]|[1|2][0-9]|3[0-1])T(0[0-9]|1[0-9]|2[0-4]):([0-5][0-9]):([0-5][0-9])([\.][0-9]+)*(([\+|\-](0[0-9]|1[0-9]|2[0-4])(:[0-5][0-9])?)|(Z))$</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="" format="posix_ere" name="Pattern Constraint">^([0-9]{4})-(1[0-2]|0[1-9])-(0[1-9]|[1|2][0-9]|3[0-1])T(0[0-9]|1[0-9]|2[0-4]):([0-5][0-9]):([0-5][0-9])([\.][0-9]+)*(([\+|\-](0[0-9]|1[0-9]|2[0-4])(:[0-5][0-9])?)|(Z))$</rule>
+            </validationRules>
+        </derivedDataType>
+        <derivedDataType name="DerivedStringName">
+            <description>A derived string with valid values as given below.
+regexp [a-zA-Z0-9-_ ]+ </description>
+            <baseType>
+                <string>
+                    <validValues>[a-zA-Z0-9-_ ]+</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="" format="posix_ere" name="Pattern Constraint">[a-zA-Z0-9-_ ]+</rule>
+            </validationRules>
+        </derivedDataType>
+        <derivedDataType name="IpDNSAddress">
+            <description>The IpDNSAddress type represents an IP address or a DNS domain name.
+
+A version 4 IP address is specified in dotted quad notation, for example 130.100.92.154. RFC 791 describes the syntax in detail. 
+A version 6 IP address is specified by 8 groups of 16 bit hexadecimal values separated by colons, for example, 2001:0db8:85a3:0000:0000:8a2e:0370:7334. RFC 4291 describes the syntax in detail. 
+A DNS name is specified as a fully qualified domain name, for example, myhost.ericsson.com. The internet domain is loosely specified but RFC 1034 recommends a syntax. </description>
+            <baseType>
+                <string>
+                    <lengthRange>
+                        <min>1</min>
+                        <max>253</max>
+                    </lengthRange>
+                    <stringLength>
+                        <subrange>
+                            <min>1</min>
+                            <max>253</max>
+                        </subrange>
+                    </stringLength>
+                    <validValues>^((([0-9][1-9])|([1-9][0-9])|[1-9]|1[0-1][0-9]|12[0-6]|12[8-9]|1[3-9][0-9]|2[0-2][0-3])\.)((([2][5][0-5]|([2][0-4]|[1][0-9]|[0-9])?[0-9])\.){2})([2][5][0-5]|([2][0-4]|[1][0-9]|[0-9])?[0-9])$|^\s*((([0-9A-Fa-f]{1,4}:){7}(([0-9A-Fa-f]{1,4})|:))|(([0-9A-Fa-f]{1,4}:){6}(:|((25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})){3})|(:[0-9A-Fa-f]{1,4})))|(([0-9A-Fa-f]{1,4}:){5}((:((25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})){3})?)|((:[0-9A-Fa-f]{1,4}){1,2})))|(([0-9A-Fa-f]{1,4}:){4}(:[0-9A-Fa-f]{1,4}){0,1}((:((25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})){3})?)|((:[0-9A-Fa-f]{1,4}){1,2})))|(([0-9A-Fa-f]{1,4}:){3}(:[0-9A-Fa-f]{1,4}){0,2}((:((25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})){3})?)|((:[0-9A-Fa-f]{1,4}){1,2})))|(([0-9A-Fa-f]{1,4}:){2}(:[0-9A-Fa-f]{1,4}){0,3}((:((25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})){3})?)|((:[0-9A-Fa-f]{1,4}){1,2})))|(([0-9A-Fa-f]{1,4}:)(:[0-9A-Fa-f]{1,4}){0,4}((:((25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})){3})?)|((:[0-9A-Fa-f]{1,4}){1,2})))|(:(:[0-9A-Fa-f]{1,4}){0,5}((:((25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})){3})?)|((:[0-9A-Fa-f]{1,4}){1,2}))))(%.+)?\s*$|^(([a-zA-Z]|[a-zA-Z][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z]|[A-Za-z][A-Za-z0-9\-]*[A-Za-z0-9])$</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="" format="posix_ere" name="Pattern Constraint">^((([0-9][1-9])|([1-9][0-9])|[1-9]|1[0-1][0-9]|12[0-6]|12[8-9]|1[3-9][0-9]|2[0-2][0-3])\.)((([2][5][0-5]|([2][0-4]|[1][0-9]|[0-9])?[0-9])\.){2})([2][5][0-5]|([2][0-4]|[1][0-9]|[0-9])?[0-9])$|^\s*((([0-9A-Fa-f]{1,4}:){7}(([0-9A-Fa-f]{1,4})|:))|(([0-9A-Fa-f]{1,4}:){6}(:|((25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})){3})|(:[0-9A-Fa-f]{1,4})))|(([0-9A-Fa-f]{1,4}:){5}((:((25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})){3})?)|((:[0-9A-Fa-f]{1,4}){1,2})))|(([0-9A-Fa-f]{1,4}:){4}(:[0-9A-Fa-f]{1,4}){0,1}((:((25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})){3})?)|((:[0-9A-Fa-f]{1,4}){1,2})))|(([0-9A-Fa-f]{1,4}:){3}(:[0-9A-Fa-f]{1,4}){0,2}((:((25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})){3})?)|((:[0-9A-Fa-f]{1,4}){1,2})))|(([0-9A-Fa-f]{1,4}:){2}(:[0-9A-Fa-f]{1,4}){0,3}((:((25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})){3})?)|((:[0-9A-Fa-f]{1,4}){1,2})))|(([0-9A-Fa-f]{1,4}:)(:[0-9A-Fa-f]{1,4}){0,4}((:((25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})){3})?)|((:[0-9A-Fa-f]{1,4}){1,2})))|(:(:[0-9A-Fa-f]{1,4}){0,5}((:((25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9]{1,2})){3})?)|((:[0-9A-Fa-f]{1,4}){1,2}))))(%.+)?\s*$|^(([a-zA-Z]|[a-zA-Z][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z]|[A-Za-z][A-Za-z0-9\-]*[A-Za-z0-9])$</rule>
+            </validationRules>
+        </derivedDataType>
+        <derivedDataType name="DerivedString">
+            <description>A derived string with valid values as given below.
+regexp [a-zA-Z0-9-]+ </description>
+            <baseType>
+                <string>
+                    <validValues>[a-zA-Z0-9-]+</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="" format="posix_ere" name="Pattern Constraint">[a-zA-Z0-9-]+</rule>
+            </validationRules>
+        </derivedDataType>
+        <derivedDataType name="SingleInstance">
+            <description>TBD.</description>
+            <baseType>
+                <string>
+                    <validValues>^[1]$</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="Must be set to: 1" format="posix_ere" name="Pattern Constraint">^[1]$</rule>
+            </validationRules>
+        </derivedDataType>
+        <derivedDataType name="BscFunction_ProgressInfo_progressPercentage">
+            <baseType>
+                <uint8>
+                    <range>
+                        <min>0</min>
+                        <max>100</max>
+                    </range>
+                    <ranges>
+                        <subrange>
+                            <min>0</min>
+                            <max>100</max>
+                        </subrange>
+                    </ranges>
+                </uint8>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="BscFunction_EventFilter_reportedFilterValue">
+            <baseType>
+                <string>
+                    <validValues>^(([0-9]|[\,]){0,})$</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="" format="posix_ere" name="Pattern Constraint">^(([0-9]|[\,]){0,})$</rule>
+            </validationRules>
+        </derivedDataType>
+        <class name="BscFunction">
+            <description>Contains BSC specific data to configure the GSM network.</description>
+            <root/>
+            <attribute name="bscFunctionId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="SingleInstance">
+                        <mimName>BscFunction</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="release">
+                <description>The product release of the ManagedFunction.
+It commonly contains the Managed Function release, for example  L12.0, 13A, R1A</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="userLabel">
+                <description>Used for product free-text description.</description>
+                <mandatory/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="BscMAdministration">
+            <description>Contains administration of availability of the BscM content.</description>
+            <attribute name="bscMAdministrationId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="SingleInstance">
+                        <mimName>BscFunction</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="bscMAdministrativeState">
+                <description>Wanted state of the BSC Model Based Configuration Management.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <enumRef name="BasicAdmState">
+                        <defaultValue>LOCKED</defaultValue>
+                        <mimName>BscFunction</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="bscMOperationalState">
+                <description>Current state of the BSC Model Based Configuration Management.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <enumRef name="OperState">
+                        <mimName>BscFunction</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="disabledReason">
+                <description>APMML disable reason.
+The reason why bscMOperationalState is DISABLED while bscMAdministrativeState is UNLOCKED.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <enumRef name="DisableState">
+                        <mimName>BscFunction</mimName>
+                    </enumRef>
+                </dataType>
+                <preliminary/>
+            </attribute>
+            
+        </class>
+        <class name="SyncProgress">
+            <description>Progress information for synchronization of BSC data.</description>
+            <preliminary/>
+            <attribute name="syncProgressId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="SingleInstance">
+                        <mimName>BscFunction</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+                <preliminary/>
+            </attribute>
+            <attribute name="progressInfo">
+                <description>Progress information for synchronization of BSC data.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <structRef name="ProgressInfo">
+                        <mimName>BscFunction</mimName>
+                    </structRef>
+                </dataType>
+                <preliminary/>
+            </attribute>
+        </class>
+        <class name="ConfProgress">
+            <description>Configuration progress for configuration of BSC data.</description>
+            <obsolete/>
+            <statusInformation>Since G21.Q3 release.</statusInformation>
+            <attribute name="confProgressId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="SingleInstance">
+                        <mimName>BscFunction</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+                <obsolete/>
+                <statusInformation>Since G21.Q3 release.</statusInformation>
+            </attribute>
+            <attribute name="progressInfo">
+                <description>Progress information for configuration of BSC data.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <structRef name="ProgressInfo">
+                        <mimName>BscFunction</mimName>
+                    </structRef>
+                </dataType>
+                <obsolete/>
+                <statusInformation>Since G21.Q3 release.</statusInformation>
+            </attribute>
+        </class>
+        <class name="ErrorHistory">
+            <description>Error history for failed transactions in the BSC.</description>
+            <obsolete/>
+            <statusInformation>Since G19.Q4 release.</statusInformation>
+            <attribute name="errorHistoryId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="SingleInstance">
+                        <mimName>BscFunction</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+                <obsolete/>
+                <statusInformation>Since G19.Q4 release.</statusInformation>
+            </attribute>
+            <attribute name="errorLogItem">
+                <description>Error history item for failed transactions in the BSC.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <sequence>
+                        <structRef name="ErrorLogItem">
+                            <mimName>BscFunction</mimName>
+                        </structRef>
+                        <minLength>0</minLength>
+                        <maxLength>20</maxLength>
+                    </sequence>
+                </dataType>
+                <obsolete/>
+                <statusInformation>Since G19.Q4 release.</statusInformation>
+            </attribute>
+        </class>
+        <class name="BscMInformation">
+            <description>Contains information about BscM content.</description>
+            <preliminary/>
+            <attribute name="bscMInformationId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="SingleInstance">
+                        <mimName>BscFunction</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="bscMMoNumber">
+                <description>Number of managed objects.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <uint32/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="PmEventM">
+            <description>The PM Event Management fragment.
+It is used to manage the event jobs on the Managed Element.
+Once an event job is activated the events can be collected and sent via streaming. </description>
+            <attribute name="pmEventMId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="SingleInstance">
+                        <mimName>BscFunction</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="EventProducer">
+            <description>Event Producer.
+
+Allows for multiple types of Event Producer within an Application describing distinct Event functions and capabilities.
+
+This MO is created by the system.</description>
+            <validationRules>
+                <rule exceptionText="" format="ECIM_Schematron_1.0" name="MaxNumberOfEventJobs">&lt;schema xmlns="http://purl.oclc.org/dsdl/schematron"&gt;
+    &lt;pattern&gt;
+         &lt;rule&gt;
+                 &lt;assert id='maxNumberOfEventJobsId' test="count(EventJob) le 1"&gt; Maximum of one EventJob MO can be created under &lt;name path="."/&gt;&lt;/assert&gt;
+         &lt;/rule&gt;
+      &lt;/pattern&gt;
+&lt;/schema&gt;</rule>
+            </validationRules>
+            <dependenciesScript>&lt;schema xmlns="http://purl.oclc.org/dsdl/schematron"&gt;
+    &lt;pattern&gt;
+         &lt;rule&gt;
+                 &lt;assert id='maxNumberOfEventJobsId' test="count(EventJob) le 1"&gt; Maximum of one EventJob MO can be created under &lt;name path="."/&gt;&lt;/assert&gt;
+         &lt;/rule&gt;
+      &lt;/pattern&gt;
+&lt;/schema&gt;</dependenciesScript>
+            <attribute name="eventProducerId">
+                <description>Holds the name used when identifying the MO.
+
+This is non-empty sequence of characters matching the regexp [a-zA-Z0-9-]+</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="DerivedString">
+                        <mimName>BscFunction</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="eventProducerName">
+                <description>The name of the Event Producer.
+
+This is human readable and has the value regexp [a-zA-Z0-9-_ ]+</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="DerivedStringName">
+                        <mimName>BscFunction</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="EventCapabilities">
+            <description>Event capabilities.
+
+This MO is created by the system.</description>
+            <attribute name="eventCapabilitiesId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="maxNoOfJobs">
+                <description>Defines the total maximum number of Event Jobs supported by the application.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <uint16/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="EventFilterType">
+            <description>Describes the available Event Filter Type definitions.
+
+This MO is created by the system.</description>
+            <attribute name="eventFilterTypeId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="defaultValue">
+                <description>Defines format of filter type value.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="description">
+                <description>Describes the Event Filter Type.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="filterMethod">
+                <description>Method of filter classification.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <enumRef name="FilterMethod">
+                        <mimName>BscFunction</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="valueSpec">
+                <description>Specifies the possible values.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="EventGroup">
+            <description>Represents a group of the related Event Types.
+
+This MO is created by the system.</description>
+            <attribute name="eventGroupId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="description">
+                <description>Describes the content and purpose of the event group.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="eventGroupVersion">
+                <description>Specifies the Event Group version identifier.
+
+Unique version identifier associated with a change to the contents of the Event Group, where new Event Types have been added.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="generation">
+                <description>Specifies the Switching domain or domains to which this measurement is applicable.
+
+For e.g. GSM, UMTS, EPS, GSM/UMTS.</description>
+                <readOnly/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="validFilters">
+                <description>Defines valid filter type definitions for this Event Group.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <sequence>
+                        <moRef name="EventFilterType">
+                            <mimName>BscFunction</mimName>
+                        </moRef>
+                        <minLength>0</minLength>
+                        <nonUnique/>
+                    </sequence>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="EventJob">
+            <description>Defines the information to be used to activate and configure an event job on the Managed Element.
+
+Maximum of one EventJob MO can be created under one parent EventProducer MO instance.</description>
+            <attribute name="eventJobId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="currentJobState">
+                <description>Specifies the current state of the job.</description>
+                <readOnly/>
+                <dataType>
+                    <enumRef name="SessionState">
+                        <mimName>BscFunction</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="description">
+                <description>Describes the content and the purpose of the job.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="eventFilter">
+                <description>Specifies which event filter or filters to be applied.
+
+Specifies the event criteria which must be valid for the events to be collected and what contents some events must have. 
+
+The supported filters are specified in the attribute EventGroup.validFilters. 
+
+The following conditions apply: 
+The order of the filters does not matter. 
+Only one filter of each type must be set. </description>
+                <dataType>
+                    <sequence>
+                        <structRef name="EventFilter">
+                            <mimName>BscFunction</mimName>
+                        </structRef>
+                        <minLength>0</minLength>
+                        <nonUnique/>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="eventGroupRef">
+                <description>Specifies the Event Group or Event Groups selected for the job.</description>
+                <dataType>
+                    <sequence>
+                        <moRef name="EventGroup">
+                            <mimName>BscFunction</mimName>
+                        </moRef>
+                        <minLength>0</minLength>
+                        <nonUnique/>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="jobControl">
+                <description>Describes the level of MS control of the event job.</description>
+                <readOnly/>
+                <dataType>
+                    <enumRef name="JobControl">
+                        <defaultValue>FULL</defaultValue>
+                        <mimName>BscFunction</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="requestedJobState">
+                <description>Specifies the requested state of the job.
+
+It represents the state, that the job has been ordered to reach.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <enumRef name="JobState">
+                        <defaultValue>ACTIVE</defaultValue>
+                        <mimName>BscFunction</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="streamDestinationIpAddress">
+                <description>The address of the server that event data should be streamed to.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="IpDNSAddress">
+                        <mimName>BscFunction</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="streamDestinationPort">
+                <description>Specifies the server port that event data is streamed to.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <uint16/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="StreamingCapabilities">
+            <description>Streaming capabilities.
+
+This MO is created by the system.</description>
+            <attribute name="streamCapabilitiesId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="supportedCompressionTypes">
+                <description>Supported stream compression type or types.
+
+If this attribute is not present, the compression of event data streams is not supported.</description>
+                <readOnly/>
+                <dataType>
+                    <sequence>
+                        <enumRef name="CompressionTypes">
+                            <mimName>BscFunction</mimName>
+                        </enumRef>
+                        <minLength>0</minLength>
+                        <maxLength>2</maxLength>
+                        <nonUnique/>
+                    </sequence>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="BscInformation">
+            <description>Contains attributes describing BSC.</description>
+            <attribute name="bscInformationId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <derivedDataTypeRef name="SingleInstance">
+                        <mimName>BscFunction</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="apzType">
+                <description>APZ type.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="apgType">
+                <description>APG type.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="releaseCode">
+                <description>Internal release code.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="upgradeFrom">
+                <description>The previous BSC release.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="dateOfUpgrade">
+                <description>Date of the BSC upgrade.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="bscRefDump">
+                <description>BSC reference dump ID.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="gapApzRelease">
+                <description>Global Application Product APZ release with Correction Note Module.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <relationship name="BscFunction_to_BscMAdministration">
+            <containment>
+                <parent>
+                    <hasClass name="BscFunction">
+                        <mimName>BscFunction</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="BscMAdministration">
+                        <mimName>BscFunction</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <noNotification/>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="BscMAdministration_to_ConfProgress">
+            <preliminary/>
+            <containment>
+                <parent>
+                    <hasClass name="BscMAdministration">
+                        <mimName>BscFunction</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="ConfProgress">
+                        <mimName>BscFunction</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <noNotification/>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="BscMAdministration_to_SyncProgress">
+            <preliminary/>
+            <containment>
+                <parent>
+                    <hasClass name="BscMAdministration">
+                        <mimName>BscFunction</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="SyncProgress">
+                        <mimName>BscFunction</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <noNotification/>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="ConfProgress_to_ErrorHistory">
+            <preliminary/>
+            <containment>
+                <parent>
+                    <hasClass name="ConfProgress">
+                        <mimName>BscFunction</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="ErrorHistory">
+                        <mimName>BscFunction</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <noNotification/>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="BscMAdministration_to_BscMInformation">
+            <preliminary/>
+            <containment>
+                <parent>
+                    <hasClass name="BscMAdministration">
+                        <mimName>BscFunction</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="BscMInformation">
+                        <mimName>BscFunction</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <noNotification/>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="BscFunction_to_PmEventM">
+            <containment>
+                <parent>
+                    <hasClass name="BscFunction">
+                        <mimName>BscFunction</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="PmEventM">
+                        <mimName>BscFunction</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="PmEventM_to_EventProducer">
+            <containment>
+                <parent>
+                    <hasClass name="PmEventM">
+                        <mimName>BscFunction</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="EventProducer">
+                        <mimName>BscFunction</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="EventProducer_to_EventCapabilities">
+            <containment>
+                <parent>
+                    <hasClass name="EventProducer">
+                        <mimName>BscFunction</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="EventCapabilities">
+                        <mimName>BscFunction</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="EventProducer_to_EventFilterType">
+            <containment>
+                <parent>
+                    <hasClass name="EventProducer">
+                        <mimName>BscFunction</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="EventFilterType">
+                        <mimName>BscFunction</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="EventProducer_to_EventGroup">
+            <containment>
+                <parent>
+                    <hasClass name="EventProducer">
+                        <mimName>BscFunction</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="EventGroup">
+                        <mimName>BscFunction</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="EventProducer_to_EventJob">
+            <containment>
+                <parent>
+                    <hasClass name="EventProducer">
+                        <mimName>BscFunction</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="EventJob">
+                        <mimName>BscFunction</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="EventProducer_to_StreamingCapabilities">
+            <containment>
+                <parent>
+                    <hasClass name="EventProducer">
+                        <mimName>BscFunction</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="StreamingCapabilities">
+                        <mimName>BscFunction</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="BscFunction_to_BscInformation">
+            <preliminary/>
+            <containment>
+                <parent>
+                    <hasClass name="BscFunction">
+                        <mimName>BscFunction</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="BscInformation">
+                        <mimName>BscFunction</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+    </mim>
+    <interMim>
+        <relationship name="ManagedElement_to_BscFunction">
+            <domainExtension domain="CoreMW">
+                <extension name="splitImmDn" value="true"/>
+            </domainExtension>
+            <containment>
+                <parent>
+                    <hasClass name="ManagedElement">
+                        <mimName>ComTop</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="BscFunction">
+                        <mimName>BscFunction</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+    </interMim>
+</models>

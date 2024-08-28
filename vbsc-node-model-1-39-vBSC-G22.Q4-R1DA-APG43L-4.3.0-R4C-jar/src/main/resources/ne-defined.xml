@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- *******************************************************************************
+  * COPYRIGHT Ericsson 2022. All rights reserved. * * No part of this document
+  may be reproduced in any form without the * written permission of the copyright
+  owner.The contents of this document * are subject to revision without notice
+  due to continued progress in * methodology, design and manufacturing. Ericsson
+  shall have no liability * for any error or damage of any kind resulting from
+  the use of this document. * ******************************************************************************* -->
+<ManagementInformationModelInformation
+  xmlns="urn:com:ericsson:schema:xml:oss:cfm_miminfo"
+  xmlns:ns2="urn:com:ericsson:schema:xml:oss:oss_common"
+  ns2:name="NE-defined" ns2:ns="vBSC" ns2:version="1.0.0">
+
+  <ns2:modelCreationInfo author="Raisers"
+    creationDate="19/10/2022">
+    <ns2:designedModel componentId="vbsc-node-model" />
+  </ns2:modelCreationInfo>
+
+  <ns2:desc>This is the MIM Info model for Network Element type vBSC for G22.Q4 </ns2:desc>
+
+  <supportedMims>
+    <mimMappedTo namespace="BrM"
+      originalModelUrn="/net_momdtd/BrM/BrM_3_4_1" version="3.4.1"
+      referenceMimNamespace="ECIM_BrM" referenceMimVersion="3.7.0" />
+
+    <mimMappedTo namespace="CmwPm"
+      originalModelUrn="/net_momdtd/CmwPm/CmwPm_2_3_1" version="2.3.1"
+      referenceMimNamespace="ECIM_PM" referenceMimVersion="2.5.0" />
+
+    <mimMappedTo namespace="CmwSwIM"
+      originalModelUrn="/net_momdtd/CmwSwIM/CmwSwIM_3_1_1" version="3.1.1"
+      referenceMimNamespace="ECIM_SwIM" referenceMimVersion="1.1.0" />
+
+    <mimMappedTo namespace="CmwSwM"
+      originalModelUrn="/net_momdtd/CmwSwM/CmwSwM_5_2_3" version="5.2.3"
+      referenceMimNamespace="ECIM_SwM" referenceMimVersion="4.2.0" />
+
+    <mimMappedTo namespace="CmwLogM"
+      originalModelUrn="/net_momdtd/CmwLogM/CmwLogM_2_1_0" version="2.1.0"
+      referenceMimNamespace="ECIM_LogM" referenceMimVersion="2.1.0" />
+
+    <mimMappedTo namespace="ComFileM"
+      originalModelUrn="/net_momdtd/ComFileM/ComFileM_11_1_4" version="11.1.4"
+      referenceMimNamespace="ECIM_FileM" referenceMimVersion="3.2.0" />
+
+    <mimMappedTo namespace="ComFileTPM"
+      originalModelUrn="/net_momdtd/ComFileTPM/ComFileTPM_1_0_1" version="1.0.1"
+      referenceMimNamespace="ECIM_FileTPM" referenceMimVersion="2.0.1" />
+
+    <mimMappedTo namespace="ComFm"
+      originalModelUrn="/net_momdtd/ComFm/ComFm_12_2_0" version="12.2.0"
+      referenceMimNamespace="ECIM_FM" referenceMimVersion="4.1.0" />
+
+    <mimMappedTo namespace="ComLocalAuthorization"
+      originalModelUrn="/net_momdtd/ComLocalAuthorization/ComLocalAuthorization_11_4_4" version="11.4.4"
+      referenceMimNamespace="ECIM_Local_Authorization" referenceMimVersion="2.4.0" />
+
+    <mimMappedTo namespace="ComSnmp"
+      originalModelUrn="/net_momdtd/ComSnmp/ComSnmp_10_13_2" version="10.13.2"
+      referenceMimNamespace="ECIM_SNMP" referenceMimVersion="1.5.0" />
+
+    <mimMappedTo namespace="ComSysM"
+      originalModelUrn="/net_momdtd/ComSysM/ComSysM_3_3_1" version="3.3.1"
+      referenceMimNamespace="ECIM_SysM" referenceMimVersion="3.2.0" />
+
+    <mimMappedTo namespace="ComTop"
+      originalModelUrn="/net_momdtd/ComTop/ComTop_10_22_2" version="10.22.2"
+      referenceMimNamespace="ECIM_Top" referenceMimVersion="2.4.0" />
+
+    <mimMappedTo namespace="SecLdapAuthentication"
+      originalModelUrn="/net_momdtd/SecLdapAuthentication/SecLdapAuthentication_2_17_0" version="2.17.0"
+      referenceMimNamespace="ECIM_LDAP_Authentication" referenceMimVersion="3.2.0" />
+
+    <mimMappedTo namespace="SecSecM"
+      originalModelUrn="/net_momdtd/SecSecM/SecSecM_2_17_0" version="2.17.0"
+      referenceMimNamespace="ECIM_Security_Management" referenceMimVersion="2.6.0" />
+
+    <mimMappedTo namespace="SEC_CertM"
+      originalModelUrn="/net_momdtd/SEC_CertM/SEC_CertM_2_17_0" version="2.17.0"
+      referenceMimNamespace="ECIM_CertM" referenceMimVersion="3.2.0" />
+
+    <mimMappedTo namespace="SecLA"
+      originalModelUrn="/net_momdtd/SecLA/SecLA_2_17_0" version="2.17.0"
+      referenceMimNamespace="ECIM_Local_Authentication" referenceMimVersion="2.4.0" />
+
+    <mimMappedTo namespace="LdeTimeM"
+      originalModelUrn="/net_momdtd/LdeTimeM/LdeTimeM_1_2_1" version="1.2.1"
+      referenceMimNamespace="ECIM_TimeM" referenceMimVersion="1.2.0" />
+
+    <mimMappedTo namespace="LdeServiceMarking"
+      originalModelUrn="/net_momdtd/LdeServiceMarking/LdeServiceMarking_1_0_0" version="1.0.0" />
+
+  </supportedMims>
+</ManagementInformationModelInformation>

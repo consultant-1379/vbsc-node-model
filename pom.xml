@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--Please Use the latest version of integration pom.xml or the one you
+      want to reference to New changes -->
+    <parent>
+        <groupId>com.ericsson.oss.mediation.model.nrm.function</groupId>
+        <artifactId>node-model-common-parent</artifactId>
+        <version>1.1.302</version>
+    </parent>
+
+    <artifactId>vbsc-node-model</artifactId>
+    <version>1.29.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>[${project.artifactId}] JEE6 Project</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.ericsson.oss.mediation.model.nrm.function</groupId>
+            <artifactId>vbsc-node-model-common-target-type-jar</artifactId>
+            <version>${version.vbsc-node-model-common}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.oss.mediation.model.nrm.platform</groupId>
+            <artifactId>com-models-r7.1-jar</artifactId>
+            <version>${version.com-models-r7.1}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.oss.mediation.model.nrm.platform</groupId>
+            <artifactId>sec-models-r2.2-jar</artifactId>
+            <version>${version.sec-models-r2.2}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.oss.services.model.ned</groupId>
+            <artifactId>network-element-definition-model-models</artifactId>
+            <version>${version.network-element-def-model}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.oss.services.model.geolocation</groupId>
+            <artifactId>geo-location-model-xml</artifactId>
+            <version>${version.geo-location-model}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.oss.services.model.onrm</groupId>
+            <artifactId>oss-top-model-models</artifactId>
+            <version>${version.oss-top-model}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.oss.mediation.model.nrm.platform</groupId>
+            <artifactId>ldews-models-r4-jar</artifactId>
+            <version>${version.ldews-models-r4}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.oss.mediation.model.nrm.platform</groupId>
+            <artifactId>ldews-models-r4-vIPWorks-1_3-jar</artifactId>
+            <version>${version.ldews-models-r4}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.oss.mediation.model.nrm.platform</groupId>
+            <artifactId>cmw-models-r3.6-jar</artifactId>
+            <version>${version.cmw-models-r3.6}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.oss.mediation.model.nrm.platform</groupId>
+            <artifactId>cmw-models-r4.8-jar</artifactId>
+            <version>${version.cmw-models-r4.8}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.oss.mediation.model.nrm.platform</groupId>
+            <artifactId>com-models-jar</artifactId>
+            <version>${version.com-models}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.oss.mediation.ned</groupId>
+            <artifactId>ned-mediation-handlers-models</artifactId>
+            <version>${version.ned-mediation-handlers-models}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.oss.mediation.ned</groupId>
+            <artifactId>ned-mediation-models-models</artifactId>
+            <version>${version.ned-mediation-models-models}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.oss.mediation</groupId>
+            <artifactId>mediation-core-api-channel-models-xml</artifactId>
+            <version>${version.mediation-core-api-channel-models}</version>
+        </dependency>
+    </dependencies>
+
+    <properties>
+        <ericsson.scm.url>
+            scm:git:[fetch=]ssh://gerritmirror-ha.lmera.ericsson.se:29418/OSS/ENM-Parent/SQ-Gate/com.ericsson.oss.mediation.model.nrm.function/vbsc-node-model[push=]ssh://gerrit.ericsson.se:29418/OSS/ENM-Parent/SQ-Gate/com.ericsson.oss.mediation.model.nrm.function/vbsc-node-model
+        </ericsson.scm.url>
+        <version.com-models-r6.0>1.5.3</version.com-models-r6.0>
+        <version.com-models-r7.1>1.0.1</version.com-models-r7.1>
+        <version.sec-models-r2.2>1.6.2</version.sec-models-r2.2>
+        <version.oss-top-model>2.1.6</version.oss-top-model>
+        <version.network-element-def-model>3.7.1</version.network-element-def-model>
+        <version.geo-location-model>1.2.1</version.geo-location-model>
+        <version.ldews-models-r4>1.3.2</version.ldews-models-r4>
+        <version.cmw-models-r3.6>1.5.7</version.cmw-models-r3.6>
+        <version.cmw-models-r4.8>1.6.18</version.cmw-models-r4.8>
+        <version.com-models>3.22.3</version.com-models>
+        <version.vbsc-node-model-common>1.1.1</version.vbsc-node-model-common>
+        <version.ned-mediation-models-models>1.28.1</version.ned-mediation-models-models>
+        <version.ned-mediation-handlers-models>1.57.2</version.ned-mediation-handlers-models>
+        <version.mediation-core-api-channel-models>1.2.22</version.mediation-core-api-channel-models>
+    </properties>
+
+    <!--Profiles for site documentation -->
+
+    <!--Profile to deploy latest site -->
+    <profiles>
+        <profile>
+            <id>site_latest</id>
+            <distributionManagement>
+                <site>
+                    <id>site</id>
+                    <name>Site</name>
+                    <url>${site.url}/vbsc-node-model/latest</url>
+                </site>
+            </distributionManagement>
+        </profile>
+
+        <!--Profile to stage site for review -->
+
+        <profile>
+            <id>site_review</id>
+            <distributionManagement>
+                <site>
+                    <id>site</id>
+                    <name>Site</name>
+                    <url>${site.url}</url>
+                </site>
+            </distributionManagement>
+        </profile>
+    </profiles>
+    <!--Deployment of versioned documentation -->
+    <distributionManagement>
+        <site>
+            <id>site</id>
+            <name>Site</name>
+            <url>${site.url}/vbsc-node-model/${project.version}</url>
+        </site>
+    </distributionManagement>
+    <modules>
+    <module>vbsc-node-model-1-1-vBSC-G21.Q4-R1CB-APG43L-4.2.0-R3A-jar</module>
+    <module>vbsc-node-model-1-9-vBSC-G22.Q1-R1CG-APG43L-4.2.0-R3C-jar</module>
+    <module>vbsc-node-model-1-37-vBSC-G22.Q4-R1CY-APG43L-4.3.0-R4C-jar</module>
+    <module>vbsc-node-model-1-39-vBSC-G22.Q4-R1DA-APG43L-4.3.0-R4C-jar</module>
+    <module>vbsc-node-model-1-46-vBSC-G23.Q1-R1DB-APG43L-4.3.0-R4C-jar</module>
+    <module>vbsc-node-model-1-47-vBSC-G23.Q1-R1DC-APG43L-5.0.0-R1C-jar</module>
+    <module>vbsc-node-model-1-54-vBSC-GBSC01.A01-R1DD-APG43L-5.0.0-R1C-jar</module>
+    <module>vbsc-node-model-1-55-vBSC-GBSC01.A01-R1DE-APG43L-5.0.0-R1C-jar</module>
+    <module>vbsc-node-model-1-62-vBSC-GBSC01.A02-R1DF-APG43L-5.1.0-R2A-jar</module>
+    <module>vbsc-node-model-1-63-vBSC-GBSC01.A06-R1DG-APG43L-5.1.0-R2A-jar</module>
+    <module>vbsc-node-model-1-70-vBSC-GBSC01.A08-R1DJ-APG43L-5.1.0-R2A-jar</module>
+    <module>vbsc-node-model-1-71-vBSC-GBSC01.A09-R1DK-APG43L-5.1.0-R2A-jar</module>
+    <module>vbsc-node-model-1-78-vBSC-GBSC01.B16-R1DL-APG43L-5.1.0-R2A-jar</module>
+    <module>vbsc-node-model-1-79-vBSC-GBSC01.A11-R1DM-APG43L-5.2.0-R3C-jar</module>
+    <module>vbsc-node-model-1-86-vBSC-GBSC01.A13-R1DN-APG43L-5.2.0-R3C-jar</module>
+    <module>vbsc-node-model-1-87-vBSC-GBSC01.A13-R1DS-APG43L-5.2.0-R3C-jar</module>
+	<module>vbsc-node-model-1-94-vBSC-GBSC01.A13-R1DT-APG43L-5.2.0-R3C-jar</module>
+    <module>ERICvbscnodemodel_CXP9041880</module>
+    </modules>
+
+    <scm>
+        <developerConnection>${ericsson.scm.url}</developerConnection>
+        <connection>${ericsson.scm.url}</connection>
+        <tag>HEAD</tag>
+    </scm>
+
+</project>

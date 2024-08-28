@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--
+	Copyright (c) 2020 Ericsson AB.
+	All rights reserved
+
+	DX ECIM Tool-chain generated this file on Dec 16, 2020 10:00:56 AM using:
+	* com.ericsson.ecim.m2m 3.13.0.202006261811
+	* com.ericsson.ecim.dsl 3.13.0.202006261811
+	* com.ericsson.ecim.edm 3.13.0.202006261811
+--><!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+    <dtdVersion>K</dtdVersion>
+    <momMetaData>
+        <momTitle>Managed Object Model for MML Authorization Function</momTitle>
+        <momSubTitle/>
+        <momIdentity>
+            <docNum>2/19089-CXA 117 0027/9</docNum>
+            <docLang>Uen</docLang>
+            <docRev>B</docRev>
+            <docDate>2020-12-08</docDate>
+        </momIdentity>
+        <createdBy>
+            <signature>XHARBAV</signature>
+        </createdBy>
+    </momMetaData>
+    <mim author="Harika Bavana" contact="XHARBAV" correction="0" date="2020-12-08" docNo="" name="AxeMmlAuthorization" namespace="urn:com:ericsson:ecim:AxeMmlAuthorization" namespacePrefix="axemmlauthorization" organization="" release="6" revision="B" version="2">
+        <description>MML Authorization Management function MOM.</description>
+        <domainExtension domain="ECIM">
+            <extension name="immNamespace" value="MOM_NAME"/>
+        </domainExtension>
+        <modelFeatures modelType="Template">
+            <modelFeature featureType="basic" name="CPI_HIDDEN"/>
+        </modelFeatures>
+        <enum name="MMLAuthorizationMethodValue">
+            <description>Lists the possible values for the MML authorization method.
+</description>
+            <enumMember name="CPUSER">
+                <description>The MML authorization method is based on CP user.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="COCA">
+                <description>The MML authorization method is based on COCA groups.</description>
+                <value>1</value>
+            </enumMember>
+        </enum>
+        <class name="MmlAuthorizationM">
+            <description>Represents the root MOC for MML Authorization Management function MOM.
+The function allows managing the MML authority of an OaM user for opening an MML session and give MML commands. 
+
+One or more attributes setting can fail due to one of the following reasons:
+
+- Not allowed in this system configuration : Modification of the attribute mmlAuthorizationMethod is not allowed in Multi-CP System.
+
+</description>
+            <systemCreated/>
+            <root/>
+            <attribute name="mmlAuthorizationMId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="mmlAuthorizationMethod">
+                <description>Specifies the MML authorization method.
+
+In Single-CP System it can be based either on CP user or on COCA groups.
+In Multi-CP System, it is based only on COCA groups.
+</description>
+                <dataType>
+                    <enumRef name="MMLAuthorizationMethodValue">
+                        <defaultValue>COCA</defaultValue>
+                        <mimName>AxeMmlAuthorization</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="ignoreCpSuperUserRole">
+                <description>Specifies whether the MML authority associated to role CpRole0 is ignored or not.</description>
+                <readOnly/>
+                <dataType>
+                    <boolean>
+                        <defaultValue>false</defaultValue>
+                    </boolean>
+                </dataType>
+            </attribute>
+            <attribute name="ignoreCpUserRoles">
+                <description>Specifies whether the MML authority associated to roles CpRole1..CpRole15 is ignored or not.</description>
+                <readOnly/>
+                <dataType>
+                    <boolean>
+                        <defaultValue>false</defaultValue>
+                    </boolean>
+                </dataType>
+            </attribute>
+            <attribute name="ignoreApSystemAdminRole">
+                <description>Specifies if the SystemAdministrator role does not provide permission to operate in Expert Mode.
+If true, the permission to operate in Expert Mode is only assigned using clusterExpertPermission attribute value in MmlSystemRole and MmlRole MOCs.
+If false, the permission to operate in Expert Mode is assigned either using clusterExpertPermission attribute value or by SystemAdministrator role.</description>
+                <dataType>
+                    <boolean>
+                        <defaultValue>false</defaultValue>
+                    </boolean>
+                </dataType>
+            </attribute>
+            
+        </class>
+        <class name="MmlRole">
+            <description>Represents an association between a role and an MML authority profile.
+
+One or more attributes setting can fail due to one of the following reasons:
+
+- Wrong COCA-numbers value : In case of MML authorization method based on COCA groups and the specified COCA values are not integer in the ranges from 0..255.
+- Wrong number of characters in mmlProfile : This message appears when the MML authorization method is based on CP user and the size of attribute mmlProfile exceeds 16 characters.
+- Unreasonable value : This message appears either when the role name used as  value for mmlRoleId attribute has been already used for any of MmlSystemRole MOs as value for mmlSystemRoleId attribute; or when one of the following role names is used as value for mmlRoleId attribute: CpRole0, SystemAdministrator, SystemSecurityAdministrator, SystemReadOnly, EricssonSupport.</description>
+            <attribute name="mmlRoleId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="mmlProfile">
+                <description>Specifies the MML authority profile.
+
+This attribute value depends on system type (Single-CP System, Multi-CP System) and on MML authorization method hosted in the attribute "mmlAuthorizationMethod" in MOC "MmlAuthorizationM".
+If attribute "mmlAuthorizationMethod" is equal to CPUSER, in Single-CP System, the value of this attribute is a CP user identity, for ex. CPADM, created on CP via MML command IOUAL.
+If attribute "mmlAuthorizationMethod" is equal to COCA, the value of this attribute is a list of COCA groups in the range of 0..255, separated by a comma sign ','.To specify a range double dots can be used '..'.
+Example: 14,32..59,200..212, 25 </description>
+                <mandatory/>
+                <noNotification/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="clusterExpertPermission">
+                <description>Specifies the permission to operate in Expert Mode.	</description>
+                <dataType>
+                    <boolean>
+                        <defaultValue>false</defaultValue>
+                    </boolean>
+                </dataType>
+            </attribute>
+            <attribute name="cptPermission">
+                <description>Specifies the permission to open CPT session.</description>
+                <dataType>
+                    <boolean>
+                        <defaultValue>false</defaultValue>
+                    </boolean>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="MmlSystemRole">
+            <description>Represents an association between a AXE application defined role and an MML authority profile.
+</description>
+            <systemCreated/>
+            <attribute name="mmlSystemRoleId">
+                <description>Holds the name used when identifying the MO.
+It is an AXE Application defined role.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="mmlProfile">
+                <description>Specifies the MML authority profile.
+</description>
+                <readOnly/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            
+            <attribute name="clusterExpertPermission">
+                <description>Specifies the permission to operate in Expert Mode.</description>
+                <readOnly/>
+                <dataType>
+                    <boolean>
+                        <defaultValue>false</defaultValue>
+                    </boolean>
+                </dataType>
+            </attribute>
+            <attribute name="cptPermission">
+                <description>Specifies the permission to open CPT session.</description>
+                <readOnly/>
+                <dataType>
+                    <boolean>
+                        <defaultValue>false</defaultValue>
+                    </boolean>
+                </dataType>
+            </attribute>
+        </class>
+        <relationship name="MmlAuthorizationM_to_MmlRole">
+            <containment>
+                <parent>
+                    <hasClass name="MmlAuthorizationM">
+                        <mimName>AxeMmlAuthorization</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="MmlRole">
+                        <mimName>AxeMmlAuthorization</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="MmlAuthorizationM_to_MmlSystemRole">
+            <containment>
+                <parent>
+                    <hasClass name="MmlAuthorizationM">
+                        <mimName>AxeMmlAuthorization</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="MmlSystemRole">
+                        <mimName>AxeMmlAuthorization</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+    </mim>
+    <interMim>
+        <relationship name="SecurityHandling_to_MmlAuthorizationM">
+            <domainExtension domain="CoreMW">
+                <extension name="splitImmDn" value="true"/>
+            </domainExtension>
+            <containment>
+                <parent>
+                    <hasClass name="SecurityHandling">
+                        <mimName>AxeFunctions</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="MmlAuthorizationM">
+                        <mimName>AxeMmlAuthorization</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+    </interMim>
+</models>
